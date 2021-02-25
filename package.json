@@ -16,7 +16,9 @@
     "@types/react-dom": "^17.0.1",
     "formik": "^2.2.6",
     "framer-motion": ">=3.0.0",
+    "lodash": "^4.17.21",
     "react": "^17.0.1",
+    "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
@@ -47,6 +49,8 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.168",
+    "@types/react-color": "^3.0.4",
     "@types/react-router-dom": "^5.1.7",
     "@types/yup": "^0.29.11"
   }

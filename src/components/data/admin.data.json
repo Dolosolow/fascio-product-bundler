@@ -1,0 +1,10 @@
+{
+  "id": "1",
+  "client": "cornell_surgical",
+  "bundlesHistory": [],
+  "images": [
+    {
+      "svgs": ["step-cm.svg", "step-color-cm.svg", "step-nm.svg", "step-color-nm.svg"]
+    }
+  ]
+}

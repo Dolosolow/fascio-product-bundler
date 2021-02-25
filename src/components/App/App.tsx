@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import { ColorModeSwitcher } from '../../ColorModeSwitcher';
 
-import BuilderPanel from '../../pages/builder_panel';
+import BuilderPanel from '../../pages/BuilderPanel';
 
 const App = () => (
   <ChakraProvider theme={theme}>
