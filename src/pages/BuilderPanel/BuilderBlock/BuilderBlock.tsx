@@ -46,7 +46,7 @@ const BuilderBlock = ({
           mt={position !== 'center' ? 3 : 0}
         >
           {formatTitle(title)}
-          {validated && <CheckIcon color="green.500" ml={4} />}
+          {validated && <CheckIcon color="green.500" ml={4} mr={3} />}
         </Heading>
         {displayInstructions}
       </Box>

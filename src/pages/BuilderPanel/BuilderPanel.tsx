@@ -6,6 +6,7 @@ import BuilderBlock from './BuilderBlock';
 import Container from '../../components/Container';
 import ComponentMultiplier from '../../components/ComponentMultiplier';
 import Thumbnail from '../../components/Thumbnail';
+import Dropzone from './Dropzone';
 
 import LayoutHCol from '../../images/svg/layout-hori-col.svg';
 import LayoutHRow from '../../images/svg/layout-vert-row.svg';
@@ -58,10 +59,6 @@ const BuilderPanel = () => {
       });
     }
   }, [alternateBgColor]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // const onSubmitForm = (values: any) => {
-  //   console.log(values);
-  // };
 
   const changeLayoutBgColor = (bgColor: string) => {
     if (!alternateBgColor) {
@@ -225,8 +222,11 @@ const BuilderPanel = () => {
       <Divider my={6} w="90%" />
 
       <Container w={['100%', null, '100%', '85%']} direction="column">
-        <BuilderBlock title="Banner Image" instructions="Optional: Image can be placed above ">
-          <Thumbnail w="520px" maxW="520px" />
+        <BuilderBlock
+          title="Banner Image"
+          instructions="Optional: Background image for the created page."
+        >
+          <Dropzone w="520px" maxW="520px" />
         </BuilderBlock>
       </Container>
 
@@ -285,7 +285,7 @@ const BuilderPanel = () => {
           variant="solid"
           rightIcon={<ArrowForwardIcon />}
         >
-          Create
+          Add Products
         </Button>
         <Button w="160px" size="lg" colorScheme="black" variant="outline">
           Cancel
