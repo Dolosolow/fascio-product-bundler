@@ -13,7 +13,7 @@ interface TNProps extends BoxProps {
   imgsrc?: SVGComponent | string;
   swapColor?: boolean;
   value?: string | number;
-  onTNClick?: (args?: any) => void;
+  onTNClick?: (...args: any) => void;
 }
 
 const Thumbnail = (props: TNProps) => {
@@ -22,9 +22,10 @@ const Thumbnail = (props: TNProps) => {
   const { clickable = true, swapColor = false } = props;
 
   const changeBgColor = (color: string) => {
+    const key = props.value as string;
     if (swapColor && props.onTNClick) {
       setBgColor(color);
-      props.onTNClick(color);
+      props.onTNClick(key.split('-')[0], color);
     }
   };
 
@@ -70,7 +71,7 @@ const Thumbnail = (props: TNProps) => {
         <Box
           color="black"
           position="absolute"
-          right="400px"
+          right="14px"
           zIndex="100"
           onMouseLeave={() => setShowClrPicker(false)}
         >

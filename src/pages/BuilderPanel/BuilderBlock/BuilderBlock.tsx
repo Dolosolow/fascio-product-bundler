@@ -1,58 +1,51 @@
-import { chakra, Stack, Box, Heading, Flex } from '@chakra-ui/react';
-import { ReactChildren, ReactNode } from 'react';
-import { CheckIcon } from '@chakra-ui/icons';
+import { chakra, Flex, Stack } from '@chakra-ui/react';
+import { FormikErrors } from 'formik';
+import _ from 'lodash';
 
-export interface BBProps {
-  children: ReactNode | ReactChildren;
+import HeaderText from 'src/components/HeaderText';
+
+export interface BBProps extends Builder.BuilderTools {
   instructions?: string;
   title: string;
-  validated?: boolean;
-  direction?: 'column' | 'row';
-  position?: 'center' | 'flex-start' | 'flex-end';
-  mt?: string;
-  pl?: string | Array<string | null>;
+  errors?: FormikErrors<any>;
 }
 
-const formatTitle = (title: string) => {
-  return title
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
-    .join(' ');
+const indicateError = (errors: FormikErrors<any>, name: string) => {
+  return _.keysIn(errors).includes(name.split(' ')[0]) ? 'red.400' : 'inherit';
 };
 
-const BuilderBlock = ({
-  children,
-  instructions,
-  title,
-  validated,
-  mt,
-  pl,
-  position = 'center',
-  direction = 'row',
-}: BBProps) => {
-  const displayInstructions = instructions && (
-    <chakra.p fontSize="xs" color="gray.500">
-      {instructions}
-    </chakra.p>
+const BuilderBlock = (props: BBProps) => {
+  const { direction = 'row' } = props;
+
+  const renderInstructions = props.instructions && (
+    <chakra.p fontSize="xs">{props.instructions}</chakra.p>
+  );
+
+  const renderChildren = (
+    <Stack
+      spacing={3}
+      direction={['column', direction === 'row' ? 'row' : 'column']}
+      maxW="530px"
+      alignSelf="flex-end"
+      position="relative"
+    >
+      {props.children}
+    </Stack>
   );
 
   return (
-    <Flex justifyContent="space-between" mt={mt} pl={pl}>
-      <Box mr={5} alignSelf={position}>
-        <Heading
-          fontSize={['md', null, 'xl']}
-          whiteSpace="nowrap"
-          mb={2}
-          mt={position !== 'center' ? 3 : 0}
-        >
-          {formatTitle(title)}
-          {validated && <CheckIcon color="green.500" ml={4} mr={3} />}
-        </Heading>
-        {displayInstructions}
-      </Box>
-      <Stack spacing={3} direction={['column', direction]} maxW="530px">
-        {children}
-      </Stack>
+    <Flex
+      justifyContent="space-between"
+      mt={props.mt}
+      pl={props.pl}
+      direction={[props.responsiveDirection ? 'column' : 'row', null, 'row', 'row']}
+    >
+      <HeaderText
+        title={props.title}
+        instructions={renderInstructions}
+        textColor={indicateError(props.errors!, props.title)}
+      />
+      {renderChildren}
     </Flex>
   );
 };
