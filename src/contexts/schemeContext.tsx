@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-const initialSchemeState: Builder.Grup.BuilderMap = {
+export const initialSchemeState: Builder.Grup.BuilderMap = {
   layout: {
     bannerImg: null,
     bgColor: '#ffffff',

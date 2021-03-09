@@ -4,6 +4,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ColorModeScript } from '@chakra-ui/react';
 
+import 'focus-visible/dist/focus-visible';
+
 import App from './components/App';
 
 ReactDOM.render(
