@@ -13,6 +13,10 @@ const GlobalStyles = css`
     outline: none;
     box-shadow: none;
   }
+
+  [data-js-focus-visible] :focus:not([data-focus-visible-added]) {
+    outline: none;
+  }
 `;
 
 export const ChakraCtrlFocusProvider = (props: { theme: Theme; children: React.ReactNode }) => {

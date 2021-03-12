@@ -1,9 +1,6 @@
 import {
   Heading,
   VStack,
-  InputGroup,
-  InputLeftElement,
-  Input,
   Select,
   Flex,
   Accordion,
@@ -12,15 +9,17 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
 
 import Container from 'src/components/Container';
-import Thumbnail from 'src/components/Thumbnail';
-// import BuilderBlock from '../BuilderPanel/BuilderBlock';
-// import { useFormikContext } from 'formik';
+import EmptyListState from 'src/components/EmptyListState';
+import SearchInput from 'src/components/SearchInput';
+import TableSaw from 'src/components/TableSaw';
+
+import FinderSvg from 'src/images/svg/find-prod.svg';
+
+import { testTableValues } from 'src/data/TestData';
 
 const NewProducts = () => {
-  //   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
   const testValues: Builder.Grup.BuilderMap = {
     layout: {
       bannerImg: null,
@@ -37,29 +36,62 @@ const NewProducts = () => {
     content: {
       steps: [
         {
-          instructions: 'Section 1',
+          instructions: 'Sethescope',
           limit: null,
           section: 1,
           specialNotes: [],
+          products: [],
         },
         {
-          instructions: 'Section 2',
+          instructions: 'Safety',
           limit: null,
           section: 2,
           specialNotes: [],
+          products: [],
+        },
+        {
+          instructions: 'Equipment',
+          limit: null,
+          section: 3,
+          specialNotes: [],
+          products: [],
         },
       ],
     },
   };
 
-  const sections = testValues.content.steps;
-
-  console.log(sections);
+  const renderProductLists = () => {
+    return testValues.content.steps.map((section, idx) => (
+      <AccordionItem key={idx} borderWidth="1px">
+        <h2>
+          <AccordionButton>
+            <Flex flex="1" textAlign="left">
+              {section.instructions}
+            </Flex>
+            <AccordionIcon />
+          </AccordionButton>
+        </h2>
+        <AccordionPanel pb={4}>
+          <TableSaw
+            tableCaption="View/Modify products in the section"
+            tableContents={testTableValues}
+            EmptyStateComponent={
+              <EmptyListState
+                imgsrc={FinderSvg}
+                headingText="Start by adding a product"
+                subText="Currently there are no products in this section. Use the search bar and begin to add products."
+              />
+            }
+          />
+        </AccordionPanel>
+      </AccordionItem>
+    ));
+  };
 
   return (
-    <VStack w="100%">
+    <VStack h="100%" w="100%">
       <Container direction="column">
-        <Heading as="h1" size="xl" mb={10} alignSelf="flex-start">
+        <Heading as="h1" fontWeight="normal" size="xl" mb={10} alignSelf="flex-start">
           Add Products
         </Heading>
         <Flex>
@@ -67,6 +99,7 @@ const NewProducts = () => {
             placeholder="Filter"
             borderTopRightRadius={0}
             borderBottomRightRadius={0}
+            borderBottomLeftRadius={0}
             w="13%"
             minW="118px"
           >
@@ -74,32 +107,10 @@ const NewProducts = () => {
             <option value="category">Category</option>
             <option value="option3">Option 3</option>
           </Select>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.400" />} />
-            <Input
-              type="search"
-              placeholder="Search Products"
-              borderTopLeftRadius={0}
-              borderBottomLeftRadius={0}
-            />
-          </InputGroup>
+          <SearchInput />
         </Flex>
-        <Accordion allowToggle>
-          {testValues.content.steps.map((section) => (
-            <AccordionItem borderWidth="1px">
-              <h2>
-                <AccordionButton>
-                  <Flex flex="1" textAlign="left">
-                    {section.instructions}
-                  </Flex>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
-                <Thumbnail bg="red.300" />
-              </AccordionPanel>
-            </AccordionItem>
-          ))}
+        <Accordion defaultIndex={[0]} allowToggle>
+          {renderProductLists()}
         </Accordion>
       </Container>
     </VStack>
@@ -107,38 +118,3 @@ const NewProducts = () => {
 };
 
 export default NewProducts;
-
-// {testValues.content.steps.map((section) => (
-// 	<Accordion key={section.section}>
-// 		<AccordionItem>
-// 			<h2>
-// 				<AccordionButton>
-// 					<Flex flex="1" textAlign="left">
-// 						{section}
-// 					</Flex>
-// 				</AccordionButton>
-// 			</h2>
-// 			<AccordionPanel pb={4}>
-// 				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-// 				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-// 				exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-// 			</AccordionPanel>
-// 		</AccordionItem>
-// 	</Accordion>
-// ))}
-
-/* <VStack spacing={6} divider={<Divider my={6} w="90%" />} w="100%">
-<Box w="100%">
-  <Heading as="h1" size="xl" mb={10}>
-    New Products
-  </Heading>
-  <Container direction="column">
-    <BuilderBlock
-      title="Section 1"
-      instructions="Add Products followed by selecting any optional filters."
-    >
-      {sections[0].instructions}
-    </BuilderBlock>
-  </Container>
-</Box>
-</VStack> */

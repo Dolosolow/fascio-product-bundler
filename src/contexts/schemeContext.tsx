@@ -20,6 +20,7 @@ export const initialSchemeState: Builder.Grup.BuilderMap = {
         limit: null,
         section: 1,
         specialNotes: [],
+        products: [],
       },
     ],
   },

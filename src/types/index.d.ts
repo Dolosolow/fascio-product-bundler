@@ -16,6 +16,7 @@ declare namespace Grup {
     limit: number | null;
     section: number;
     specialNotes: string[];
+    products: any[];
   };
 
   interface BuilderMap {

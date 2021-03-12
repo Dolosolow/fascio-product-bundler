@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { Formik, FormikHelpers, Form } from 'formik';
 import { chakra, useColorModeValue, Flex, Button, HStack } from '@chakra-ui/react';
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { initialSchemeState } from 'src/contexts/schemeContext';
 
-// import BuilderPanel from '../../BuilderPanel';
+import BuilderPanel from '../../BuilderPanel';
 import NewProducts from 'src/pages/NewProducts';
 import _ from 'lodash';
 
-// const pages = [<BuilderPanel />, <NewProducts />];
-const pages = [<NewProducts />];
+const pages = [<BuilderPanel />, <NewProducts />];
+// const pages = [<NewProducts />];
 
 const validationSchema = yup.object().shape({
   layout: yup.object().shape({
@@ -97,9 +98,11 @@ const BuilderForm = () => {
                   >
                     {page === pages.length - 1 ? 'Create Page' : 'Add Products'}
                   </Button>
-                  <Button w="160px" size="lg" colorScheme="black" variant="outline">
-                    Cancel
-                  </Button>
+                  <Link to="/">
+                    <Button w="160px" size="lg" colorScheme="black" variant="outline">
+                      Cancel
+                    </Button>
+                  </Link>
                 </HStack>
               </Flex>
             </Form>
