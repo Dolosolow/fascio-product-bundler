@@ -1,14 +1,11 @@
-import { ChakraProvider, CSSReset, ColorModeOptions, extendTheme, Theme } from '@chakra-ui/react';
+import { ChakraProvider, CSSReset, extendTheme, ColorModeOptions } from '@chakra-ui/react';
 import { Global, css } from '@emotion/react';
 
 import { ColorModeSwitcher } from 'src/ColorModeSwitcher';
 
-const config: ColorModeOptions = {
-  initialColorMode: 'light',
-  useSystemColorMode: true,
-};
-
 const GlobalStyles = css`
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap');
+
   .js-focus-visible :focus:not([data-focus-visible-added]) {
     outline: none;
     box-shadow: none;
@@ -19,9 +16,18 @@ const GlobalStyles = css`
   }
 `;
 
-export const ChakraCtrlFocusProvider = (props: { theme: Theme; children: React.ReactNode }) => {
+const config: ColorModeOptions = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
+};
+
+const theme = extendTheme({
+  config,
+});
+
+export const ChakraCtrlFocusProvider = (props: { children: React.ReactNode }) => {
   return (
-    <ChakraProvider theme={props.theme}>
+    <ChakraProvider theme={theme}>
       <ColorModeSwitcher />
       <CSSReset />
       <Global styles={GlobalStyles} />
@@ -29,5 +35,3 @@ export const ChakraCtrlFocusProvider = (props: { theme: Theme; children: React.R
     </ChakraProvider>
   );
 };
-
-export default extendTheme({ config });
