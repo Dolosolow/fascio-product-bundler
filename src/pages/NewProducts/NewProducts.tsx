@@ -37,22 +37,25 @@ const NewProducts = () => {
       steps: [
         {
           instructions: 'Sethescope',
-          limit: null,
+          limit: 0,
           section: 1,
+          required: false,
           specialNotes: [],
           products: [],
         },
         {
           instructions: 'Safety',
-          limit: null,
+          limit: 0,
           section: 2,
+          required: false,
           specialNotes: [],
           products: [],
         },
         {
           instructions: 'Equipment',
-          limit: null,
+          limit: 0,
           section: 3,
+          required: false,
           specialNotes: [],
           products: [],
         },
@@ -91,7 +94,13 @@ const NewProducts = () => {
   return (
     <VStack h="100%" w="100%">
       <Container direction="column">
-        <Heading as="h1" fontWeight="normal" size="xl" mb={10} alignSelf="flex-start">
+        <Heading
+          fontWeight="light"
+          size="xl"
+          ml={['1.2rem', '1.2rem', '1.2rem', '1.2rem', '5rem']}
+          mb={5}
+          alignSelf="flex-start"
+        >
           Add Products
         </Heading>
         <Flex>

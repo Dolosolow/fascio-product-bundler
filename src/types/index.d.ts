@@ -13,8 +13,9 @@ declare namespace Grup {
 
   type StepContent = {
     instructions: string;
-    limit: number | null;
     section: number;
+    limit: number;
+    required: boolean;
     specialNotes: string[];
     products: any[];
   };

@@ -17,8 +17,9 @@ export const initialSchemeState: Builder.Grup.BuilderMap = {
     steps: [
       {
         instructions: '',
-        limit: null,
         section: 1,
+        limit: 0,
+        required: false,
         specialNotes: [],
         products: [],
       },

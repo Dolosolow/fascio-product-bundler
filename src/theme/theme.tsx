@@ -23,6 +23,7 @@ const config: ColorModeOptions = {
 
 const theme = extendTheme({
   config,
+  fonts: { heading: 'Source Sans Pro', body: 'Source Sans Pro' },
 });
 
 export const ChakraCtrlFocusProvider = (props: { children: React.ReactNode }) => {

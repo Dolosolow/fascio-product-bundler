@@ -16,6 +16,7 @@ const HeaderText = ({ instructions, title, textColor }: HTProps) => {
       mr={5}
       alignSelf={['flex-start', 'flex-start', 'flex-start', 'flex-start', 'center']}
       color={textColor}
+      maxW="480px"
     >
       <Heading fontSize={['md', null, 'xl']} whiteSpace="nowrap" mb={2}>
         {formatTitle(title)}

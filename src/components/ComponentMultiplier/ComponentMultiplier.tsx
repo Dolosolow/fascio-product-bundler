@@ -86,7 +86,7 @@ const ComponentMultiplier = ({
           _hover={{ backgroundColor: useColorModeValue('gray.200', 'gray.700') }}
           _active={{ backgroundColor: useColorModeValue('gray.200', 'gray.700') }}
         >
-          <DeleteIcon />
+          <DeleteIcon color="white" />
         </Button>
       </Flex>
     </>

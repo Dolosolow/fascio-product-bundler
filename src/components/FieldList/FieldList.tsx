@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { Input, Flex, Button, useColorModeValue } from '@chakra-ui/react';
+import {
+  Input,
+  Flex,
+  Button,
+  useColorModeValue,
+  Checkbox,
+  NumberInput,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  NumberInputField,
+  HStack,
+  chakra,
+} from '@chakra-ui/react';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from 'formik';
 
@@ -9,9 +22,9 @@ import ComponentMultiplier from '../ComponentMultiplier';
 const FieldList = () => {
   let boundArrayHelpers: FieldArrayRenderProps;
 
-  const btnEventColor = useColorModeValue('gray.200', 'gray.700');
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
   const [hidden, setHidden] = useState(true);
+  const btnEventColor = useColorModeValue('gray.200', 'gray.700');
 
   const bindArrayHelpers = (arrHelpers: FieldArrayRenderProps) => {
     boundArrayHelpers = arrHelpers;
@@ -29,15 +42,15 @@ const FieldList = () => {
               <React.Fragment key={idx}>
                 <BuilderBlock
                   key={idx}
-                  title={`Section ${idx + 1}`}
                   responsiveDirection={true}
                   direction="column"
                   border="2px solid red"
-                  pl={['0', '5', null, '12', '20']}
                   mt={12}
+                  pl={['0', '5', null, '12', '20']}
+                  title={`Section ${idx + 1}`}
                 >
                   <Field name={`content.steps[${idx}].instructions`}>
-                    {({ field, form, meta }: FieldProps<typeof values.content.steps>) => {
+                    {({ field, meta }: FieldProps<typeof values.content.steps>) => {
                       return (
                         <>
                           <Input
@@ -50,7 +63,7 @@ const FieldList = () => {
                             maxW="520px"
                             w="460px"
                             value={step.instructions}
-                            onChange={form.handleChange}
+                            onChange={field.onChange}
                           />
                           <ComponentMultiplier
                             Component={
@@ -70,6 +83,44 @@ const FieldList = () => {
                       );
                     }}
                   </Field>
+                  <HStack justifyContent="space-between">
+                    <Field type="checkbox" name={`content.steps[${idx}].required`}>
+                      {({ field }: FieldProps<typeof values.content.steps>) => {
+                        return (
+                          <Checkbox colorScheme="teal" name={field.name} onChange={field.onChange}>
+                            Required section
+                          </Checkbox>
+                        );
+                      }}
+                    </Field>
+                    <Field type="number" name={`content.steps[${idx}].limit`}>
+                      {({ field, form }: FieldProps<typeof values.content.steps>) => {
+                        return (
+                          <Flex alignItems="center">
+                            <NumberInput
+                              name={field.name}
+                              defaultValue={0}
+                              maxW={20}
+                              min={0}
+                              size="sm"
+                              onChange={(_, numValue) =>
+                                form.setFieldValue(`content.steps[${idx}].limit`, numValue)
+                              }
+                            >
+                              <NumberInputField />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                            <chakra.label htmlFor={`content.steps[${idx}].limit`} ml={3}>
+                              Section buy limit
+                            </chakra.label>
+                          </Flex>
+                        );
+                      }}
+                    </Field>
+                  </HStack>
                 </BuilderBlock>
               </React.Fragment>
             );
@@ -94,9 +145,11 @@ const FieldList = () => {
           onClick={() =>
             boundArrayHelpers.insert(values.content.steps.length + 1, {
               instructions: '',
-              limit: null,
               section: values.content.steps.length + 1,
+              limit: 0,
+              required: false,
               specialNotes: [],
+              products: [],
             })
           }
           _hover={{ backgroundColor: btnEventColor }}
@@ -117,7 +170,7 @@ const FieldList = () => {
           _hover={{ backgroundColor: btnEventColor }}
           _active={{ backgroundColor: btnEventColor }}
         >
-          <DeleteIcon boxSize={5} />
+          <DeleteIcon color="white" boxSize={5} />
         </Button>
       </Flex>
     </>

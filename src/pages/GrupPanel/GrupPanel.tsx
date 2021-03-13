@@ -1,4 +1,4 @@
-import { Flex, Text, VStack } from '@chakra-ui/react';
+import { Flex, Heading, VStack } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 // import { Link } from 'react-router-dom';
 
@@ -12,10 +12,10 @@ import EmptyBox from 'src/images/svg/empty-box.svg';
 const GrupPanel = () => {
   return (
     <Flex p={[5, null, 7]}>
-      <VStack spacing={20} h="100%" w="100%">
-        <Text fontSize="3xl" ml={[0, 0, 0, 0, 28]} alignSelf="flex-start">
+      <VStack spacing={14} h="100%" w="100%">
+        <Heading fontWeight="light" size="xl" ml={[0, 0, 0, 0, '6.5rem']} alignSelf="flex-start">
           View Bundles
-        </Text>
+        </Heading>
         <Container direction="column" borderWidth="1px" borderRadius={8}>
           <EmptyListState
             imgsrc={EmptyBox}

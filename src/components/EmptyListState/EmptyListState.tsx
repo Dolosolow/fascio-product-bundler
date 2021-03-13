@@ -20,7 +20,7 @@ const EmptyListState = ({ headingText, subText, imgsrc, link }: ELSProps) => {
         {subText}
       </Text>
       {link && (
-        <Link to={link.path} style={{ marginTop: '20px' }}>
+        <Link to={link.path} style={{ marginTop: '22px' }}>
           <Button leftIcon={<AddIcon />} colorScheme="teal">
             {link.text}
           </Button>

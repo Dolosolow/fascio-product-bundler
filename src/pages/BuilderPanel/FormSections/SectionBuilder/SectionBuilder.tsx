@@ -12,7 +12,7 @@ const SectionBuilder = (props: Builder.BuilderTools) => {
           return (
             <BuilderBlock
               title="content"
-              instructions="Content to be displayed along with the products you have chosen."
+              instructions="Here you can set the section title and have options to add a note for your customer, make sections required, aswell as set a limit on selections."
               errors={form.errors.content! && form.touched.content! ? form.errors : {}}
             />
           );
