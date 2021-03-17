@@ -22,8 +22,9 @@ import ComponentMultiplier from '../ComponentMultiplier';
 const FieldList = () => {
   let boundArrayHelpers: FieldArrayRenderProps;
 
-  const { values, errors } = useFormikContext<Builder.Grup.BuilderMap>();
   const [hidden, setHidden] = useState(true);
+
+  const { values } = useFormikContext<Builder.Grup.BuilderMap>();
   const btnEventColor = useColorModeValue('gray.200', 'gray.700');
 
   const bindArrayHelpers = (arrHelpers: FieldArrayRenderProps) => {
@@ -37,9 +38,8 @@ const FieldList = () => {
           values.content.steps &&
           values.content.steps.length &&
           values.content.steps.map((step, idx) => {
-            console.log(`idx: ${idx}`);
-            console.log(errors);
             bindArrayHelpers(arrHelpers);
+
             return (
               <React.Fragment key={idx}>
                 <BuilderBlock

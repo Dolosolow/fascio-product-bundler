@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Field, FieldProps, useFormikContext } from 'formik';
 import { Switch, FormControl, Select } from '@chakra-ui/react';
 
@@ -6,7 +7,7 @@ import Container from 'src/components/Container';
 import RadioImgWrapper from 'src/components/RadioImgWrapper';
 import Thumbnail from 'src/components/Thumbnail';
 
-import EditableSvgs from 'src/pages/helpers/editableStepSvg';
+import { getStepsLayout } from 'src/pages/helpers/SvgShapeGenerator';
 
 const StepsSection = ({
   changeStepsColorScheme,
@@ -15,13 +16,7 @@ const StepsSection = ({
   ...props
 }: Builder.BuilderTools) => {
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
-
-  const radioOptions: Builder.Grup.StepsTemplate[] = [
-    'STEP_COLOR_CM',
-    'STEP_COLOR_NM',
-    'STEP_CM',
-    'STEP_NM',
-  ];
+  const [indicatorShape, setIndicatorShape] = useState<Builder.Grup.StepsShapeTemplate>('CRL');
 
   return (
     <Container {...props}>
@@ -36,8 +31,7 @@ const StepsSection = ({
             >
               <RadioImgWrapper
                 name="steps.template"
-                options={radioOptions}
-                data={EditableSvgs}
+                data={getStepsLayout(indicatorShape)}
                 radioValues={form.values}
               />
             </BuilderBlock>
@@ -49,14 +43,22 @@ const StepsSection = ({
         instructions="Optional: Display numbered steps to completion. If you do not want numbered steps select N/A."
         wrapChildren
       >
-        <FormControl id="country">
-          <Select variant="filled" placeholder="Select a shape" minW="250px">
-            <option selected>Circle</option>
-            <option>Square</option>
-            <option>Diamond</option>
-            <option>Rounded Square</option>
-            <option>Rounded Diamond</option>
-            <option>Burst</option>
+        <FormControl id="shape">
+          <Select
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setIndicatorShape(e.target.value as Builder.Grup.StepsShapeTemplate)
+            }
+            variant="filled"
+            placeholder="Select a shape"
+            minW="250px"
+            defaultValue={indicatorShape}
+          >
+            <option value="CRL">Circle</option>
+            <option value="SQR">Square</option>
+            <option value="RDSQR">Rounded Square</option>
+            <option value="DMD">Diamond</option>
+            <option value="RDDMD">Rounded Diamond</option>
+            <option value="BRST">Burst</option>
           </Select>
         </FormControl>
       </BuilderBlock>

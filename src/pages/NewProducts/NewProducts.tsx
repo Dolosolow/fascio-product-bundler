@@ -27,7 +27,7 @@ const NewProducts = () => {
       template: 'G1_VERTROW',
     },
     steps: {
-      template: 'STEP_COLOR_CM',
+      template: 'STEP_CCM',
       alternateBgColor: '#eeeeee',
       bgColor: '#28a8e4',
       borderColor: '#121212',
