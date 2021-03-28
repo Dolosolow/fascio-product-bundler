@@ -25,6 +25,8 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
         initialValues={initialFormValues}
         validationSchema={validationSchema}
         onSubmit={onFormSubmit}
+        validateOnChange={false}
+        validateOnBlur={false}
       >
         {({ values, setValues, validateForm, handleSubmit }) => {
           return (
