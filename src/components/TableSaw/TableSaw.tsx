@@ -3,16 +3,16 @@ import { TSContents } from './index';
 
 interface TSProps {
   tableCaption?: string;
-  tableContents: TSContents;
+  tableData: TSContents;
   EmptyStateComponent?: React.ReactNode;
 }
 
-const TableSaw = ({ tableContents, tableCaption, EmptyStateComponent }: TSProps) => {
+const TableSaw = ({ tableData, tableCaption, EmptyStateComponent }: TSProps) => {
   const renderTableHeads = () => {
     const THSet = new Set<string>();
 
-    if (tableContents.length) {
-      tableContents.forEach((item) => {
+    if (tableData.length) {
+      tableData.forEach((item) => {
         if (THSet.size < Object.keys(item.data).length) {
           Object.keys(item.data).forEach((content) => {
             THSet.add(content);
@@ -30,8 +30,8 @@ const TableSaw = ({ tableContents, tableCaption, EmptyStateComponent }: TSProps)
   const renderTableBody = () => {
     const regex = /\b(.jpe?g|.png)/;
 
-    if (tableContents.length) {
-      return tableContents.map((content, idx) => {
+    if (tableData.length) {
+      return tableData.map((content, idx) => {
         const row = Object.keys(content.data).map((key, idx) => {
           const item = content.data;
 
@@ -56,7 +56,6 @@ const TableSaw = ({ tableContents, tableCaption, EmptyStateComponent }: TSProps)
             </Td>
           );
         });
-
         return <Tr key={idx}>{row}</Tr>;
       });
     } else {
@@ -66,7 +65,7 @@ const TableSaw = ({ tableContents, tableCaption, EmptyStateComponent }: TSProps)
 
   return (
     <>
-      {tableContents.length ? (
+      {tableData.length ? (
         <Table variant="simple" colorScheme="facebook" fontSize="sm">
           {tableCaption && <TableCaption>{tableCaption}</TableCaption>}
           <Thead>

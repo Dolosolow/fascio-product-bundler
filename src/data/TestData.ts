@@ -6,7 +6,7 @@ export const emptyTestTableValues: TSContents = [];
 
 export const testTableValues: TSContents = [
   {
-    id: uuidv4(),
+    id: '100',
     data: {
       image: {
         value:
@@ -17,7 +17,7 @@ export const testTableValues: TSContents = [
       },
       product_sku: { value: '5960', isPrice: false, menu: false },
       product_name: {
-        value: '5960 Littmann Classic III - Plum w/ Mirror Finish & Pink Stem',
+        value: '5960 Welch Pro II - Plum w/ Mirror Finish & Pink Stem',
         isPrice: false,
         menu: false,
       },
@@ -26,7 +26,7 @@ export const testTableValues: TSContents = [
     },
   },
   {
-    id: uuidv4(),
+    id: '101',
     data: {
       image: {
         value:
@@ -37,7 +37,7 @@ export const testTableValues: TSContents = [
       },
       product_sku: { value: '6240', isPrice: false, menu: false },
       product_name: {
-        value: '6240 Littmann Cardiology IV - Black w/ Rainbow & Smoke Stem',
+        value: '6240 Elephant Cardiology IV - Black w/ Rainbow & Smoke Stem',
 
         isPrice: false,
         menu: false,
@@ -47,7 +47,7 @@ export const testTableValues: TSContents = [
     },
   },
   {
-    id: uuidv4(),
+    id: '102',
     data: {
       image: {
         value:
@@ -58,7 +58,7 @@ export const testTableValues: TSContents = [
       },
       product_sku: { value: '6176', isPrice: false, menu: false },
       product_name: {
-        value: '6176 Littmann Cardiology IV - Burgundy w/ Champagne Finish',
+        value: '6176 Littman Cardiology IV - Burgundy w/ Champagne Finish',
 
         isPrice: false,
         menu: false,
@@ -68,7 +68,7 @@ export const testTableValues: TSContents = [
     },
   },
   {
-    id: uuidv4(),
+    id: '103',
     data: {
       image: {
         value:
@@ -79,7 +79,7 @@ export const testTableValues: TSContents = [
       },
       product_sku: { value: '6203', isPrice: false, menu: false },
       product_name: {
-        value: '6203 Littmann Cardiology IV - Black Edition w/ Violet Stem',
+        value: '6203 Welch Cardiology IV - Black Edition w/ Violet Stem',
 
         isPrice: false,
         menu: false,
@@ -89,7 +89,7 @@ export const testTableValues: TSContents = [
     },
   },
   {
-    id: uuidv4(),
+    id: '104',
     data: {
       image: {
         value:
@@ -100,7 +100,7 @@ export const testTableValues: TSContents = [
       },
       product_sku: { value: '6205', isPrice: false, menu: false },
       product_name: {
-        value: '6205 Littmann Cardiology IV - Plum w/ Rainbow Finish',
+        value: '6205 Duo Egg Cardiology IV - Plum w/ Rainbow Finish',
 
         isPrice: false,
         menu: false,
@@ -110,7 +110,7 @@ export const testTableValues: TSContents = [
     },
   },
   {
-    id: uuidv4(),
+    id: '105',
     data: {
       image: {
         value:
@@ -185,3 +185,46 @@ export const testBundlesValues: TSContents = [
     },
   },
 ];
+
+export const testValues: Builder.Grup.BuilderMap = {
+  layout: {
+    bannerImg: null,
+    bgColor: '#eeeeee',
+    template: 'G1_VERTROW',
+  },
+  steps: {
+    template: 'STEP_CCM',
+    alternateBgColor: '#eeeeee',
+    bgColor: '#28a8e4',
+    borderColor: '#121212',
+    fontColor: '#ffffff',
+  },
+  content: {
+    steps: [
+      {
+        instructions: 'sethescope',
+        limit: 0,
+        section: 1,
+        required: false,
+        specialNotes: [],
+        products: [],
+      },
+      {
+        instructions: 'safety',
+        limit: 0,
+        section: 2,
+        required: false,
+        specialNotes: [],
+        products: [],
+      },
+      {
+        instructions: 'equipment',
+        limit: 0,
+        section: 3,
+        required: false,
+        specialNotes: [],
+        products: [],
+      },
+    ],
+  },
+};

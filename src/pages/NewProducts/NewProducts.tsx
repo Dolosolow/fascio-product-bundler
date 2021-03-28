@@ -1,94 +1,27 @@
-import {
-  Heading,
-  VStack,
-  Select,
-  Flex,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-} from '@chakra-ui/react';
+import { Heading, VStack, Select, Flex, Accordion } from '@chakra-ui/react';
+import { useFormikContext } from 'formik';
+import _ from 'lodash';
 
+import AccordionTableItem from 'src/components/AccordionTableItem';
 import Container from 'src/components/Container';
-import EmptyListState from 'src/components/EmptyListState';
 import SearchInput from 'src/components/SearchInput';
-import TableSaw from 'src/components/TableSaw';
-
-import FinderSvg from 'src/images/svg/find-prod.svg';
+import { TSContents } from 'src/components/TableSaw';
 
 import { testTableValues } from 'src/data/TestData';
 
 const NewProducts = () => {
-  const testValues: Builder.Grup.BuilderMap = {
-    layout: {
-      bannerImg: null,
-      bgColor: '#eeeeee',
-      template: 'G1_VERTROW',
-    },
-    steps: {
-      template: 'STEP_CCM',
-      alternateBgColor: '#eeeeee',
-      bgColor: '#28a8e4',
-      borderColor: '#121212',
-      fontColor: '#ffffff',
-    },
-    content: {
-      steps: [
-        {
-          instructions: 'Sethescope',
-          limit: 0,
-          section: 1,
-          required: false,
-          specialNotes: [],
-          products: [],
-        },
-        {
-          instructions: 'Safety',
-          limit: 0,
-          section: 2,
-          required: false,
-          specialNotes: [],
-          products: [],
-        },
-        {
-          instructions: 'Equipment',
-          limit: 0,
-          section: 3,
-          required: false,
-          specialNotes: [],
-          products: [],
-        },
-      ],
-    },
-  };
+  const { values } = useFormikContext<Builder.Grup.BuilderMap>();
 
   const renderProductLists = () => {
-    return testValues.content.steps.map((section, idx) => (
-      <AccordionItem key={idx} borderWidth="1px">
-        <h2>
-          <AccordionButton>
-            <Flex flex="1" textAlign="left">
-              {section.instructions}
-            </Flex>
-            <AccordionIcon />
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}>
-          <TableSaw
-            tableCaption="View/Modify products in the section"
-            tableContents={testTableValues}
-            EmptyStateComponent={
-              <EmptyListState
-                imgsrc={FinderSvg}
-                headingText="Start by adding a product"
-                subText="Currently there are no products in this section. Use the search bar and begin to add products."
-              />
-            }
-          />
-        </AccordionPanel>
-      </AccordionItem>
-    ));
+    return values.content.steps.map((section, idx) => {
+      const sectionProducts: TSContents = [];
+
+      section.products.forEach((productId) => {
+        sectionProducts.push(_.chain(testTableValues).keyBy('id').value()[productId]);
+      });
+
+      return <AccordionTableItem idx={idx} section={section} sectionProducts={sectionProducts} />;
+    });
   };
 
   return (

@@ -2,11 +2,17 @@ import { FlexProps } from '@chakra-ui/react';
 
 declare namespace Grup {
   type LayoutTemplate = 'G1_HORICOL' | 'G1_VERTROW';
+
   type StepsTemplate = 'STEP_CM' | 'STEP_CCM' | 'STEP_NM' | 'STEP_CNM';
+
   type StepsShapeTemplate = 'CRL' | 'SQR' | 'DMD' | 'RDSQR' | 'RDDMD' | 'BRST';
+
   type Message = { path: string; message?: string };
+
   type ValidationOptions = Message;
+
   type Validation = Message[];
+
   type StepContent = {
     instructions: string;
     section: number;
@@ -15,6 +21,7 @@ declare namespace Grup {
     specialNotes: string[];
     products: any[];
   };
+
   type SvgAttributes = {
     alternateBgColor?: string;
     bgColor?: string;

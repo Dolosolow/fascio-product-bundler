@@ -8,8 +8,8 @@ import BannerImgBuilder from './FormSections/BannerImgBuilder';
 import SectionBuilder from './FormSections/SectionBuilder';
 
 const BuilderPanel = () => {
-  const [alternateBgColor, setAlternateBgColor] = useState<boolean>(true);
   const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
+  const [alternateBgColor, setAlternateBgColor] = useState<boolean>(true);
 
   const changeLayoutColorScheme = (key: string, color: string) => {
     if (!alternateBgColor && values) {
@@ -37,13 +37,13 @@ const BuilderPanel = () => {
   }, [alternateBgColor]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <VStack spacing={6} divider={<Divider my={6} w="90%" />} w="100%">
-      <LayoutBuilder changeLayoutColorScheme={changeLayoutColorScheme} direction="column" />
+    <VStack spacing={6} w="100%" divider={<Divider my={6} w="90%" />}>
+      <LayoutBuilder direction="column" changeLayoutColorScheme={changeLayoutColorScheme} />
       <StepsSection
+        direction="column"
         toggleShow={setAlternateBgColor}
         showAlternateBgClr={alternateBgColor}
         changeStepsColorScheme={changeStepsColorScheme}
-        direction="column"
       />
       <BannerImgBuilder direction="column" />
       <SectionBuilder direction="column" />
