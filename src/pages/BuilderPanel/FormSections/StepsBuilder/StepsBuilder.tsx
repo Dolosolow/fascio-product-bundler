@@ -45,9 +45,11 @@ const StepsSection = ({
       >
         <FormControl id="shape">
           <Select
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              setIndicatorShape(e.target.value as Builder.Grup.StepsShapeTemplate)
-            }
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              if (e.target.value !== '') {
+                setIndicatorShape(e.target.value as Builder.Grup.StepsShapeTemplate);
+              }
+            }}
             variant="filled"
             placeholder="Select a shape"
             minW="250px"

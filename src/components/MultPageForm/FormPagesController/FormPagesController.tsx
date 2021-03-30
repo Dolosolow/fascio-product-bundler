@@ -21,10 +21,9 @@ const FormPagesController = (props: FPGProps) => {
         <Button
           w="160px"
           size="lg"
-          colorScheme="black"
+          colorScheme="gray"
           variant="outline"
           leftIcon={<ArrowBackIcon />}
-          _hover={{ color: 'teal' }}
           onClick={() => props.setPage(props.page - 1)}
         >
           Go back

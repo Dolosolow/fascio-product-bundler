@@ -90,7 +90,6 @@ const SearchResultsGroup = ({
       bg="white"
       h="max-content"
       position="absolute"
-      overflow="hidden"
       top={12}
       w="100%"
       zIndex={100}

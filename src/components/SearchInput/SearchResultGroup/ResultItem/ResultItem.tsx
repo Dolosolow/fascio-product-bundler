@@ -27,7 +27,7 @@ const ResultItem = ({ children, error, img, title, price }: RIProps) => {
 
   const renderResultItemCard = () => (
     <Flex
-      px={3}
+      px={4}
       w="100%"
       minH="70px"
       cursor={children ? 'default' : 'pointer'}

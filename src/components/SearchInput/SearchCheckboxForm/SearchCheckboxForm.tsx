@@ -1,6 +1,8 @@
-import { chakra, Flex, HStack, FormControl, Select, Button } from '@chakra-ui/react';
+import { chakra, Flex, HStack, Button } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
 import { useState } from 'react';
+
+import SelectControl from 'src/components/SelectControl';
 
 interface SCFProps {
   totalSelectedProducts: number;
@@ -12,18 +14,15 @@ interface SCFProps {
 const SearchCheckboxForm = (props: SCFProps) => {
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
   const [selectValue, setSelectValue] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const onCancel = () => {
     setSelectValue('');
     props.resetTermField();
   };
 
-  const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectValue(e.target.value);
-    props.onSectionChange(e.target.value);
-  };
-
   const onProductsSubmit = () => {
+    setSubmitting(true);
     if (selectValue !== '') {
       setSelectValue('');
       props.resetTermField();
@@ -31,27 +30,15 @@ const SearchCheckboxForm = (props: SCFProps) => {
     }
   };
 
-  const renderSelectItems = () => (
-    <FormControl name="addToSection">
-      <Select
-        name="section"
-        variant="filled"
-        placeholder="Select a section"
-        w="160px"
-        defaultValue="CRL"
-        marginX={5}
-        isRequired={true}
-        value={selectValue}
-        onChange={onSelectChange}
-      >
-        {values.content.steps.map((section) => (
-          <option key={section.instructions} value={section.instructions}>
-            {section.instructions.charAt(0).toUpperCase() + section.instructions.slice(1)}
-          </option>
-        ))}
-      </Select>
-    </FormControl>
-  );
+  const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectValue(e.target.value);
+    props.onSectionChange(e.target.value);
+  };
+
+  const handleSubmitState = (submitState: boolean = submitting) => {
+    setSubmitting(submitState);
+    return submitting;
+  };
 
   return (
     <Flex
@@ -66,7 +53,13 @@ const SearchCheckboxForm = (props: SCFProps) => {
       <chakra.p whiteSpace="nowrap">
         <strong>{props.totalSelectedProducts}</strong> product selected
       </chakra.p>
-      {renderSelectItems()}
+      <SelectControl
+        placeholder="Select a section"
+        options={values.content.steps.map((section) => section.instructions)}
+        value={selectValue}
+        setSubmitting={handleSubmitState}
+        onChange={onSelectChange}
+      />
       <HStack>
         <Button variant="outline" colorScheme="gray" onClick={onCancel}>
           Cancel

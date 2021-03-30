@@ -1,5 +1,7 @@
-import { TableCaption, Table, Thead, Tbody, Tr, Td, Th, Image, Button } from '@chakra-ui/react';
+import { TableCaption, Table, Thead, Tbody, Tr, Td, Th, Image } from '@chakra-ui/react';
 import { TSContents } from './index';
+
+import QuickMenu from '../QuickMenu';
 
 interface TSProps {
   tableCaption?: string;
@@ -45,7 +47,7 @@ const TableSaw = ({ tableData, tableCaption, EmptyStateComponent }: TSProps) => 
           if (item[key].menu) {
             return (
               <Td key={idx}>
-                <Button variant="ghost">•••</Button>
+                <QuickMenu />
               </Td>
             );
           }

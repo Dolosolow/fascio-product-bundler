@@ -1,4 +1,4 @@
-import { Heading, VStack, Select, Flex, Accordion } from '@chakra-ui/react';
+import { Heading, VStack, Flex, Select, Accordion } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
 import _ from 'lodash';
 
@@ -20,7 +20,14 @@ const NewProducts = () => {
         sectionProducts.push(_.chain(testTableValues).keyBy('id').value()[productId]);
       });
 
-      return <AccordionTableItem idx={idx} section={section} sectionProducts={sectionProducts} />;
+      return (
+        <AccordionTableItem
+          key={idx}
+          idx={idx}
+          section={section}
+          sectionProducts={sectionProducts}
+        />
+      );
     });
   };
 
@@ -47,7 +54,6 @@ const NewProducts = () => {
           >
             <option value="brand">Brand</option>
             <option value="category">Category</option>
-            <option value="option3">Option 3</option>
           </Select>
           <SearchInput />
         </Flex>
