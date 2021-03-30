@@ -1,4 +1,4 @@
-import { TableCaption, Table, Thead, Tbody, Tr, Td, Th, Image } from '@chakra-ui/react';
+import { TableCaption, Table, Thead, Tbody, Tr, Td, Th, Image, MenuItem } from '@chakra-ui/react';
 import { TSContents } from './index';
 
 import QuickMenu from '../QuickMenu';
@@ -47,7 +47,14 @@ const TableSaw = ({ tableData, tableCaption, EmptyStateComponent }: TSProps) => 
           if (item[key].menu) {
             return (
               <Td key={idx}>
-                <QuickMenu />
+                <QuickMenu>
+                  <MenuItem command="⌘E" onClick={() => alert('edit product')}>
+                    Edit Product
+                  </MenuItem>
+                  <MenuItem command="⌘D" onClick={() => alert('delete product')}>
+                    Delete Product
+                  </MenuItem>
+                </QuickMenu>
               </Td>
             );
           }

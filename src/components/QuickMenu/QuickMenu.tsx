@@ -1,6 +1,6 @@
-import { Menu, MenuList, MenuItem, MenuButton, Button } from '@chakra-ui/react';
+import { Menu, MenuList, MenuButton, Button } from '@chakra-ui/react';
 
-const QuickMenu = () => {
+const QuickMenu = ({ children }: { children: React.ReactNode }) => {
   return (
     <Menu isLazy>
       <MenuButton
@@ -12,10 +12,7 @@ const QuickMenu = () => {
       >
         •••
       </MenuButton>
-      <MenuList>
-        <MenuItem command="⌘E">Edit Product</MenuItem>
-        <MenuItem command="⌘D">Delete Product</MenuItem>
-      </MenuList>
+      <MenuList>{children}</MenuList>
     </Menu>
   );
 };
