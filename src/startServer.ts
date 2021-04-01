@@ -2,12 +2,25 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import { graphqlHTTP } from 'express-graphql';
 import express, { Request, Response } from 'express';
+import session from 'express-session';
 
 import { createTypeormConn } from './utils/createTypeormConn';
 import schema from './graphql/schema';
 
 export const startServer = async () => {
   const app = express();
+
+  app.use(
+    session({
+      name: 'qbctkn',
+      secret: process.env.SESSION_SECRET!,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 60 * 60 * 24,
+      },
+    })
+  );
 
   app.use(
     '/graphql',
