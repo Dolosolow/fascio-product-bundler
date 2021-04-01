@@ -24,6 +24,6 @@
     "typeorm": "0.2.32"
   },
   "scripts": {
-    "start": "tsnd --respawn --rs src/index.ts"
+    "start": "NODE_ENV=development tsnd --respawn --rs src/index.ts"
   }
 }
