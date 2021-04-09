@@ -28,12 +28,18 @@ export type Product = {
 export type Query = {
   __typename?: 'Query';
   productsByKeyword?: Maybe<Array<Product>>;
+  productById?: Maybe<Product>;
   hello: Scalars['String'];
 };
 
 
 export type QueryProductsByKeywordArgs = {
   keyword?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryProductByIdArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -144,6 +150,7 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   productsByKeyword?: Resolver<Maybe<Array<ResolversTypes['Product']>>, ParentType, ContextType, RequireFields<QueryProductsByKeywordArgs, never>>;
+  productById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductByIdArgs, 'id'>>;
   hello?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 

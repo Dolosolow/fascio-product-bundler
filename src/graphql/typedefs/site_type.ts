@@ -14,5 +14,6 @@ export const SiteType = gql`
 
   type Query {
     productsByKeyword(keyword: String): [Product!]
+    productById(id: ID!): Product
   }
 `;
