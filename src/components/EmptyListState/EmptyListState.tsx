@@ -10,6 +10,28 @@ interface ELSProps {
 }
 
 const EmptyListState = ({ headingText, subText, imgsrc, link }: ELSProps) => {
+  const renderLinkBtn = () => {
+    return (
+      link && (
+        <Link to={link.path} style={{ marginTop: '22px' }}>
+          <Button leftIcon={<AddIcon />} colorScheme="teal">
+            {link.text}
+          </Button>
+        </Link>
+      )
+    );
+  };
+
+  // const renderLinkBtn = () => {
+  //   return (
+  //     link && (
+  //       <Button onClick={() => getTestQuery()} leftIcon={<AddIcon />} colorScheme="teal">
+  //         {link.text}
+  //       </Button>
+  //     )
+  //   );
+  // };
+
   return (
     <VStack spacing={2} h="100%" w="100%" justify="center" direction="column" my={6}>
       <Image src={imgsrc} h="150px" />
@@ -19,13 +41,7 @@ const EmptyListState = ({ headingText, subText, imgsrc, link }: ELSProps) => {
       <Text px={34} fontSize="sm" fontWeight="normal" textAlign="center" color="gray.500" w="lg">
         {subText}
       </Text>
-      {link && (
-        <Link to={link.path} style={{ marginTop: '22px' }}>
-          <Button leftIcon={<AddIcon />} colorScheme="teal">
-            {link.text}
-          </Button>
-        </Link>
-      )}
+      {renderLinkBtn()}
     </VStack>
   );
 };

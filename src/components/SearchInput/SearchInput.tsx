@@ -5,14 +5,22 @@ import { useState } from 'react';
 import SearchResultGroup from './SearchResultGroup';
 
 const SearchInput = () => {
+  const [value, setValue] = useState('');
   const [term, setTerm] = useState('');
+  let timer: any;
 
-  const onTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTerm(e.target.value);
+  const onSetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      setTerm(e.target.value);
+    }, 1000);
   };
 
   const resetTerm = () => {
     setTerm('');
+    setValue('');
   };
 
   return (
@@ -24,8 +32,8 @@ const SearchInput = () => {
         borderTopLeftRadius={0}
         borderBottomLeftRadius={0}
         borderBottomRightRadius={0}
-        onChange={onTermChange}
-        value={term}
+        onChange={onSetValue}
+        value={value}
       />
       <SearchResultGroup
         multipleSelection

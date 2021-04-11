@@ -4,7 +4,7 @@ import Thumbnail from 'src/components/Thumbnail';
 
 interface RIProps {
   children?: React.ReactNode;
-  error?: string;
+  error?: string | React.ReactNode;
   img?: string;
   title?: string;
   price?: string;
@@ -21,7 +21,7 @@ const ResultItem = ({ children, error, img, title, price }: RIProps) => {
       justifyContent="center"
       alignItems="center"
     >
-      <chakra.p fontSize="md">{error}</chakra.p>
+      {typeof error === 'string' ? <chakra.p fontSize="md">{error}</chakra.p> : error}
     </Flex>
   );
 

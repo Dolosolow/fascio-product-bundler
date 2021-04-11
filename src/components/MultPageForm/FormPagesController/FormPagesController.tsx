@@ -15,6 +15,18 @@ interface FPGProps {
 }
 
 const FormPagesController = (props: FPGProps) => {
+  const onFormSubmit = () => {
+    props.handleSubmit();
+    props.validateForm().then((value) => {
+      if (!_.isEmpty(value)) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        props.setValues(props.values);
+        props.setPage(props.page + 1);
+      }
+    });
+  };
+
   return (
     <HStack spacing={4} pt="44" justify="center" w="100%">
       {props.page !== 0 && (
@@ -41,17 +53,7 @@ const FormPagesController = (props: FPGProps) => {
         variant="solid"
         type={props.page === props.pages.length - 1 ? 'submit' : 'button'}
         rightIcon={<ArrowForwardIcon />}
-        onClick={() => {
-          props.handleSubmit();
-          props.validateForm().then((value) => {
-            if (!_.isEmpty(value)) {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-              props.setValues(props.values);
-              props.setPage(props.page + 1);
-            }
-          });
-        }}
+        onClick={onFormSubmit}
       >
         {props.page === props.pages.length - 1 ? 'Create Page' : 'Add Products'}
       </Button>

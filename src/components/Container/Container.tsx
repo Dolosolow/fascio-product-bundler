@@ -9,7 +9,6 @@ const Container = (props: CProps) => {
       return React.cloneElement(child, {
         ...child.props,
         mt: ['8'],
-        pl: ['0', '5', null, '12', '20'],
       });
     }
     return child;

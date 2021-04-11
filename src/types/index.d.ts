@@ -1,4 +1,5 @@
 import { FlexProps } from '@chakra-ui/react';
+import { Product } from './schema';
 
 declare namespace Grup {
   type LayoutTemplate = 'G1_HORICOL' | 'G1_VERTROW';
@@ -13,15 +14,6 @@ declare namespace Grup {
 
   type Validation = Message[];
 
-  type StepContent = {
-    instructions: string;
-    section: number;
-    limit: number;
-    required: boolean;
-    specialNotes: string[];
-    products: any[];
-  };
-
   type SvgAttributes = {
     alternateBgColor?: string;
     bgColor?: string;
@@ -33,6 +25,17 @@ declare namespace Grup {
     id: string;
     generate: (svgAttrs: Builder.Grup.SvgAttributes) => any;
   }
+
+  type StepProduct = Product;
+
+  type StepContent = {
+    instructions: string;
+    section: number;
+    limit: number;
+    required: boolean;
+    specialNotes: string[];
+    products: StepProduct[];
+  };
 
   interface BuilderMap {
     layout: {

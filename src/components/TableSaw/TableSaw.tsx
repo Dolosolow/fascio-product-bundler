@@ -1,70 +1,81 @@
 import { TableCaption, Table, Thead, Tbody, Tr, Td, Th, Image, MenuItem } from '@chakra-ui/react';
-import { TSContents } from './index';
+import { useFormikContext } from 'formik';
 
 import QuickMenu from '../QuickMenu';
 
 interface TSProps {
   tableCaption?: string;
-  tableData: TSContents;
+  tableData: Builder.Grup.StepProduct[];
+  tableHeads: string[];
+  tableName?: string;
   EmptyStateComponent?: React.ReactNode;
+  quickMenu?: boolean;
 }
 
-const TableSaw = ({ tableData, tableCaption, EmptyStateComponent }: TSProps) => {
-  const renderTableHeads = () => {
-    const THSet = new Set<string>();
+const TableSaw = ({
+  tableCaption,
+  tableData,
+  tableHeads,
+  tableName,
+  EmptyStateComponent,
+  quickMenu = false,
+}: TSProps) => {
+  const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
 
-    if (tableData.length) {
-      tableData.forEach((item) => {
-        if (THSet.size < Object.keys(item.data).length) {
-          Object.keys(item.data).forEach((content) => {
-            THSet.add(content);
-          });
-        }
-      });
-      return [...THSet].map((headKey) => {
-        return <Th key={headKey}>{headKey.split('_').join(' ')}</Th>;
-      });
-    } else {
-      return null;
+  const onEditMenuItem = (id: string) => {
+    alert(`editing item: ID ${id}`);
+  };
+
+  const onDeleteMenuItem = (id: string) => {
+    let sectionProducts = values.content.steps;
+
+    const SPIndex = sectionProducts.findIndex((section) => section.instructions === tableName);
+
+    if (SPIndex !== -1) {
+      const updatedProducts = sectionProducts[SPIndex].products.filter((prod) => prod.id !== id);
+      sectionProducts[SPIndex].products = updatedProducts;
+
+      setValues({ ...values, content: { steps: [...sectionProducts] } });
     }
   };
 
-  const renderTableBody = () => {
-    const regex = /\b(.jpe?g|.png)/;
+  const renderTableHeads = () => {
+    return [...tableHeads, quickMenu ? 'action' : ''].map((headKey) => {
+      return <Th key={headKey}>{headKey.split('_').join(' ')}</Th>;
+    });
+  };
 
+  const renderTableBody = () => {
     if (tableData.length) {
       return tableData.map((content, idx) => {
-        const row = Object.keys(content.data).map((key, idx) => {
-          const item = content.data;
-
-          if (regex.test(item[key].value)) {
-            return (
-              <Td key={idx}>
-                <Image objectFit="cover" src={item[key].value} alt="sethoscope" w="50px" />
-              </Td>
-            );
-          }
-          if (item[key].menu) {
-            return (
+        const row = (
+          <>
+            <Td>
+              <Image
+                objectFit="cover"
+                src={content.primary_image!.url_thumbnail!}
+                alt={content.name!}
+                w="50px"
+              />
+            </Td>
+            <Td>{content.sku}</Td>
+            <Td>{content.name}</Td>
+            <Td>${Number(content.price!).toFixed(2)}</Td>
+            {quickMenu && (
               <Td key={idx}>
                 <QuickMenu>
-                  <MenuItem command="⌘E" onClick={() => alert('edit product')}>
+                  <MenuItem command="⌘E" onClick={() => onEditMenuItem(content.id!)}>
                     Edit Product
                   </MenuItem>
-                  <MenuItem command="⌘D" onClick={() => alert('delete product')}>
+                  <MenuItem command="⌘D" onClick={() => onDeleteMenuItem(content.id!)}>
                     Delete Product
                   </MenuItem>
                 </QuickMenu>
               </Td>
-            );
-          }
-          return (
-            <Td key={idx}>
-              {item[key].isPrice && '$'}
-              {item[key].value}
-            </Td>
-          );
-        });
+            )}
+          </>
+        );
+
         return <Tr key={idx}>{row}</Tr>;
       });
     } else {

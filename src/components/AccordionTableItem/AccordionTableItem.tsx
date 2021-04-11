@@ -7,14 +7,14 @@ import {
 } from '@chakra-ui/react';
 
 import EmptyListState from 'src/components/EmptyListState';
-import TableSaw, { TSContents } from 'src/components/TableSaw';
+import TableSaw from 'src/components/TableSaw';
 
 import FinderSvg from 'src/images/svg/find-prod.svg';
 
 interface ATIProps {
   idx: number;
   section: Builder.Grup.StepContent;
-  sectionProducts: TSContents;
+  sectionProducts: Builder.Grup.StepProduct[];
 }
 
 const AccordionTableItem = ({ idx, section, sectionProducts }: ATIProps) => {
@@ -30,8 +30,11 @@ const AccordionTableItem = ({ idx, section, sectionProducts }: ATIProps) => {
       </h2>
       <AccordionPanel pb={4}>
         <TableSaw
+          quickMenu
           tableCaption="View/Modify products in the section"
           tableData={sectionProducts}
+          tableHeads={['image', 'product_sku', 'product_name', 'price']}
+          tableName={section.instructions}
           EmptyStateComponent={
             <EmptyListState
               imgsrc={FinderSvg}
