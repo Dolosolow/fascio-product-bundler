@@ -15,7 +15,7 @@ export type Scalars = {
 
 export type Product = {
   __typename?: 'Product';
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
   sku?: Maybe<Scalars['String']>;
   calculated_price?: Maybe<Scalars['String']>;
@@ -23,6 +23,15 @@ export type Product = {
   price?: Maybe<Scalars['String']>;
   sale_price?: Maybe<Scalars['String']>;
   availability?: Maybe<Scalars['String']>;
+  primary_image?: Maybe<ProductImage>;
+};
+
+export type ProductImage = {
+  __typename?: 'ProductImage';
+  id?: Maybe<Scalars['ID']>;
+  product_id?: Maybe<Scalars['ID']>;
+  description?: Maybe<Scalars['String']>;
+  url_thumbnail?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -123,6 +132,7 @@ export type ResolversTypes = {
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  ProductImage: ResolverTypeWrapper<ProductImage>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
@@ -132,12 +142,13 @@ export type ResolversParentTypes = {
   Product: Product;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  ProductImage: ProductImage;
   Query: {};
   Boolean: Scalars['Boolean'];
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   sku?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   calculated_price?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -145,6 +156,15 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
   price?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   sale_price?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   availability?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  primary_image?: Resolver<Maybe<ResolversTypes['ProductImage']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductImage'] = ResolversParentTypes['ProductImage']> = {
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  product_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url_thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -156,6 +176,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type Resolvers<ContextType = any> = {
   Product?: ProductResolvers<ContextType>;
+  ProductImage?: ProductImageResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
 

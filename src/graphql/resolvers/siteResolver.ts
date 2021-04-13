@@ -5,11 +5,10 @@ import axios from '../../utils/apiConfig';
 export const siteResolver: IResolvers = {
   Query: {
     productsByKeyword: async (_, { keyword }: QueryProductsByKeywordArgs) => {
+      const apiUrl = `/catalog/products?keyword=${keyword}&include=primary_image&limit=7`;
       try {
-        const response = await axios.get(`/catalog/products?keyword=${keyword}&limit=7`);
-        const products = response.data.data;
-
-        return products;
+        const response = await axios.get(apiUrl);
+        return response.data.data;
       } catch (err) {
         console.log(err);
       }
@@ -17,9 +16,7 @@ export const siteResolver: IResolvers = {
     productById: async (_, { id }: QueryProductByIdArgs) => {
       try {
         const response = await axios.get(`/catalog/products/${id}`);
-        const product = response.data.data;
-
-        return product;
+        return response.data.data;
       } catch (err) {
         console.log(err);
       }

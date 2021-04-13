@@ -33,7 +33,7 @@
     "typeorm": "0.2.32"
   },
   "scripts": {
-    "server:dev": "NODE_ENV=development tsnd --respawn --rs src/index.ts",
+    "start:dev": "NODE_ENV=development tsnd --respawn --rs src/index.ts",
     "gen-schema": "graphql-codegen --config codegen.json"
   }
 }
