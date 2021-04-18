@@ -19,7 +19,7 @@ interface TNProps extends BoxProps {
 const Thumbnail = (props: TNProps) => {
   const [showClrPicker, setShowClrPicker] = useState(false);
   const [bgColor, setBgColor] = useState('transparent');
-  const { clickable = true, swapColor = false } = props;
+  const { clickable = false, swapColor = false } = props;
 
   const changeBgColor = (color: string) => {
     const key = props.value as string;

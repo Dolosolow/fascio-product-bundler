@@ -4,8 +4,6 @@ import { Product } from './schema';
 declare namespace Grup {
   type LayoutTemplate = 'G1_HORICOL' | 'G1_VERTROW';
 
-  type StepsTemplate = 'STEP_CM' | 'STEP_CCM' | 'STEP_NM' | 'STEP_CNM';
-
   type StepsShapeTemplate = 'CRL' | 'SQR' | 'DMD' | 'RDSQR' | 'RDDMD' | 'BRST';
 
   type Message = { path: string; message?: string };
@@ -23,7 +21,7 @@ declare namespace Grup {
 
   interface StepSvgInput {
     id: string;
-    generate: (svgAttrs: Builder.Grup.SvgAttributes) => any;
+    generate: (svgAttrs: Builder.Grup.SvgAttributes) => JSX.Element;
   }
 
   type StepProduct = Product;
@@ -44,7 +42,7 @@ declare namespace Grup {
       template: LayoutTemplate | null;
     };
     steps: {
-      template: StepsTemplate | null;
+      template: string | null;
       alternateBgColor: string;
       bgColor: string;
       borderColor: string;

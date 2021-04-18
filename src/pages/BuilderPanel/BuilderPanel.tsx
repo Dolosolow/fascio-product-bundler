@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Divider, VStack } from '@chakra-ui/react';
+import { Divider, VStack, Heading } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
 
 import LayoutBuilder from './FormSections/LayoutBuilder';
 import StepsSection from './FormSections/StepsBuilder';
 import BannerImgBuilder from './FormSections/BannerImgBuilder';
 import SectionBuilder from './FormSections/SectionBuilder';
+import Container from 'src/components/Container';
 
 const BuilderPanel = () => {
   const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
@@ -37,17 +38,24 @@ const BuilderPanel = () => {
   }, [alternateBgColor]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <VStack spacing={6} w="100%" divider={<Divider my={6} w="90%" />}>
-      <LayoutBuilder direction="column" changeLayoutColorScheme={changeLayoutColorScheme} />
-      <StepsSection
-        direction="column"
-        toggleShow={setAlternateBgColor}
-        showAlternateBgClr={alternateBgColor}
-        changeStepsColorScheme={changeStepsColorScheme}
-      />
-      <BannerImgBuilder direction="column" />
-      <SectionBuilder direction="column" />
-    </VStack>
+    <>
+      <Container>
+        <Heading fontWeight="light" size="xl" mb={12} alignSelf="flex-start">
+          Create New Bundle
+        </Heading>
+      </Container>
+      <VStack spacing={6} w="100%" divider={<Divider my={6} w="90%" />}>
+        <LayoutBuilder direction="column" changeLayoutColorScheme={changeLayoutColorScheme} />
+        <StepsSection
+          direction="column"
+          toggleShow={setAlternateBgColor}
+          showAlternateBgClr={alternateBgColor}
+          changeStepsColorScheme={changeStepsColorScheme}
+        />
+        <BannerImgBuilder direction="column" />
+        <SectionBuilder direction="column" />
+      </VStack>
+    </>
   );
 };
 

@@ -56,6 +56,7 @@ const TableSaw = ({
                 src={content.primary_image!.url_thumbnail!}
                 alt={content.name!}
                 w="50px"
+                maxH="50px"
               />
             </Td>
             <Td>{content.sku}</Td>

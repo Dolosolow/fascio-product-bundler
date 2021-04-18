@@ -1,6 +1,6 @@
 import { Field, FieldProps, useFormikContext } from 'formik';
 
-import BuilderBlock from '../../BuilderBlock';
+import BuilderBlock from 'src/pages/BuilderPanel/BuilderBlock';
 import Container from 'src/components/Container';
 import RadioImgWrapper from 'src/components/RadioImgWrapper';
 import Thumbnail from 'src/components/Thumbnail';
@@ -33,7 +33,7 @@ const LayoutBuilder = ({ changeLayoutColorScheme, ...props }: Builder.BuilderToo
         }}
       </Field>
       <Field name="layout.bgColor">
-        {({ form, field }: FieldProps<{ layout: { bgColor: string } }>) => {
+        {() => {
           return (
             <BuilderBlock title="Background Color" responsiveDirection>
               <Thumbnail

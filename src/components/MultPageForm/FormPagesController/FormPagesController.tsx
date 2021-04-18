@@ -15,10 +15,39 @@ interface FPGProps {
 }
 
 const FormPagesController = (props: FPGProps) => {
-  const onFormSubmit = () => {
+  const renderNextStepBtn = () => {
+    switch (props.page) {
+      case 0:
+        return 'Add Products';
+      case 1:
+        return 'Review - Confirm';
+      case 2:
+        return 'Create Page';
+      default:
+        return;
+    }
+  };
+
+  const onFormSectionSubmit = async () => {
     props.handleSubmit();
-    props.validateForm().then((value) => {
-      if (!_.isEmpty(value)) {
+    props.validateForm().then(async (value) => {
+      let error: boolean = false;
+
+      switch (props.page) {
+        case 0:
+          error = !_.isEmpty(value);
+          break;
+        case 1:
+          error = props.values.content.steps.some((section) => {
+            return section.products.length === 0;
+          });
+          break;
+        case 2:
+        default:
+          break;
+      }
+
+      if (error) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         props.setValues(props.values);
@@ -47,15 +76,15 @@ const FormPagesController = (props: FPGProps) => {
         </Button>
       </Link>
       <Button
-        w="160px"
+        minW="160px"
         size="lg"
         colorScheme="teal"
         variant="solid"
         type={props.page === props.pages.length - 1 ? 'submit' : 'button'}
         rightIcon={<ArrowForwardIcon />}
-        onClick={onFormSubmit}
+        onClick={onFormSectionSubmit}
       >
-        {props.page === props.pages.length - 1 ? 'Create Page' : 'Add Products'}
+        {renderNextStepBtn()}
       </Button>
     </HStack>
   );

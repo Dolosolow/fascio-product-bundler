@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Field, FieldProps, useFormikContext } from 'formik';
 import { Switch, FormControl, Select } from '@chakra-ui/react';
 
-import BuilderBlock from '../../BuilderBlock';
+import BuilderBlock from 'src/pages/BuilderPanel/BuilderBlock';
 import Container from 'src/components/Container';
 import RadioImgWrapper from 'src/components/RadioImgWrapper';
 import Thumbnail from 'src/components/Thumbnail';
 
-import { getStepsLayout } from 'src/pages/helpers/SvgShapeGenerator';
+import { getStepsTemplate } from 'src/pages/helpers/SvgShapeGenerator';
 
 const StepsSection = ({
   changeStepsColorScheme,
@@ -31,7 +31,7 @@ const StepsSection = ({
             >
               <RadioImgWrapper
                 name="steps.template"
-                data={getStepsLayout(indicatorShape)}
+                data={getStepsTemplate(indicatorShape)}
                 radioValues={form.values}
               />
             </BuilderBlock>

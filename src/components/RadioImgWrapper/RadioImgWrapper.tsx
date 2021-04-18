@@ -9,9 +9,10 @@ interface RIWProp extends FlexProps {
   radioValues: any;
   options?: Array<any>;
   data: any[];
+  disabled?: boolean;
 }
 
-const RadioImgWrapper = ({ name, radioValues, options, data }: RIWProp) => {
+const RadioImgWrapper = ({ name, radioValues, options, data, disabled = false }: RIWProp) => {
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
 
   const isChecked = (name: string, idx: number, targetValue?: string) => {
@@ -47,7 +48,7 @@ const RadioImgWrapper = ({ name, radioValues, options, data }: RIWProp) => {
             borderRadius={8}
             boxShadow={isChecked(name, idx, img ? img.id : undefined)}
           >
-            <Radio value={options ? options[idx] : img.id} display="none" />
+            <Radio value={options ? options[idx] : img.id} display="none" disabled={disabled} />
             <Thumbnail
               key={idx}
               clickable
