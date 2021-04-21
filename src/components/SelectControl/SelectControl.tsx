@@ -1,16 +1,6 @@
-import {
-  Popover,
-  PopoverArrow,
-  PopoverContent,
-  PopoverBody,
-  PopoverTrigger,
-  FormControl,
-  Select,
-  SelectProps,
-  Icon,
-} from '@chakra-ui/react';
-import { WarningIcon } from '@chakra-ui/icons';
-import { useState, useEffect } from 'react';
+import { FormControl, Select, SelectProps } from '@chakra-ui/react';
+
+import { ErrorBoundary, ErrorPrompt } from '../ErrorPrompt';
 
 interface SCProps extends SelectProps {
   placeholder?: string;
@@ -22,12 +12,6 @@ interface SCProps extends SelectProps {
 
 const SelectControl = (props: SCProps) => {
   const { placeholder, value, defaultValue, options, setSubmitting, onChange } = props;
-  const [isInvalid, setIsInvalid] = useState(false);
-
-  const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value !== '') setIsInvalid(false);
-    onChange(event);
-  };
 
   const renderSelectOptions = () => {
     return typeof options[0] === 'string'
@@ -43,51 +27,36 @@ const SelectControl = (props: SCProps) => {
         ));
   };
 
-  useEffect(() => {
-    if (value === '' && setSubmitting()) {
-      setIsInvalid(true);
-    } else {
-      setIsInvalid(false);
-    }
-  }, [value, setSubmitting]);
-
   return (
-    <Popover
-      isLazy
+    <ErrorPrompt
+      setSubmitting={setSubmitting}
+      value={value}
       placement="bottom"
-      closeOnBlur
-      isOpen={isInvalid}
-      onClose={() => {
-        setIsInvalid(false);
-        setSubmitting(false);
-      }}
+      warningInstructions="Select an item from the list"
     >
-      <PopoverTrigger>
-        <FormControl marginRight="auto" w="max-content">
-          <Select
-            variant="filled"
-            placeholder={placeholder ? placeholder : 'Select an option'}
-            w="160px"
-            marginX={5}
-            isInvalid={isInvalid}
-            value={value}
-            defaultValue={defaultValue ? defaultValue : undefined}
-            onChange={onSelectChange}
-          >
-            {renderSelectOptions()}
-          </Select>
-        </FormControl>
-      </PopoverTrigger>
-      <PopoverContent
-        style={{ alignSelf: 'flex-start', boxShadow: '0 1.2px 5px 1px rgba(0,0,0,0.15)' }}
-      >
-        <PopoverArrow />
-        <PopoverBody textAlign="center">
-          <Icon as={WarningIcon} color="gold" mr={2} mb={1} />
-          Select an item from the list
-        </PopoverBody>
-      </PopoverContent>
-    </Popover>
+      <FormControl marginRight="auto" w="max-content">
+        <ErrorBoundary>
+          {({ isInvalid }) => {
+            return (
+              <Select
+                variant="filled"
+                placeholder={placeholder ? placeholder : 'Select an option'}
+                w="160px"
+                marginX={5}
+                isInvalid={isInvalid}
+                value={value}
+                defaultValue={defaultValue ? defaultValue : undefined}
+                onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                  onChange(event);
+                }}
+              >
+                {renderSelectOptions()}
+              </Select>
+            );
+          }}
+        </ErrorBoundary>
+      </FormControl>
+    </ErrorPrompt>
   );
 };
 

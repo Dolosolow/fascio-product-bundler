@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Formik, FormikHelpers, Form } from 'formik';
 import { chakra, useColorModeValue, Flex } from '@chakra-ui/react';
 
@@ -13,10 +13,15 @@ interface MPFProps {
 const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFProps) => {
   const [page, setPage] = useState(0);
 
-  const onFormSubmit = (values: any, { setSubmitting }: FormikHelpers<any>) => {
-    console.log('SUBMITTED');
-    console.log(values);
+  const onPageSubmit = (_: any, { setSubmitting }: FormikHelpers<any>) => {
     setSubmitting(false);
+  };
+
+  const onFormSubmit = (values: Builder.Grup.BuilderMap) => {
+    console.log('====================================');
+    console.log('creating new bundle');
+    console.log(values);
+    console.log('====================================');
   };
 
   return (
@@ -24,10 +29,10 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
       <Formik<Builder.Grup.BuilderMap>
         initialValues={initialFormValues}
         validationSchema={validationSchema}
-        onSubmit={onFormSubmit}
+        onSubmit={onPageSubmit}
         validateOnBlur={false}
       >
-        {({ values, setValues, validateForm, handleSubmit }) => {
+        {({ values, handleSubmit }) => {
           return (
             <Form>
               <Flex flexDirection="column" align="center" p={[5, null, 7]}>
@@ -36,10 +41,8 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
                   page={page}
                   pages={formPages}
                   setPage={setPage}
-                  values={values}
-                  setValues={setValues}
-                  validateForm={validateForm}
                   handleSubmit={handleSubmit}
+                  handleFormSubmit={() => onFormSubmit(values)}
                 />
               </Flex>
             </Form>

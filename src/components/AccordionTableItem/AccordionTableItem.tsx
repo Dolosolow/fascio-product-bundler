@@ -13,19 +13,20 @@ import FinderSvg from 'src/images/svg/find-prod.svg';
 
 interface ATIProps {
   idx: number;
+  hasError?: boolean;
   section: Builder.Grup.StepContent;
   sectionProducts: Builder.Grup.StepProduct[];
 }
 
-const AccordionTableItem = ({ idx, section, sectionProducts }: ATIProps) => {
+const AccordionTableItem = ({ idx, hasError, section, sectionProducts }: ATIProps) => {
   return (
-    <AccordionItem key={idx} borderWidth="1px">
+    <AccordionItem key={idx} padding={3} borderWidth="1px">
       <h2>
         <AccordionButton>
-          <Flex flex="1" textAlign="left">
+          <Flex flex="1" textAlign="left" color={hasError ? 'red.500' : 'inherit'}>
             {section.instructions.charAt(0).toUpperCase() + section.instructions.slice(1)}
           </Flex>
-          <AccordionIcon />
+          <AccordionIcon color={hasError ? 'red.500' : 'inherit'} />
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>

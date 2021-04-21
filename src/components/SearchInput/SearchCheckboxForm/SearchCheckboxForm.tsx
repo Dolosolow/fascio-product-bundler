@@ -64,7 +64,7 @@ const SearchCheckboxForm = (props: SCFProps) => {
         <Button variant="outline" colorScheme="gray" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit" variant="solid" colorScheme="teal" onClick={onProductsSubmit}>
+        <Button type="button" variant="solid" colorScheme="teal" onClick={onProductsSubmit}>
           Add
         </Button>
       </HStack>

@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import { VStack, CheckboxGroup, Checkbox, Spinner } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
-import { useState, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import _ from 'lodash';
 
@@ -15,21 +15,22 @@ interface SRGProps {
   multipleSelection?: boolean;
   resetTermField: () => void;
 }
+// types for Apollo/Client useLazyQuery
+type TData = { productsByKeyword: Product[] };
+type OperationVariables = { keyword: string };
 
 const SearchResultsGroup = ({
   multipleSelection = false,
   searchInput,
   resetTermField,
 }: SRGProps) => {
-  // const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
-  const { values, setValues } = useFormikContext<any>();
+  const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
   const [products, setProducts] = useState<any[]>([]);
   const [section, setSection] = useState('');
 
-  const [fetchProducts, { called, loading, data }] = useLazyQuery<
-    { productsByKeyword: Product[] },
-    { keyword: string }
-  >(productsByKeyword);
+  const [fetchProducts, { called, loading, data }] = useLazyQuery<TData, OperationVariables>(
+    productsByKeyword
+  );
 
   const addProducts = (newProducts: any) => {
     setProducts([...newProducts]);
@@ -48,11 +49,9 @@ const SearchResultsGroup = ({
     const updatedSections = _.chain(values.content.steps).keyBy('instructions').value();
     products.forEach((prodId) => {
       const product = data!['productsByKeyword'].find((item) => item.id === prodId);
-      updatedSections[section].products.push(product);
+      updatedSections[section].products.push(product!);
     });
     setValues({ ...values, content: { steps: _.values(updatedSections) } });
-    console.log(`values submitting products: ${section}`);
-    console.log(updatedSections[section].products);
   };
 
   const renderResultList = () => {

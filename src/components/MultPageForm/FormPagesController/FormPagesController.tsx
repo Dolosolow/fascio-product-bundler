@@ -1,20 +1,26 @@
+import React from 'react';
 import { HStack, Button } from '@chakra-ui/react';
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { useFormikContext } from 'formik';
 import { Link } from 'react-router-dom';
-import { FormikErrors } from 'formik';
 import _ from 'lodash';
 
 interface FPGProps {
   page: number;
   pages: React.ReactNode[];
-  values: Builder.Grup.BuilderMap;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  setValues: (values: React.SetStateAction<Builder.Grup.BuilderMap>) => void;
-  validateForm: (values?: any) => Promise<FormikErrors<Builder.Grup.BuilderMap>>;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  handleFormSubmit: () => void;
 }
 
 const FormPagesController = (props: FPGProps) => {
+  const {
+    values,
+    setErrors,
+    setValues,
+    validateForm,
+  } = useFormikContext<Builder.Grup.BuilderMap>();
+
   const renderNextStepBtn = () => {
     switch (props.page) {
       case 0:
@@ -28,21 +34,28 @@ const FormPagesController = (props: FPGProps) => {
     }
   };
 
-  const onFormSectionSubmit = async () => {
+  const onFormPageSubmit = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     props.handleSubmit();
-    props.validateForm().then(async (value) => {
+    validateForm().then(async (value) => {
       let error: boolean = false;
 
       switch (props.page) {
         case 0:
           error = !_.isEmpty(value);
+          setErrors(value);
           break;
         case 1:
-          error = props.values.content.steps.some((section) => {
+          error = values.content.steps.some((section) => {
             return section.products.length === 0;
           });
+          if (error) {
+            setErrors({ content: { steps: `section products cannot be left empty.` } });
+          }
           break;
         case 2:
+          props.handleFormSubmit();
+          break;
         default:
           break;
       }
@@ -50,7 +63,7 @@ const FormPagesController = (props: FPGProps) => {
       if (error) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        props.setValues(props.values);
+        setValues(values);
         props.setPage(props.page + 1);
       }
     });
@@ -82,7 +95,7 @@ const FormPagesController = (props: FPGProps) => {
         variant="solid"
         type={props.page === props.pages.length - 1 ? 'submit' : 'button'}
         rightIcon={<ArrowForwardIcon />}
-        onClick={onFormSectionSubmit}
+        onClick={onFormPageSubmit}
       >
         {renderNextStepBtn()}
       </Button>

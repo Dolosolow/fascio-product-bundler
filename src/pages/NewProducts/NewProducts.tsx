@@ -1,24 +1,41 @@
 import { Heading, VStack, Flex, Select, Accordion } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
+import _ from 'lodash';
 
+import { ErrorBoundary, ErrorPrompt } from 'src/components/ErrorPrompt';
 import AccordionTableItem from 'src/components/AccordionTableItem';
 import Container from 'src/components/Container';
 import SearchInput from 'src/components/SearchInput';
 
 const NewProducts = () => {
-  const { values } = useFormikContext<Builder.Grup.BuilderMap>();
+  const { values, errors } = useFormikContext<Builder.Grup.BuilderMap>();
 
   const renderProductLists = () => {
-    return values.content.steps.map((section, idx) => {
-      return (
-        <AccordionTableItem
-          key={idx}
-          idx={idx}
-          section={section}
-          sectionProducts={section.products}
-        />
-      );
-    });
+    return (
+      <ErrorPrompt
+        hasError={!_.isEmpty(errors)}
+        warningInstructions="section products cannot be left empty."
+        placement="top"
+        top="-50px"
+        left="855px"
+      >
+        <ErrorBoundary>
+          {({ isInvalid }) => {
+            return values.content.steps.map((section, idx) => {
+              return (
+                <AccordionTableItem
+                  key={idx}
+                  idx={idx}
+                  section={section}
+                  sectionProducts={section.products}
+                  hasError={isInvalid}
+                />
+              );
+            });
+          }}
+        </ErrorBoundary>
+      </ErrorPrompt>
+    );
   };
 
   return (
@@ -41,7 +58,7 @@ const NewProducts = () => {
           </Select>
           <SearchInput />
         </Flex>
-        <Accordion defaultIndex={[0]} allowToggle>
+        <Accordion defaultIndex={[0]} allowToggle position="relative">
           {renderProductLists()}
         </Accordion>
       </Container>
