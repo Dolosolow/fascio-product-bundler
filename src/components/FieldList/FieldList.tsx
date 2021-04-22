@@ -33,11 +33,11 @@ const FieldList = () => {
 
   return (
     <>
-      <FieldArray name="content.steps">
+      <FieldArray name="content.sections">
         {(arrHelpers) =>
-          values.content.steps &&
-          values.content.steps.length &&
-          values.content.steps.map((step, idx) => {
+          values.content.sections &&
+          values.content.sections.length &&
+          values.content.sections.map((section, idx) => {
             bindArrayHelpers(arrHelpers);
 
             return (
@@ -51,8 +51,8 @@ const FieldList = () => {
                   pl={['0', '5', null, '12', '20']}
                   title={`Section ${idx + 1}`}
                 >
-                  <Field name={`content.steps[${idx}].section_name`}>
-                    {({ field, meta }: FieldProps<typeof values.content.steps>) => {
+                  <Field name={`content.sections[${idx}].section_name`}>
+                    {({ field, meta }: FieldProps<typeof values.content.sections>) => {
                       return (
                         <>
                           <Input
@@ -64,7 +64,7 @@ const FieldList = () => {
                             placeholder={`Section Title`}
                             maxW="520px"
                             w="460px"
-                            value={step.section_name}
+                            value={section.section_name}
                             onChange={field.onChange}
                           />
                           <ComponentMultiplier
@@ -86,8 +86,8 @@ const FieldList = () => {
                     }}
                   </Field>
                   <HStack justifyContent="space-between">
-                    <Field type="checkbox" name={`content.steps[${idx}].required`}>
-                      {({ field }: FieldProps<typeof values.content.steps>) => {
+                    <Field type="checkbox" name={`content.sections[${idx}].required`}>
+                      {({ field }: FieldProps<typeof values.content.sections>) => {
                         return (
                           <Checkbox colorScheme="teal" name={field.name} onChange={field.onChange}>
                             Required section
@@ -95,8 +95,8 @@ const FieldList = () => {
                         );
                       }}
                     </Field>
-                    <Field type="number" name={`content.steps[${idx}].limit`}>
-                      {({ field, form }: FieldProps<typeof values.content.steps>) => {
+                    <Field type="number" name={`content.sections[${idx}].limit`}>
+                      {({ field, form }: FieldProps<typeof values.content.sections>) => {
                         return (
                           <Flex alignItems="center">
                             <NumberInput
@@ -106,7 +106,7 @@ const FieldList = () => {
                               min={0}
                               size="sm"
                               onChange={(_, numValue) =>
-                                form.setFieldValue(`content.steps[${idx}].limit`, numValue)
+                                form.setFieldValue(`content.sections[${idx}].limit`, numValue)
                               }
                             >
                               <NumberInputField />
@@ -115,7 +115,7 @@ const FieldList = () => {
                                 <NumberDecrementStepper />
                               </NumberInputStepper>
                             </NumberInput>
-                            <chakra.label htmlFor={`content.steps[${idx}].limit`} ml={3}>
+                            <chakra.label htmlFor={`content.sections[${idx}].limit`} ml={3}>
                               Section buy limit
                             </chakra.label>
                           </Flex>
@@ -132,7 +132,7 @@ const FieldList = () => {
 
       <Flex
         onMouseEnter={() => {
-          if (values.content.steps.length > 1) setHidden(false);
+          if (values.content.sections.length > 1) setHidden(false);
         }}
         onMouseLeave={() => setHidden(true)}
         mt={6}
@@ -145,9 +145,9 @@ const FieldList = () => {
           w="100%"
           leftIcon={<AddIcon />}
           onClick={() =>
-            boundArrayHelpers.insert(values.content.steps.length + 1, {
+            boundArrayHelpers.insert(values.content.sections.length + 1, {
               section_name: '',
-              section: values.content.steps.length + 1,
+              section: values.content.sections.length + 1,
               limit: 0,
               required: false,
               specialNotes: [],
@@ -157,7 +157,7 @@ const FieldList = () => {
           _hover={{ backgroundColor: btnEventColor }}
           _active={{ backgroundColor: btnEventColor }}
         >
-          Add Step
+          Add Section
         </Button>
         <Button
           hidden={hidden}
@@ -168,7 +168,7 @@ const FieldList = () => {
           h={'150px'}
           w="10%"
           ml={2}
-          onClick={() => boundArrayHelpers.remove(values.content.steps.length - 1)}
+          onClick={() => boundArrayHelpers.remove(values.content.sections.length - 1)}
           _hover={{ backgroundColor: btnEventColor }}
           _active={{ backgroundColor: btnEventColor }}
         >

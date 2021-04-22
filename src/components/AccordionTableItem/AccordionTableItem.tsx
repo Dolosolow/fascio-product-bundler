@@ -14,7 +14,7 @@ import FinderSvg from 'src/images/svg/find-prod.svg';
 interface ATIProps {
   idx: number;
   hasError?: boolean;
-  section: Builder.Grup.StepContent;
+  section: Builder.Grup.SectionContent;
   sectionProducts: Builder.Grup.StepProduct[];
 }
 

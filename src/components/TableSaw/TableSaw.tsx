@@ -27,7 +27,7 @@ const TableSaw = ({
   };
 
   const onDeleteMenuItem = (id: string) => {
-    let sectionProducts = values.content.steps;
+    let sectionProducts = values.content.sections;
 
     const SPIndex = sectionProducts.findIndex((section) => section.section_name === tableName);
 
@@ -35,7 +35,7 @@ const TableSaw = ({
       const updatedProducts = sectionProducts[SPIndex].products.filter((prod) => prod.id !== id);
       sectionProducts[SPIndex].products = updatedProducts;
 
-      setValues({ ...values, content: { steps: [...sectionProducts] } });
+      setValues({ ...values, content: { sections: [...sectionProducts] } });
     }
   };
 

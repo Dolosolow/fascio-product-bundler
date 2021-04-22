@@ -46,12 +46,12 @@ const SearchResultsGroup = ({
   };
 
   const submitProducts = () => {
-    const updatedSections = _.chain(values.content.steps).keyBy('section_name').value();
+    const updatedSections = _.chain(values.content.sections).keyBy('section_name').value();
     products.forEach((prodId) => {
       const product = data!['productsByKeyword'].find((item) => item.id === prodId);
       updatedSections[section].products.push(product!);
     });
-    setValues({ ...values, content: { steps: _.values(updatedSections) } });
+    setValues({ ...values, content: { sections: _.values(updatedSections) } });
   };
 
   const renderResultList = () => {

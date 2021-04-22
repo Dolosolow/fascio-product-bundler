@@ -21,7 +21,7 @@ const FormPagesController = (props: FPGProps) => {
     validateForm,
   } = useFormikContext<Builder.Grup.BuilderMap>();
 
-  const renderNextStepBtn = () => {
+  const renderNextSectionBtn = () => {
     switch (props.page) {
       case 0:
         return 'Add Products';
@@ -46,11 +46,11 @@ const FormPagesController = (props: FPGProps) => {
           setErrors(value);
           break;
         case 1:
-          error = values.content.steps.some((section) => {
+          error = values.content.sections.some((section) => {
             return section.products.length === 0;
           });
           if (error) {
-            setErrors({ content: { steps: `section products cannot be left empty.` } });
+            setErrors({ content: { sections: `section products cannot be left empty.` } });
           }
           break;
         case 2:
@@ -97,7 +97,7 @@ const FormPagesController = (props: FPGProps) => {
         rightIcon={<ArrowForwardIcon />}
         onClick={onFormPageSubmit}
       >
-        {renderNextStepBtn()}
+        {renderNextSectionBtn()}
       </Button>
     </HStack>
   );

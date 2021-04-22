@@ -26,7 +26,7 @@ declare namespace Grup {
 
   type StepProduct = Product;
 
-  type StepContent = {
+  type SectionContent = {
     section_name: string;
     section: number;
     limit: number;
@@ -49,7 +49,7 @@ declare namespace Grup {
       fontColor: string;
     };
     content: {
-      steps: StepContent[];
+      sections: SectionContent[];
     };
   }
 

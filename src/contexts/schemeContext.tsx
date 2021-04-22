@@ -14,7 +14,7 @@ export const initialSchemeState: Builder.Grup.BuilderMap = {
     fontColor: '#ffffff',
   },
   content: {
-    steps: [
+    sections: [
       {
         section_name: '',
         section: 1,

@@ -21,7 +21,7 @@ const NewProducts = () => {
       >
         <ErrorBoundary>
           {({ isInvalid }) => {
-            return values.content.steps.map((section, idx) => {
+            return values.content.sections.map((section, idx) => {
               return (
                 <AccordionTableItem
                   key={idx}

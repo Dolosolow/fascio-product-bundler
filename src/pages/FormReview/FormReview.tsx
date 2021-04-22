@@ -66,7 +66,7 @@ const FormReview = ({
 
   const renderSectionContent = () => (
     <BuilderBlock title="Sections" direction="column">
-      {values.content.steps.map((section) => (
+      {values.content.sections.map((section) => (
         <React.Fragment key={section.section_name}>
           <HStack spacing={4} justify="space-between" wrap="wrap">
             <chakra.p whiteSpace="nowrap">
@@ -102,7 +102,7 @@ const FormReview = ({
               ))}
             </VStack>
           ) : null}
-          {values.content.steps.length > 1 ? <Divider w="100%" /> : null}
+          {values.content.sections.length > 1 ? <Divider w="100%" /> : null}
         </React.Fragment>
       ))}
     </BuilderBlock>
