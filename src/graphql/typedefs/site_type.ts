@@ -18,6 +18,7 @@ export const SiteType = gql`
     product_id: ID
     description: String
     url_thumbnail: String
+    url_standard: String
   }
 
   type Query {
