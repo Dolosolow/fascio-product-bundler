@@ -32,6 +32,7 @@ export type ProductImage = {
   product_id?: Maybe<Scalars['ID']>;
   description?: Maybe<Scalars['String']>;
   url_thumbnail?: Maybe<Scalars['String']>;
+  url_standard?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -165,6 +166,7 @@ export type ProductImageResolvers<ContextType = any, ParentType extends Resolver
   product_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   url_thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url_standard?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
