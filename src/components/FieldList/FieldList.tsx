@@ -51,7 +51,7 @@ const FieldList = () => {
                   pl={['0', '5', null, '12', '20']}
                   title={`Section ${idx + 1}`}
                 >
-                  <Field name={`content.steps[${idx}].instructions`}>
+                  <Field name={`content.steps[${idx}].section_name`}>
                     {({ field, meta }: FieldProps<typeof values.content.steps>) => {
                       return (
                         <>
@@ -64,7 +64,7 @@ const FieldList = () => {
                             placeholder={`Section Title`}
                             maxW="520px"
                             w="460px"
-                            value={step.instructions}
+                            value={step.section_name}
                             onChange={field.onChange}
                           />
                           <ComponentMultiplier
@@ -146,7 +146,7 @@ const FieldList = () => {
           leftIcon={<AddIcon />}
           onClick={() =>
             boundArrayHelpers.insert(values.content.steps.length + 1, {
-              instructions: '',
+              section_name: '',
               section: values.content.steps.length + 1,
               limit: 0,
               required: false,

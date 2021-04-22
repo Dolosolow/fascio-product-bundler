@@ -46,7 +46,7 @@ const SearchResultsGroup = ({
   };
 
   const submitProducts = () => {
-    const updatedSections = _.chain(values.content.steps).keyBy('instructions').value();
+    const updatedSections = _.chain(values.content.steps).keyBy('section_name').value();
     products.forEach((prodId) => {
       const product = data!['productsByKeyword'].find((item) => item.id === prodId);
       updatedSections[section].products.push(product!);

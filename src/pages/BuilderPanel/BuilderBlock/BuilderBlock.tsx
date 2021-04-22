@@ -42,7 +42,7 @@ const BuilderBlock = (props: BBProps) => {
     >
       <HeaderText
         title={props.title}
-        instructions={renderInstructions}
+        content={renderInstructions}
         textColor={indicateError(props.errors!, props.title)}
       />
       {renderChildren}

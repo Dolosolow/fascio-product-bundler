@@ -27,7 +27,7 @@ declare namespace Grup {
   type StepProduct = Product;
 
   type StepContent = {
-    instructions: string;
+    section_name: string;
     section: number;
     limit: number;
     required: boolean;

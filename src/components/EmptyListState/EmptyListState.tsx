@@ -22,16 +22,6 @@ const EmptyListState = ({ headingText, subText, imgsrc, link }: ELSProps) => {
     );
   };
 
-  // const renderLinkBtn = () => {
-  //   return (
-  //     link && (
-  //       <Button onClick={() => getTestQuery()} leftIcon={<AddIcon />} colorScheme="teal">
-  //         {link.text}
-  //       </Button>
-  //     )
-  //   );
-  // };
-
   return (
     <VStack spacing={2} h="100%" w="100%" justify="center" direction="column" my={6}>
       <Image src={imgsrc} h="150px" />

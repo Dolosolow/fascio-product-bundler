@@ -10,7 +10,7 @@ export const BuilderValidationSchema = yup.object().shape({
   content: yup.object().shape({
     steps: yup.array().of(
       yup.object().shape({
-        instructions: yup.string().min(5).required('A title for this section is required'),
+        section_name: yup.string().min(5).required('A title for this section is required'),
       })
     ),
   }),

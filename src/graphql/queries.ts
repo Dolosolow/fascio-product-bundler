@@ -12,6 +12,7 @@ export const productsByKeyword = gql`
         id
         description
         url_thumbnail
+        url_standard
       }
     }
   }

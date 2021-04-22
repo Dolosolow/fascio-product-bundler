@@ -57,7 +57,7 @@ const FormReview = ({
       ) : (
         <HeaderText
           title=""
-          instructions={<chakra.p fontSize="md">No Image Uploaded</chakra.p>}
+          content={<chakra.p fontSize="md">No Image Uploaded</chakra.p>}
           textColor="inherit"
         />
       )}
@@ -67,11 +67,11 @@ const FormReview = ({
   const renderSectionContent = () => (
     <BuilderBlock title="Sections" direction="column">
       {values.content.steps.map((section) => (
-        <React.Fragment key={section.instructions}>
+        <React.Fragment key={section.section_name}>
           <HStack spacing={4} justify="space-between" wrap="wrap">
             <chakra.p whiteSpace="nowrap">
               <strong style={{ marginRight: '6px' }}>Section:</strong>
-              {section.instructions}
+              {section.section_name}
             </chakra.p>
             <chakra.p whiteSpace="nowrap">
               <strong style={{ marginRight: '6px' }}>Limit:</strong>
