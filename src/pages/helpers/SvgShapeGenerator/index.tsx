@@ -58,7 +58,6 @@ const getSelectedStepLayout = (
 
 const getStepsLayout = (layout: string, layoutAttr: Builder.Grup.SvgAttributes) => {
   const shape = layout.split('-')[2].toUpperCase();
-
   return getSelectedStepLayout(layout, layoutAttr, shape as Builder.Grup.StepsShapeTemplate);
 };
 

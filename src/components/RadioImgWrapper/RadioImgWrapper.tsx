@@ -24,7 +24,7 @@ const RadioImgWrapper = ({ name, radioValues, options, data, disabled = false }:
       target = targetValue;
     }
 
-    return radioValues[name.split('.')[0]].template === target
+    return radioValues['layout'][name.split('.')[1]] === target
       ? '0 0 0 2px #319795'
       : '0 0 0 2px rgba(177, 177, 177, 0.6)';
   };
@@ -52,14 +52,14 @@ const RadioImgWrapper = ({ name, radioValues, options, data, disabled = false }:
             <Thumbnail
               key={idx}
               clickable
-              bg={name.includes('steps') ? values.layout.bgColor : undefined}
+              bg={name.includes('steps') ? values.layout.layout_bgColor : undefined}
               imgsrc={
                 typeof img === 'string'
                   ? img
                   : () =>
                       img.generate({
-                        ...values.steps,
-                        bgColor: values.steps.bgColor,
+                        ...values.layout,
+                        layout_bgColor: values.layout.steps_bgColor,
                       })
               }
             />

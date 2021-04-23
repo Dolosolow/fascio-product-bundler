@@ -14,16 +14,16 @@ const LayoutBuilder = ({ changeLayoutColorScheme, ...props }: Builder.BuilderToo
 
   return (
     <Container {...props}>
-      <Field name="layout.template">
-        {({ form, meta }: FieldProps<{ layout: { template: string } }>) => {
+      <Field name="layout.layout_template">
+        {({ form, meta }: FieldProps<{ layout: { layout_template: string } }>) => {
           return (
             <BuilderBlock
               title="layout"
               instructions="Select one of the predefined layouts. Select between Horizontal/Vertical flow."
-              errors={meta.touched ? form.errors : {}}
+              errors={meta.touched && meta.error ? { layout: meta.error } : {}}
             >
               <RadioImgWrapper
-                name="layout.template"
+                name="layout.layout_template"
                 options={radioOptions}
                 data={[LayoutHoriCol, LayoutVertRow]}
                 radioValues={form.values}
@@ -32,15 +32,15 @@ const LayoutBuilder = ({ changeLayoutColorScheme, ...props }: Builder.BuilderToo
           );
         }}
       </Field>
-      <Field name="layout.bgColor">
+      <Field name="layout.layout_bgColor">
         {() => {
           return (
             <BuilderBlock title="Background Color" responsiveDirection>
               <Thumbnail
                 clickable
                 swapColor
-                bg={values.layout?.bgColor}
-                value={`bgColor-${values.layout?.bgColor}`}
+                bg={values.layout?.layout_bgColor}
+                value={`layout_bgColor-${values.layout?.layout_bgColor}`}
                 onTNClick={changeLayoutColorScheme}
                 h="50px"
                 w={['200px', '250px']}

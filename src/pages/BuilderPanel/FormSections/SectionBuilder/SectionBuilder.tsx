@@ -7,8 +7,8 @@ import FieldList from 'src/components/FieldList';
 const SectionBuilder = (props: Builder.BuilderTools) => {
   return (
     <Container {...props}>
-      <Field name="content.steps.section_name">
-        {({ form }: FieldProps<{ content: { steps: { section_name: string } } }>) => {
+      <Field name="content.sections.section_name">
+        {({ form }: FieldProps<{ content: { sections: { section_name: string } } }>) => {
           return (
             <BuilderBlock
               title="content"

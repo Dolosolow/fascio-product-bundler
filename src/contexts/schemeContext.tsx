@@ -2,22 +2,19 @@ import { createContext } from 'react';
 
 export const initialSchemeState: Builder.Grup.BuilderMap = {
   layout: {
-    bannerImg: null,
-    bgColor: '#ffffff',
-    template: null,
-  },
-  steps: {
-    template: null,
-    alternateBgColor: '#ffffff',
-    bgColor: '#121212',
-    borderColor: '#121212',
-    fontColor: '#ffffff',
+    layout_template: null,
+    layout_bannerImg: null,
+    layout_bgColor: '#ffffff',
+    steps_template: null,
+    steps_alternateBgColor: '#ffffff',
+    steps_bgColor: '#121212',
+    steps_borderColor: '#121212',
+    steps_fontColor: '#ffffff',
   },
   content: {
     sections: [
       {
         section_name: '',
-        section: 1,
         limit: 0,
         required: false,
         specialNotes: [],

@@ -20,17 +20,17 @@ const StepsSection = ({
 
   return (
     <Container {...props}>
-      <Field name="steps.template">
-        {({ form, meta }: FieldProps<{ steps: { template: string } }>) => {
+      <Field name="layout.steps_template">
+        {({ form, meta }: FieldProps<{ layout: { steps_template: string } }>) => {
           return (
             <BuilderBlock
               title="steps layout"
               instructions="Optional: Display numbered steps to completion. If you do not want numbered steps select N/A."
               wrapChildren
-              errors={meta.touched ? form.errors : {}}
+              errors={meta.touched && meta.error ? { steps: meta.error } : {}}
             >
               <RadioImgWrapper
-                name="steps.template"
+                name="layout.steps_template"
                 data={getStepsTemplate(indicatorShape)}
                 radioValues={form.values}
               />
@@ -84,8 +84,8 @@ const StepsSection = ({
             w="250px"
             h="50px"
             onTNClick={changeStepsColorScheme}
-            bg={values.steps.alternateBgColor}
-            value={`alternateBgColor-${values.steps.alternateBgColor}`}
+            bg={values.layout.steps_alternateBgColor}
+            value={`steps_alternateBgColor-${values.layout.steps_alternateBgColor}`}
           />
         </BuilderBlock>
       )}
@@ -96,8 +96,8 @@ const StepsSection = ({
           w="250px"
           h="50px"
           onTNClick={changeStepsColorScheme}
-          bg={values.steps.bgColor}
-          value={`bgColor-${values.steps.bgColor}`}
+          bg={values.layout.steps_bgColor}
+          value={`steps_bgColor-${values.layout.steps_bgColor}`}
         />
       </BuilderBlock>
       <BuilderBlock title="Border color" responsiveDirection>
@@ -107,8 +107,8 @@ const StepsSection = ({
           w="250px"
           h="50px"
           onTNClick={changeStepsColorScheme}
-          bg={values.steps.borderColor}
-          value={`borderColor-${values.steps.borderColor}`}
+          bg={values.layout.steps_borderColor}
+          value={`steps_borderColor-${values.layout.steps_borderColor}`}
         />
       </BuilderBlock>
       <BuilderBlock title="Font color" responsiveDirection>
@@ -118,8 +118,8 @@ const StepsSection = ({
           w="250px"
           h="50px"
           onTNClick={changeStepsColorScheme}
-          bg={values.steps.fontColor}
-          value={`fontColor-${values.steps.fontColor}`}
+          bg={values.layout.steps_fontColor}
+          value={`steps_fontColor-${values.layout.steps_fontColor}`}
         />
       </BuilderBlock>
     </Container>

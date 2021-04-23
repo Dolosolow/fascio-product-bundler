@@ -13,10 +13,10 @@ declare namespace Grup {
   type Validation = Message[];
 
   type SvgAttributes = {
-    alternateBgColor?: string;
-    bgColor?: string;
-    borderColor?: string;
-    fontColor?: string;
+    steps_alternateBgColor?: string;
+    steps_bgColor?: string;
+    steps_borderColor?: string;
+    steps_fontColor?: string;
   };
 
   interface StepSvgInput {
@@ -28,7 +28,6 @@ declare namespace Grup {
 
   type SectionContent = {
     section_name: string;
-    section: number;
     limit: number;
     required: boolean;
     specialNotes: string[];
@@ -37,16 +36,14 @@ declare namespace Grup {
 
   interface BuilderMap {
     layout: {
-      bannerImg?: string | null;
-      bgColor: string;
-      template: LayoutTemplate | null;
-    };
-    steps: {
-      template: string | null;
-      alternateBgColor: string;
-      bgColor: string;
-      borderColor: string;
-      fontColor: string;
+      layout_template: LayoutTemplate | null;
+      layout_bannerImg?: string | null;
+      layout_bgColor: string;
+      steps_template: string | null;
+      steps_alternateBgColor: string;
+      steps_bgColor: string;
+      steps_borderColor: string;
+      steps_fontColor: string;
     };
     content: {
       sections: SectionContent[];

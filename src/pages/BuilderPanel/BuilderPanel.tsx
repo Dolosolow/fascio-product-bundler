@@ -13,11 +13,12 @@ const BuilderPanel = () => {
   const [alternateBgColor, setAlternateBgColor] = useState<boolean>(true);
 
   const changeLayoutColorScheme = (key: string, color: string) => {
+    console.log(key);
+    console.log(color);
     if (!alternateBgColor && values) {
       setValues({
         ...values,
-        layout: { ...values.layout, [key]: color },
-        steps: { ...values.steps, alternateBgColor: color },
+        layout: { ...values.layout, steps_alternateBgColor: color, [key]: color },
       });
     } else {
       setValues({ ...values, layout: { ...values.layout, [key]: color } });
@@ -25,14 +26,16 @@ const BuilderPanel = () => {
   };
 
   const changeStepsColorScheme = (key: string, color: string) => {
-    setValues({ ...values, steps: { ...values.steps, [key]: color } });
+    console.log(key);
+    console.log(color);
+    setValues({ ...values, layout: { ...values.layout, [key]: color } });
   };
 
   useEffect(() => {
     if (!alternateBgColor) {
       setValues({
         ...values,
-        steps: { ...values.steps, alternateBgColor: values.layout.bgColor },
+        layout: { ...values.layout, steps_alternateBgColor: values.layout.layout_bgColor },
       });
     }
   }, [alternateBgColor]); // eslint-disable-line react-hooks/exhaustive-deps

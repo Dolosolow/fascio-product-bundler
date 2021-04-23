@@ -18,10 +18,15 @@ const FormReview = ({
 }: Builder.BuilderTools) => {
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
 
-  const selectedLayoutTemplate = getLayoutTemplate(values.layout.template!);
+  const selectedLayoutTemplate = getLayoutTemplate(values.layout.layout_template!);
   const selectedStepsLayout = getStepsLayout(
-    values.steps.template!,
-    _.omit(values.steps, ['template'])
+    values.layout.steps_template!,
+    _.omit(values.layout, [
+      'layout_template',
+      'layout_bannerImg',
+      'layout_bgColor',
+      'steps_template',
+    ])
   );
 
   const renderLayoutTemplate = () => (
@@ -33,8 +38,8 @@ const FormReview = ({
   const renderLayoutBGColor = () => (
     <BuilderBlock title="Background Color" responsiveDirection>
       <Thumbnail
-        bg={values.layout?.bgColor}
-        value={`bgColor-${values.layout?.bgColor}`}
+        bg={values.layout?.layout_bgColor}
+        value={`bgColor-${values.layout?.layout_bgColor}`}
         h="50px"
         w={['200px', '250px']}
       />
@@ -44,7 +49,7 @@ const FormReview = ({
   const renderStepsLayout = () => (
     <BuilderBlock title="steps layout" wrapChildren>
       <Thumbnail
-        bg={values.layout.bgColor ? values.layout.bgColor : undefined}
+        bg={values.layout.layout_bgColor ? values.layout.layout_bgColor : undefined}
         imgsrc={() => selectedStepsLayout}
       />
     </BuilderBlock>
@@ -52,8 +57,13 @@ const FormReview = ({
 
   const renderBannerImage = () => (
     <BuilderBlock title="Banner Image" responsiveDirection>
-      {values.layout.bannerImg ? (
-        <Image h="100px" mt={[8, null, 0, 0]} src={values.layout.bannerImg} alt="banner image" />
+      {values.layout.layout_bannerImg ? (
+        <Image
+          h="100px"
+          mt={[8, null, 0, 0]}
+          src={values.layout.layout_bannerImg}
+          alt="banner image"
+        />
       ) : (
         <HeaderText
           title=""
