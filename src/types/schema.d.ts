@@ -13,6 +13,60 @@ export type Scalars = {
   Float: number;
 };
 
+export type Bundle = {
+  __typename?: 'Bundle';
+  id: Scalars['ID'];
+  store: Store;
+  layout_bannerImg?: Maybe<Scalars['String']>;
+  layout_bgColor: Scalars['String'];
+  layout_template: Scalars['String'];
+  steps_template: Scalars['String'];
+  steps_alternateBgColor: Scalars['String'];
+  steps_bgColor: Scalars['String'];
+  steps_borderColor: Scalars['String'];
+  steps_fontColor: Scalars['String'];
+  sections: Array<Section>;
+  date_created: Scalars['String'];
+  date_updated: Scalars['String'];
+};
+
+export type BundleInput = {
+  storeId: Scalars['String'];
+  layout_bannerImg?: Maybe<Scalars['String']>;
+  layout_bgColor: Scalars['String'];
+  layout_template: Scalars['String'];
+  steps_template: Scalars['String'];
+  steps_alternateBgColor: Scalars['String'];
+  steps_bgColor: Scalars['String'];
+  steps_borderColor: Scalars['String'];
+  steps_fontColor: Scalars['String'];
+  sections: Array<SectionInput>;
+  date_created: Scalars['String'];
+  date_updated: Scalars['String'];
+};
+
+export type CreationResponse = {
+  __typename?: 'CreationResponse';
+  errors?: Maybe<Array<Error>>;
+  success: Scalars['Boolean'];
+};
+
+export type Error = {
+  __typename?: 'Error';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addNewBundle: CreationResponse;
+};
+
+
+export type MutationAddNewBundleArgs = {
+  newBundle: BundleInput;
+};
+
 export type Product = {
   __typename?: 'Product';
   id?: Maybe<Scalars['ID']>;
@@ -35,10 +89,32 @@ export type ProductImage = {
   url_standard?: Maybe<Scalars['String']>;
 };
 
+export type ProductImageInput = {
+  id?: Maybe<Scalars['ID']>;
+  product_id?: Maybe<Scalars['ID']>;
+  description?: Maybe<Scalars['String']>;
+  url_thumbnail?: Maybe<Scalars['String']>;
+  url_standard?: Maybe<Scalars['String']>;
+};
+
+export type ProductInput = {
+  id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  sku?: Maybe<Scalars['String']>;
+  calculated_price?: Maybe<Scalars['String']>;
+  cost_price?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['String']>;
+  sale_price?: Maybe<Scalars['String']>;
+  availability?: Maybe<Scalars['String']>;
+  primary_image?: Maybe<ProductImageInput>;
+};
+
 export type Query = {
   __typename?: 'Query';
   productsByKeyword?: Maybe<Array<Product>>;
   productById?: Maybe<Product>;
+  getBundles?: Maybe<Array<Bundle>>;
+  getBundle?: Maybe<Bundle>;
   hello: Scalars['String'];
 };
 
@@ -50,6 +126,39 @@ export type QueryProductsByKeywordArgs = {
 
 export type QueryProductByIdArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryGetBundleArgs = {
+  id: Scalars['ID'];
+};
+
+export type Section = {
+  __typename?: 'Section';
+  id: Scalars['ID'];
+  section: Scalars['String'];
+  section_name: Scalars['String'];
+  limit: Scalars['Int'];
+  required: Scalars['Boolean'];
+  specialNotes?: Maybe<Array<Scalars['String']>>;
+  products: Array<Product>;
+};
+
+export type SectionInput = {
+  section: Scalars['String'];
+  section_name: Scalars['String'];
+  limit: Scalars['Int'];
+  required: Scalars['Boolean'];
+  specialNotes?: Maybe<Array<Scalars['String']>>;
+  products?: Maybe<Array<ProductInput>>;
+};
+
+export type Store = {
+  __typename?: 'Store';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  email: Scalars['String'];
+  created_at: Scalars['String'];
 };
 
 
@@ -130,22 +239,77 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Product: ResolverTypeWrapper<Product>;
+  Bundle: ResolverTypeWrapper<Bundle>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  ProductImage: ResolverTypeWrapper<ProductImage>;
-  Query: ResolverTypeWrapper<{}>;
+  BundleInput: BundleInput;
+  CreationResponse: ResolverTypeWrapper<CreationResponse>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Error: ResolverTypeWrapper<Error>;
+  Mutation: ResolverTypeWrapper<{}>;
+  Product: ResolverTypeWrapper<Product>;
+  ProductImage: ResolverTypeWrapper<ProductImage>;
+  ProductImageInput: ProductImageInput;
+  ProductInput: ProductInput;
+  Query: ResolverTypeWrapper<{}>;
+  Section: ResolverTypeWrapper<Section>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  SectionInput: SectionInput;
+  Store: ResolverTypeWrapper<Store>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Product: Product;
+  Bundle: Bundle;
   ID: Scalars['ID'];
   String: Scalars['String'];
-  ProductImage: ProductImage;
-  Query: {};
+  BundleInput: BundleInput;
+  CreationResponse: CreationResponse;
   Boolean: Scalars['Boolean'];
+  Error: Error;
+  Mutation: {};
+  Product: Product;
+  ProductImage: ProductImage;
+  ProductImageInput: ProductImageInput;
+  ProductInput: ProductInput;
+  Query: {};
+  Section: Section;
+  Int: Scalars['Int'];
+  SectionInput: SectionInput;
+  Store: Store;
+};
+
+export type BundleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bundle'] = ResolversParentTypes['Bundle']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  store?: Resolver<ResolversTypes['Store'], ParentType, ContextType>;
+  layout_bannerImg?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  layout_bgColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  layout_template?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  steps_template?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  steps_alternateBgColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  steps_bgColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  steps_borderColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  steps_fontColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sections?: Resolver<Array<ResolversTypes['Section']>, ParentType, ContextType>;
+  date_created?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  date_updated?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CreationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreationResponse'] = ResolversParentTypes['CreationResponse']> = {
+  errors?: Resolver<Maybe<Array<ResolversTypes['Error']>>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Error'] = ResolversParentTypes['Error']> = {
+  field?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addNewBundle?: Resolver<ResolversTypes['CreationResponse'], ParentType, ContextType, RequireFields<MutationAddNewBundleArgs, 'newBundle'>>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
@@ -173,13 +337,40 @@ export type ProductImageResolvers<ContextType = any, ParentType extends Resolver
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   productsByKeyword?: Resolver<Maybe<Array<ResolversTypes['Product']>>, ParentType, ContextType, RequireFields<QueryProductsByKeywordArgs, never>>;
   productById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductByIdArgs, 'id'>>;
+  getBundles?: Resolver<Maybe<Array<ResolversTypes['Bundle']>>, ParentType, ContextType>;
+  getBundle?: Resolver<Maybe<ResolversTypes['Bundle']>, ParentType, ContextType, RequireFields<QueryGetBundleArgs, 'id'>>;
   hello?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
+export type SectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Section'] = ResolversParentTypes['Section']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  section?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  section_name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  specialNotes?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type StoreResolvers<ContextType = any, ParentType extends ResolversParentTypes['Store'] = ResolversParentTypes['Store']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  created_at?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  Bundle?: BundleResolvers<ContextType>;
+  CreationResponse?: CreationResponseResolvers<ContextType>;
+  Error?: ErrorResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductImage?: ProductImageResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Section?: SectionResolvers<ContextType>;
+  Store?: StoreResolvers<ContextType>;
 };
 
 
