@@ -5,8 +5,11 @@ const httpLink = new HttpLink({
   credentials: 'include',
 });
 
+// FIX ⚠️ inMemoryCache({ addTypename: false }): Fixes issue with unwanted "__typename" field from queries. Brings performace issue.
+// https://stackoverflow.com/questions/47211778/cleaning-unwanted-fields-from-graphql-responses/51380645#51380645
+
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ addTypename: false }),
   link: from([httpLink]),
 });
 

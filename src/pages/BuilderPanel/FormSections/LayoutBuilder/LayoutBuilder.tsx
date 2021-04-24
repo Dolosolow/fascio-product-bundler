@@ -8,7 +8,7 @@ import Thumbnail from 'src/components/Thumbnail';
 import LayoutHoriCol from 'src/images/svg/layout-hori-col.svg';
 import LayoutVertRow from 'src/images/svg/layout-vert-row.svg';
 
-const LayoutBuilder = ({ changeLayoutColorScheme, ...props }: Builder.BuilderTools) => {
+const LayoutBuilder = ({ changeColorScheme, ...props }: Builder.BuilderTools) => {
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
   const radioOptions: Builder.Grup.LayoutTemplate[] = ['G1_HORICOL', 'G1_VERTROW'];
 
@@ -41,7 +41,7 @@ const LayoutBuilder = ({ changeLayoutColorScheme, ...props }: Builder.BuilderToo
                 swapColor
                 bg={values.layout?.layout_bgColor}
                 value={`layout_bgColor-${values.layout?.layout_bgColor}`}
-                onTNClick={changeLayoutColorScheme}
+                onTNClick={changeColorScheme}
                 h="50px"
                 w={['200px', '250px']}
               />

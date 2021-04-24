@@ -87,44 +87,36 @@ export type MutationAddNewBundleArgs = {
 
 export type Product = {
   __typename?: 'Product';
-  id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  sku?: Maybe<Scalars['String']>;
-  calculated_price?: Maybe<Scalars['String']>;
-  cost_price?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['String']>;
-  sale_price?: Maybe<Scalars['String']>;
-  availability?: Maybe<Scalars['String']>;
-  primary_image?: Maybe<ProductImage>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+  sku: Scalars['String'];
+  price: Scalars['String'];
+  sale_price: Scalars['String'];
+  primary_image: ProductImage;
 };
 
 export type ProductImage = {
   __typename?: 'ProductImage';
-  id?: Maybe<Scalars['ID']>;
-  product_id?: Maybe<Scalars['ID']>;
-  description?: Maybe<Scalars['String']>;
-  url_thumbnail?: Maybe<Scalars['String']>;
-  url_standard?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  description: Scalars['String'];
+  url_thumbnail: Scalars['String'];
+  url_standard: Scalars['String'];
 };
 
 export type ProductImageInput = {
-  id?: Maybe<Scalars['ID']>;
-  product_id?: Maybe<Scalars['ID']>;
-  description?: Maybe<Scalars['String']>;
-  url_thumbnail?: Maybe<Scalars['String']>;
-  url_standard?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  description: Scalars['String'];
+  url_thumbnail: Scalars['String'];
+  url_standard: Scalars['String'];
 };
 
 export type ProductInput = {
-  id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  sku?: Maybe<Scalars['String']>;
-  calculated_price?: Maybe<Scalars['String']>;
-  cost_price?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['String']>;
-  sale_price?: Maybe<Scalars['String']>;
-  availability?: Maybe<Scalars['String']>;
-  primary_image?: Maybe<ProductImageInput>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  sku: Scalars['String'];
+  price: Scalars['String'];
+  sale_price: Scalars['String'];
+  primary_image: ProductImageInput;
 };
 
 export type Query = {
@@ -154,7 +146,7 @@ export type Section = {
   section_name: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
-  specialNotes: Array<Maybe<Scalars['String']>>;
+  specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
   products: Array<Product>;
 };
 
@@ -162,7 +154,7 @@ export type SectionInput = {
   section_name: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
-  specialNotes: Array<Maybe<Scalars['String']>>;
+  specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
   products: Array<ProductInput>;
 };
 
@@ -387,15 +379,12 @@ export type ProductResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']
 > = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  sku?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  calculated_price?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  cost_price?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  price?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  sale_price?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  availability?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  primary_image?: Resolver<Maybe<ResolversTypes['ProductImage']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sku?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sale_price?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  primary_image?: Resolver<ResolversTypes['ProductImage'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -403,11 +392,10 @@ export type ProductImageResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['ProductImage'] = ResolversParentTypes['ProductImage']
 > = {
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  product_id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  url_thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  url_standard?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url_thumbnail?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url_standard?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -445,7 +433,7 @@ export type SectionResolvers<
   section_name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  specialNotes?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
+  specialNotes?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

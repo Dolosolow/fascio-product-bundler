@@ -12,10 +12,8 @@ const BuilderPanel = () => {
   const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
   const [alternateBgColor, setAlternateBgColor] = useState<boolean>(true);
 
-  const changeLayoutColorScheme = (key: string, color: string) => {
-    console.log(key);
-    console.log(color);
-    if (!alternateBgColor && values) {
+  const changeColorScheme = (key: string, color: string) => {
+    if (!alternateBgColor && key.includes('layout')) {
       setValues({
         ...values,
         layout: { ...values.layout, steps_alternateBgColor: color, [key]: color },
@@ -23,12 +21,6 @@ const BuilderPanel = () => {
     } else {
       setValues({ ...values, layout: { ...values.layout, [key]: color } });
     }
-  };
-
-  const changeStepsColorScheme = (key: string, color: string) => {
-    console.log(key);
-    console.log(color);
-    setValues({ ...values, layout: { ...values.layout, [key]: color } });
   };
 
   useEffect(() => {
@@ -48,12 +40,12 @@ const BuilderPanel = () => {
         </Heading>
       </Container>
       <VStack spacing={6} w="100%" divider={<Divider my={6} w="90%" />}>
-        <LayoutBuilder direction="column" changeLayoutColorScheme={changeLayoutColorScheme} />
+        <LayoutBuilder direction="column" changeColorScheme={changeColorScheme} />
         <StepsSection
           direction="column"
           toggleShow={setAlternateBgColor}
           showAlternateBgClr={alternateBgColor}
-          changeStepsColorScheme={changeStepsColorScheme}
+          changeColorScheme={changeColorScheme}
         />
         <BannerImgBuilder direction="column" />
         <SectionBuilder direction="column" />

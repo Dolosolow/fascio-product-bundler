@@ -65,8 +65,7 @@ interface BuilderTools extends FlexProps {
   success?: Grup.Validation<Grup.Message>[];
   value?: any;
   wrapChildren?: boolean;
-  changeLayoutColorScheme?: (key: string, color: string) => void;
-  changeStepsColorScheme?: (key: string, color: string) => void;
+  changeColorScheme?: (key: string, color: string) => void;
   toggleShow?: (value: React.SetStateAction<boolean>) => void;
 }
 

@@ -10,7 +10,7 @@ import Thumbnail from 'src/components/Thumbnail';
 import { getStepsTemplate } from 'src/pages/helpers/SvgShapeGenerator';
 
 const StepsSection = ({
-  changeStepsColorScheme,
+  changeColorScheme,
   toggleShow,
   showAlternateBgClr,
   ...props
@@ -83,7 +83,7 @@ const StepsSection = ({
             swapColor
             w="250px"
             h="50px"
-            onTNClick={changeStepsColorScheme}
+            onTNClick={changeColorScheme}
             bg={values.layout.steps_alternateBgColor}
             value={`steps_alternateBgColor-${values.layout.steps_alternateBgColor}`}
           />
@@ -95,7 +95,7 @@ const StepsSection = ({
           swapColor
           w="250px"
           h="50px"
-          onTNClick={changeStepsColorScheme}
+          onTNClick={changeColorScheme}
           bg={values.layout.steps_bgColor}
           value={`steps_bgColor-${values.layout.steps_bgColor}`}
         />
@@ -106,7 +106,7 @@ const StepsSection = ({
           swapColor
           w="250px"
           h="50px"
-          onTNClick={changeStepsColorScheme}
+          onTNClick={changeColorScheme}
           bg={values.layout.steps_borderColor}
           value={`steps_borderColor-${values.layout.steps_borderColor}`}
         />
@@ -117,7 +117,7 @@ const StepsSection = ({
           swapColor
           w="250px"
           h="50px"
-          onTNClick={changeStepsColorScheme}
+          onTNClick={changeColorScheme}
           bg={values.layout.steps_fontColor}
           value={`steps_fontColor-${values.layout.steps_fontColor}`}
         />

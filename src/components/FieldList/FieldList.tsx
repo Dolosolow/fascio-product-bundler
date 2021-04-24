@@ -147,7 +147,6 @@ const FieldList = () => {
           onClick={() =>
             boundArrayHelpers.insert(values.content.sections.length + 1, {
               section_name: '',
-              section: values.content.sections.length + 1,
               limit: 0,
               required: false,
               specialNotes: [],

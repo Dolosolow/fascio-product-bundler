@@ -25,7 +25,7 @@ const SearchResultsGroup = ({
   resetTermField,
 }: SRGProps) => {
   const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<string[]>([]);
   const [section, setSection] = useState('');
 
   const [fetchProducts, { called, loading, data }] = useLazyQuery<TData, OperationVariables>(
@@ -113,7 +113,9 @@ const SearchResultsGroup = ({
     >
       <CheckboxGroup
         colorScheme="teal"
-        onChange={(values) => addProducts(values)}
+        onChange={(values) => {
+          addProducts(values);
+        }}
         value={searchInput === '' ? [] : products}
       >
         {renderResultList()}
