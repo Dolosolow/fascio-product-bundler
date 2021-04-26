@@ -6,46 +6,45 @@ export const SiteType = gql`
     name: String!
     email: String!
     created_at: String!
+    bundles: [Bundle!]
   }
 
   type Product {
-    id: ID
-    name: String
-    sku: String
-    calculated_price: String
-    cost_price: String
-    price: String
-    sale_price: String
-    availability: String
-    primary_image: ProductImage
+    id: String!
+    name: String!
+    sku: String!
+    price: String!
+    sale_price: String!
+    primary_image: ProductImage!
   }
 
   type ProductImage {
-    id: ID
-    product_id: ID
-    description: String
-    url_thumbnail: String
-    url_standard: String
+    id: ID!
+    description: String!
+    url_thumbnail: String!
+    url_standard: String!
+  }
+
+  input StoreInput {
+    id: ID!
+    name: String!
+    email: String!
   }
 
   input ProductInput {
-    id: ID
-    name: String
-    sku: String
-    calculated_price: String
-    cost_price: String
-    price: String
-    sale_price: String
-    availability: String
-    primary_image: ProductImageInput
+    id: ID!
+    name: String!
+    sku: String!
+    price: String!
+    sale_price: String!
+    primary_image: ProductImageInput!
   }
 
   input ProductImageInput {
-    id: ID
-    product_id: ID
-    description: String
-    url_thumbnail: String
-    url_standard: String
+    id: ID!
+    description: String!
+    url_thumbnail: String!
+    url_standard: String!
   }
 
   type Query {

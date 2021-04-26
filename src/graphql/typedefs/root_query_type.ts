@@ -12,6 +12,6 @@ export const RootQueryType = gql`
   }
 
   type Query {
-    hello: String!
+    root: String!
   }
 `;

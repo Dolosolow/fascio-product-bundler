@@ -1,1 +1,15 @@
-{"overwrite":true,"schema":"http://localhost:4000/graphql","documents":null,"generates":{"src/types/schema.d.ts":{"plugins":["typescript","typescript-resolvers"]}}}
+{
+  "overwrite": true,
+  "schema": "http://localhost:4000/graphql",
+  "documents": null,
+  "generates": {
+    "src/types/schema.d.ts": {
+      "config": { "skipTypename": true, "useTypeImports": true },
+      "plugins": ["typescript", "typescript-operations", "typescript-resolvers"]
+    },
+    "src/types/client_schema.d.ts": {
+      "config": { "skipTypename": true, "useTypeImports": true },
+      "plugins": ["typescript", "typescript-operations", "typescript-react-apollo"]
+    }
+  }
+}
