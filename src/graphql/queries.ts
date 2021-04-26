@@ -17,3 +17,18 @@ export const productsByKeyword = gql`
     }
   }
 `;
+
+export const getAllBundles = gql`
+  query getBundles {
+    getBundles {
+      id
+      status
+      visits
+      layout {
+        layout_template
+        steps_template
+      }
+      date_created
+    }
+  }
+`;

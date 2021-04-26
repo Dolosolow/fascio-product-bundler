@@ -11,9 +11,9 @@ import Thumbnail from 'src/components/Thumbnail';
 import { getStepsLayout, getLayoutTemplate } from 'src/pages/helpers/SvgShapeGenerator';
 
 const FormReview = ({
-  changeStepsColorScheme,
-  toggleShow,
   showAlternateBgClr,
+  changeColorScheme,
+  toggleShow,
   ...props
 }: Builder.BuilderTools) => {
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
