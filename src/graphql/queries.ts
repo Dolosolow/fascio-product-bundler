@@ -22,8 +22,9 @@ export const getAllBundles = gql`
   query getBundles {
     getBundles {
       id
-      status
       visits
+      status
+      bundleName
       layout {
         layout_template
         steps_template

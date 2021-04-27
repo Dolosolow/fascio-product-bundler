@@ -24,7 +24,7 @@ const FieldList = () => {
 
   const [hidden, setHidden] = useState(true);
 
-  const { values } = useFormikContext<Builder.Grup.BuilderMap>();
+  const { values, errors, touched } = useFormikContext<Builder.Grup.BuilderMap>();
   const btnEventColor = useColorModeValue('gray.200', 'gray.700');
 
   const bindArrayHelpers = (arrHelpers: FieldArrayRenderProps) => {
@@ -39,19 +39,22 @@ const FieldList = () => {
           values.content.sections.length &&
           values.content.sections.map((section, idx) => {
             bindArrayHelpers(arrHelpers);
-
             return (
               <React.Fragment key={idx}>
                 <BuilderBlock
                   key={idx}
                   responsiveDirection={true}
                   direction="column"
-                  border="2px solid red"
                   mt={12}
-                  pl={['0', '5', null, '12', '20']}
+                  pl={['0', '0', '12', '12', '12']}
                   title={`Section ${idx + 1}`}
+                  errors={
+                    errors.content?.sections![idx] && touched.content?.sections![idx]
+                      ? JSON.parse(`{"Section": "Section is required"}`)
+                      : undefined
+                  }
                 >
-                  <Field name={`content.sections[${idx}].section_name`}>
+                  <Field name={`content.sections[${idx}].sectionName`}>
                     {({ field, meta }: FieldProps<typeof values.content.sections>) => {
                       return (
                         <>
@@ -64,7 +67,7 @@ const FieldList = () => {
                             placeholder={`Section Title`}
                             maxW="520px"
                             w="460px"
-                            value={section.section_name}
+                            value={section.sectionName}
                             onChange={field.onChange}
                           />
                           <ComponentMultiplier
@@ -146,7 +149,7 @@ const FieldList = () => {
           leftIcon={<AddIcon />}
           onClick={() =>
             boundArrayHelpers.insert(values.content.sections.length + 1, {
-              section_name: '',
+              sectionName: '',
               limit: 0,
               required: false,
               specialNotes: [],

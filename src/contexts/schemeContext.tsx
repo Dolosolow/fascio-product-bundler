@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 export const initialSchemeState: Builder.Grup.BuilderMap = {
+  bundleName: '',
   layout: {
     layout_template: null,
     layout_bannerImg: null,
@@ -14,7 +15,7 @@ export const initialSchemeState: Builder.Grup.BuilderMap = {
   content: {
     sections: [
       {
-        section_name: '',
+        sectionName: '',
         limit: 0,
         required: false,
         specialNotes: [],

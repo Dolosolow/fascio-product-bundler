@@ -27,7 +27,7 @@ declare namespace Grup {
   type StepProduct = Product;
 
   type SectionContent = {
-    section_name: string;
+    sectionName: string;
     limit: number;
     required: boolean;
     specialNotes: string[];
@@ -35,6 +35,7 @@ declare namespace Grup {
   };
 
   interface BuilderMap {
+    bundleName: string;
     layout: {
       layout_template: LayoutTemplate | null;
       layout_bannerImg?: string | null;

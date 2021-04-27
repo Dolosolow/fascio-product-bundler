@@ -17,6 +17,7 @@ const RadioImgWrapper = ({ name, radioValues, options, data, disabled = false }:
 
   const isChecked = (name: string, idx: number, targetValue?: string) => {
     let target: any;
+    const currentValue = radioValues['layout'][name.split('.')[1]];
 
     if (options) {
       target = options[idx];
@@ -24,19 +25,17 @@ const RadioImgWrapper = ({ name, radioValues, options, data, disabled = false }:
       target = targetValue;
     }
 
-    return radioValues['layout'][name.split('.')[1]] === target
-      ? '0 0 0 2px #319795'
-      : '0 0 0 2px rgba(177, 177, 177, 0.6)';
+    return currentValue === target ? '0 0 0 2px #37aaa8' : '0 0 0 1px rgba(177, 177, 177, 0.6)';
   };
 
   return (
     <RadioGroupControl name={name}>
       <Wrap
         spacing={3}
-        alignSelf="flex-end"
         justify="flex-end"
         direction={['column', 'row']}
         shouldWrapChildren={true}
+        minW={'260px'}
         maxW="530px"
         position="relative"
       >

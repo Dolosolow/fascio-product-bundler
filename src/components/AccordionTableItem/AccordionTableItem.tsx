@@ -24,7 +24,7 @@ const AccordionTableItem = ({ idx, hasError, section, sectionProducts }: ATIProp
       <h2>
         <AccordionButton>
           <Flex flex="1" textAlign="left" color={hasError ? 'red.500' : 'inherit'}>
-            {section.section_name.charAt(0).toUpperCase() + section.section_name.slice(1)}
+            {section.sectionName.charAt(0).toUpperCase() + section.sectionName.slice(1)}
           </Flex>
           <AccordionIcon color={hasError ? 'red.500' : 'inherit'} />
         </AccordionButton>
@@ -35,7 +35,7 @@ const AccordionTableItem = ({ idx, hasError, section, sectionProducts }: ATIProp
           tableCaption="View/Modify products in the section"
           tableData={sectionProducts}
           tableHeads={['image', 'product_sku', 'product_name', 'price']}
-          tableName={section.section_name}
+          tableName={section.sectionName}
           EmptyStateComponent={
             <EmptyListState
               imgsrc={FinderSvg}

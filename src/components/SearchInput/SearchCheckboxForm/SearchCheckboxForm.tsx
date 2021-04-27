@@ -55,7 +55,7 @@ const SearchCheckboxForm = (props: SCFProps) => {
       </chakra.p>
       <SelectControl
         placeholder="Select a section"
-        options={values.content.sections.map((section) => section.section_name)}
+        options={values.content.sections.map((section) => section.sectionName)}
         value={selectValue}
         setSubmitting={handleSubmitState}
         onChange={onSelectChange}

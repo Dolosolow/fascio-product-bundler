@@ -29,7 +29,7 @@ const TableSaw = ({
   const onDeleteMenuItem = (id: string) => {
     let sectionProducts = values.content.sections;
 
-    const SPIndex = sectionProducts.findIndex((section) => section.section_name === tableName);
+    const SPIndex = sectionProducts.findIndex((section) => section.sectionName === tableName);
 
     if (SPIndex !== -1) {
       const updatedProducts = sectionProducts[SPIndex].products.filter((prod) => prod.id !== id);

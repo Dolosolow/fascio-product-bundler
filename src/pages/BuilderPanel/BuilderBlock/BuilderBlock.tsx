@@ -15,10 +15,20 @@ const indicateError = (errors: FormikErrors<any>, name: string) => {
 };
 
 const BuilderBlock = (props: BBProps) => {
+  const flexProps = _.omit(props, [
+    'direction',
+    'instructions',
+    'title',
+    'errors',
+    'wrapChildren',
+    'responsiveDirection',
+  ]);
   const { direction = 'row' } = props;
 
   const renderInstructions = props.instructions && (
-    <chakra.p fontSize="xs">{props.instructions}</chakra.p>
+    <chakra.p fontSize="xs" maxW="400px">
+      {props.instructions}
+    </chakra.p>
   );
 
   const renderChildren = (
@@ -26,7 +36,7 @@ const BuilderBlock = (props: BBProps) => {
       spacing={3}
       direction={['column', direction === 'row' ? 'row' : 'column']}
       maxW="530px"
-      alignSelf="flex-end"
+      alignSelf="center"
       position="relative"
     >
       {props.children}
@@ -35,12 +45,13 @@ const BuilderBlock = (props: BBProps) => {
 
   return (
     <Flex
+      alignItems="center"
       justifyContent="space-between"
-      mt={props.mt}
-      pl={props.pl}
+      {...flexProps}
       direction={[props.responsiveDirection ? 'column' : 'row', null, 'row', 'row']}
     >
       <HeaderText
+        alignSelf={props.responsiveDirection ? 'flex-start' : undefined}
         title={props.title}
         content={renderInstructions}
         textColor={indicateError(props.errors!, props.title)}

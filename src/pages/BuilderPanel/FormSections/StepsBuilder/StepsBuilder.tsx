@@ -24,7 +24,7 @@ const StepsSection = ({
         {({ form, meta }: FieldProps<{ layout: { steps_template: string } }>) => {
           return (
             <BuilderBlock
-              title="steps layout"
+              title="steps Layout"
               instructions="Optional: Display numbered steps to completion. If you do not want numbered steps select N/A."
               wrapChildren
               errors={meta.touched && meta.error ? { steps: meta.error } : {}}
@@ -40,7 +40,7 @@ const StepsSection = ({
       </Field>
       <BuilderBlock
         title="Indicator Shape"
-        instructions="Optional: Display numbered steps to completion. If you do not want numbered steps select N/A."
+        instructions="Select from a variety of step indicators shapes. Default shape: Circle."
         wrapChildren
       >
         <FormControl id="shape">
@@ -71,9 +71,7 @@ const StepsSection = ({
           colorScheme="teal"
           defaultChecked={true}
           isChecked={showAlternateBgClr}
-          onChange={() => {
-            if (toggleShow) toggleShow(!showAlternateBgClr);
-          }}
+          onChange={() => (toggleShow ? toggleShow(!showAlternateBgClr) : null)}
         />
       </BuilderBlock>
       {showAlternateBgClr && (

@@ -44,7 +44,7 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
           cache.writeQuery<Query>({
             query: getAllBundles,
             data: {
-              getBundles: [...bundlesData!.getBundles, data!.addNewBundle],
+              getBundles: [...bundlesData!.getBundles!, data!.addNewBundle],
             },
           });
         },

@@ -77,11 +77,11 @@ const FormReview = ({
   const renderSectionContent = () => (
     <BuilderBlock title="Sections" direction="column">
       {values.content.sections.map((section) => (
-        <React.Fragment key={section.section_name}>
+        <React.Fragment key={section.sectionName}>
           <HStack spacing={4} justify="space-between" wrap="wrap">
             <chakra.p whiteSpace="nowrap">
               <strong style={{ marginRight: '6px' }}>Section:</strong>
-              {section.section_name}
+              {section.sectionName}
             </chakra.p>
             <chakra.p whiteSpace="nowrap">
               <strong style={{ marginRight: '6px' }}>Limit:</strong>

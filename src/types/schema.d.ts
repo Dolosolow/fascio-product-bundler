@@ -14,9 +14,10 @@ export type Scalars = {
 
 export type Bundle = {
   id: Scalars['ID'];
-  storeId: Scalars['ID'];
-  status: BundleStatus;
+  storeId: Scalars['String'];
+  status: BundleStatus.Active | BundleStatus.Expired | BundleStatus.Inactive | BundleStatus.Removed;
   visits: Scalars['Int'];
+  bundleName: Scalars['String'];
   layout: LayoutTemplate;
   content: BundleContent;
   date_created: Scalars['String'];
@@ -32,17 +33,13 @@ export type BundleContentInput = {
 };
 
 export type BundleInput = {
-  storeId: Scalars['ID'];
+  storeId: Scalars['String'];
+  bundleName: Scalars['String'];
   layout: LayoutTemplateInput;
   content: BundleContentInput;
 };
 
-export enum BundleStatus {
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
-  Removed = 'REMOVED',
-  Expired = 'EXPIRED',
-}
+export type BundleStatus = 'ACTIVE' | 'INACTIVE' | 'REMOVED' | 'EXPIRED';
 
 export type CreationResponse = {
   errors?: Maybe<Array<Error>>;
@@ -119,7 +116,7 @@ export type ProductInput = {
 export type Query = {
   productsByKeyword?: Maybe<Array<Product>>;
   productById?: Maybe<Product>;
-  getBundles: Array<Bundle>;
+  getBundles?: Array<Bundle>;
   getBundle?: Maybe<Bundle>;
   root?: Scalars['String'];
 };
@@ -137,7 +134,7 @@ export type QueryGetBundleArgs = {
 };
 
 export type Section = {
-  section_name: Scalars['String'];
+  sectionName: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
   specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -145,7 +142,7 @@ export type Section = {
 };
 
 export type SectionInput = {
-  section_name: Scalars['String'];
+  sectionName: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
   specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
