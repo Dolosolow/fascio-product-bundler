@@ -8,8 +8,9 @@ export const grupResolver: Resolvers<Bundle> = {
       console.log(testBundles);
       return testBundles;
     },
-    getBundle: async () => {
-      return null;
+    getBundle: async (_, { id }) => {
+      const requestedBundle = testBundles.find((bundle) => bundle.id === id);
+      return requestedBundle || null;
     },
   },
   Mutation: {

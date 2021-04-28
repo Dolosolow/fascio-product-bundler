@@ -15,9 +15,10 @@ export type Scalars = {
 
 export type Bundle = {
   id: Scalars['ID'];
-  storeId: Scalars['ID'];
+  storeId: Scalars['String'];
   status: BundleStatus;
   visits: Scalars['Int'];
+  bundleName: Scalars['String'];
   layout: LayoutTemplate;
   content: BundleContent;
   date_created: Scalars['String'];
@@ -33,7 +34,8 @@ export type BundleContentInput = {
 };
 
 export type BundleInput = {
-  storeId: Scalars['ID'];
+  storeId: Scalars['String'];
+  bundleName: Scalars['String'];
   layout: LayoutTemplateInput;
   content: BundleContentInput;
 };
@@ -142,7 +144,7 @@ export type QueryGetBundleArgs = {
 };
 
 export type Section = {
-  section_name: Scalars['String'];
+  sectionName: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
   specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -150,7 +152,7 @@ export type Section = {
 };
 
 export type SectionInput = {
-  section_name: Scalars['String'];
+  sectionName: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
   specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -251,8 +253,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Bundle: ResolverTypeWrapper<Bundle>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   BundleContent: ResolverTypeWrapper<BundleContent>;
   BundleContentInput: BundleContentInput;
   BundleInput: BundleInput;
@@ -278,8 +280,8 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Bundle: Bundle;
   ID: Scalars['ID'];
-  Int: Scalars['Int'];
   String: Scalars['String'];
+  Int: Scalars['Int'];
   BundleContent: BundleContent;
   BundleContentInput: BundleContentInput;
   BundleInput: BundleInput;
@@ -302,9 +304,10 @@ export type ResolversParentTypes = {
 
 export type BundleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bundle'] = ResolversParentTypes['Bundle']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  storeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  storeId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['BundleStatus'], ParentType, ContextType>;
   visits?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  bundleName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   layout?: Resolver<ResolversTypes['LayoutTemplate'], ParentType, ContextType>;
   content?: Resolver<ResolversTypes['BundleContent'], ParentType, ContextType>;
   date_created?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -372,7 +375,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Section'] = ResolversParentTypes['Section']> = {
-  section_name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sectionName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   specialNotes?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;

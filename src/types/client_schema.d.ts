@@ -14,9 +14,10 @@ export type Scalars = {
 
 export type Bundle = {
   id: Scalars['ID'];
-  storeId: Scalars['ID'];
+  storeId: Scalars['String'];
   status: BundleStatus;
   visits: Scalars['Int'];
+  bundleName: Scalars['String'];
   layout: LayoutTemplate;
   content: BundleContent;
   date_created: Scalars['String'];
@@ -32,7 +33,8 @@ export type BundleContentInput = {
 };
 
 export type BundleInput = {
-  storeId: Scalars['ID'];
+  storeId: Scalars['String'];
+  bundleName: Scalars['String'];
   layout: LayoutTemplateInput;
   content: BundleContentInput;
 };
@@ -41,7 +43,7 @@ export enum BundleStatus {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
   Removed = 'REMOVED',
-  Expired = 'EXPIRED',
+  Expired = 'EXPIRED'
 }
 
 export type CreationResponse = {
@@ -79,6 +81,7 @@ export type LayoutTemplateInput = {
 export type Mutation = {
   addNewBundle: CreationResponse;
 };
+
 
 export type MutationAddNewBundleArgs = {
   newBundle: BundleInput;
@@ -121,23 +124,26 @@ export type Query = {
   productById?: Maybe<Product>;
   getBundles: Array<Bundle>;
   getBundle?: Maybe<Bundle>;
-  root?: Scalars['String'];
+  root: Scalars['String'];
 };
+
 
 export type QueryProductsByKeywordArgs = {
   keyword?: Maybe<Scalars['String']>;
 };
 
+
 export type QueryProductByIdArgs = {
   id: Scalars['ID'];
 };
+
 
 export type QueryGetBundleArgs = {
   id: Scalars['ID'];
 };
 
 export type Section = {
-  section_name: Scalars['String'];
+  sectionName: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
   specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -145,7 +151,7 @@ export type Section = {
 };
 
 export type SectionInput = {
-  section_name: Scalars['String'];
+  sectionName: Scalars['String'];
   limit: Scalars['Int'];
   required: Scalars['Boolean'];
   specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;

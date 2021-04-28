@@ -10,9 +10,10 @@ export const GrupType = gql`
 
   type Bundle {
     id: ID!
-    storeId: ID!
+    storeId: String!
     status: BundleStatus!
     visits: Int!
+    bundleName: String!
     layout: LayoutTemplate!
     content: BundleContent!
     date_created: String!
@@ -35,7 +36,7 @@ export const GrupType = gql`
   }
 
   type Section {
-    section_name: String!
+    sectionName: String!
     limit: Int!
     required: Boolean!
     specialNotes: [String]
@@ -58,13 +59,14 @@ export const GrupType = gql`
   }
 
   input BundleInput {
-    storeId: ID!
+    storeId: String!
+    bundleName: String!
     layout: LayoutTemplateInput!
     content: BundleContentInput!
   }
 
   input SectionInput {
-    section_name: String!
+    sectionName: String!
     limit: Int!
     required: Boolean!
     specialNotes: [String]
