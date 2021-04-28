@@ -22,14 +22,19 @@ export const getAllBundles = gql`
   query getBundles {
     getBundles {
       id
-      visits
+      storeId
       status
       bundleName
-      layout {
-        layout_template
-        steps_template
+      visits
+      content {
+        sections {
+          products {
+            id
+          }
+        }
       }
       date_created
+      date_updated
     }
   }
 `;
