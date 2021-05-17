@@ -1,6 +1,6 @@
-import { IResolvers } from 'graphql-tools';
-import { QueryProductsByKeywordArgs, QueryProductByIdArgs } from 'src/types/schema';
-import axios from '../../utils/apiConfig';
+import { IResolvers } from "graphql-tools";
+import { QueryProductsByKeywordArgs, QueryProductByIdArgs } from "src/types/schema";
+import axios from "../../utils/apiConfig";
 
 export const siteResolver: IResolvers = {
   Query: {

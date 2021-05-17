@@ -1,14 +1,14 @@
-import 'reflect-metadata';
-import 'dotenv/config';
-import { graphqlHTTP } from 'express-graphql';
-import express, { Request } from 'express';
-import session from 'express-session';
-import cors from 'cors';
-import Redis from 'ioredis';
-import connectRedis from 'connect-redis';
+import "reflect-metadata";
+import "dotenv/config";
+import { graphqlHTTP } from "express-graphql";
+import express, { Request } from "express";
+import session from "express-session";
+import cors from "cors";
+import Redis from "ioredis";
+import connectRedis from "connect-redis";
 
-import { createTypeormConn } from './utils/createTypeormConn';
-import schema from './graphql/schema';
+import { createTypeormConn } from "./utils/createTypeormConn";
+import schema from "./graphql/schema";
 
 const RedisStore = connectRedis(session);
 const redis = new Redis();
@@ -16,25 +16,26 @@ const redis = new Redis();
 export const startServer = async () => {
   const app = express();
 
-  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
   app.use(
     session({
       store: new RedisStore({ client: redis }),
-      name: 'qbctkn',
+      name: "qbctkn",
       secret: process.env.SESSION_SECRET!,
       resave: false,
       saveUninitialized: false,
       cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === "production" ? true : true,
         maxAge: 1000 * 60 * 60 * 24,
+        sameSite: "none",
       },
     })
   );
 
   app.use(
-    '/graphql',
+    "/graphql",
     graphqlHTTP({
       graphiql: true,
       schema,
@@ -49,7 +50,7 @@ export const startServer = async () => {
 
   app.listen(4000, () =>
     console.log(
-      '\n🚀 server is running in the following urls:\n\nGraphQL:\thttp://localhost:4000/graphql\nAPI:\t\thttp://localhost:4000'
+      "\n🚀 server is running in the following urls:\n\nGraphQL:\thttp://localhost:4000/graphql\nAPI:\t\thttp://localhost:4000"
     )
   );
 

@@ -1,17 +1,10 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GrupType = gql`
-  enum BundleStatus {
-    ACTIVE
-    INACTIVE
-    REMOVED
-    EXPIRED
-  }
-
   type Bundle {
     id: ID!
     storeId: String!
-    status: BundleStatus!
+    status: String!
     visits: Int!
     bundleName: String!
     layout: LayoutTemplate!
@@ -37,7 +30,8 @@ export const GrupType = gql`
 
   type Section {
     sectionName: String!
-    limit: Int!
+    maxSelect: Int!
+    minSelect: Int!
     required: Boolean!
     specialNotes: [String]
     products: [Product!]!
@@ -67,7 +61,8 @@ export const GrupType = gql`
 
   input SectionInput {
     sectionName: String!
-    limit: Int!
+    maxSelect: Int!
+    minSelect: Int!
     required: Boolean!
     specialNotes: [String]
     products: [ProductInput!]!
