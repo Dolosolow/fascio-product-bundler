@@ -16,18 +16,23 @@ export const grupResolver: Resolvers<Bundle> = {
   Mutation: {
     addNewBundle: async (_, { newBundle }) => {
       const bundle: Bundle = {
-        id: "0",
+        id: (testBundles.length + 1).toString(),
         visits: 0,
         status: "INACTIVE",
         ...newBundle,
         date_created: new Date().toString(),
         date_updated: new Date().toString(),
       };
+
       testBundles.push(bundle);
+
       console.log("====================================");
       console.log("-- Store Bundles --");
       console.log(testBundles);
+      console.log("-- Store Bundles Sections --");
+      console.log(testBundles[0].content);
       console.log("====================================");
+
       return {
         errors: [],
         success: true,

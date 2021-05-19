@@ -33,7 +33,7 @@ export const GrupType = gql`
     maxSelect: Int!
     minSelect: Int!
     required: Boolean!
-    specialNotes: [String]
+    specialNotes: [String]!
     products: [Product!]!
   }
 
@@ -64,7 +64,7 @@ export const GrupType = gql`
     maxSelect: Int!
     minSelect: Int!
     required: Boolean!
-    specialNotes: [String]
+    specialNotes: [String]!
     products: [ProductInput!]!
   }
 
