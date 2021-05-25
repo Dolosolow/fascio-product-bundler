@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const productsByKeyword = gql`
   query productsByKeyword($keyword: String!) {
@@ -35,6 +35,44 @@ export const getAllBundles = gql`
       }
       date_created
       date_updated
+    }
+  }
+`;
+
+export const getBundle = gql`
+  query getBundle($id: ID!) {
+    getBundle(id: $id) {
+      id
+      bundleName
+      layout {
+        layout_bannerImg
+        layout_bgColor
+        layout_template
+        steps_template
+        steps_alternateBgColor
+        steps_bgColor
+        steps_borderColor
+        steps_fontColor
+      }
+      content {
+        sections {
+          sectionName
+          minSelect
+          maxSelect
+          required
+          specialNotes
+          products {
+            id
+            name
+            sku
+            price
+            primary_image {
+              url_standard
+              url_thumbnail
+            }
+          }
+        }
+      }
     }
   }
 `;

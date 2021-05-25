@@ -1,40 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { chakra, Button } from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
+import { chakra, Button } from "@chakra-ui/react";
 
-import { BundleStatus } from 'src/types/schema';
-
-interface DBProps {
-  buttonStatus: BundleStatus;
+export interface DBProps {
+  buttonStatus: "ACTIVE" | "INACTIVE" | "REMOVED" | "EXPIRED";
 }
 
 const DynoButton = ({ buttonStatus }: DBProps) => {
-  const [buttonState, setButtonState] = useState<BundleStatus>(buttonStatus);
+  const [buttonState, setButtonState] = useState<string>(buttonStatus);
   const [buttonHovered, setButtonHovered] = useState(false);
 
-  const getButtonState = (bundleStatus: BundleStatus) => {
-    let buttonState = '';
+  const getButtonState = (bundleStatus: string) => {
+    let buttonState = "";
 
-    if (bundleStatus === 'ACTIVE') {
-      buttonState = buttonHovered ? 'stop' : 'running';
-    } else if (bundleStatus === 'INACTIVE') {
-      buttonState = buttonHovered ? 'start' : 'standby';
+    if (bundleStatus === "ACTIVE") {
+      buttonState = buttonHovered ? "stop" : "running";
+    } else if (bundleStatus === "INACTIVE") {
+      buttonState = buttonHovered ? "start" : "standby";
     }
 
     return buttonState
-      .split(' ')
+      .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .join(" ");
   };
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
     switch (buttonState) {
-      case 'INACTIVE':
-        setButtonState('ACTIVE');
+      case "INACTIVE":
+        setButtonState("ACTIVE");
         break;
-      case 'ACTIVE':
-        setButtonState('INACTIVE');
+      case "ACTIVE":
+        setButtonState("INACTIVE");
         break;
       default:
         break;
@@ -48,7 +46,7 @@ const DynoButton = ({ buttonStatus }: DBProps) => {
   return (
     <Button
       type="button"
-      colorScheme={buttonState === 'ACTIVE' ? 'green' : 'yellow'}
+      colorScheme={buttonState === "ACTIVE" ? "green" : "yellow"}
       display="flex"
       flexDir="column"
       justifyContent="flex-end"
@@ -62,7 +60,7 @@ const DynoButton = ({ buttonStatus }: DBProps) => {
       onClick={handleButtonClick}
     >
       <chakra.p
-        transform={`${buttonHovered ? 'translateY(40px)' : 'translateY(0)'}`}
+        transform={`${buttonHovered ? "translateY(40px)" : "translateY(0)"}`}
         display="flex"
         transition="all 0.2s ease-in"
         alignItems="center"
@@ -72,7 +70,7 @@ const DynoButton = ({ buttonStatus }: DBProps) => {
         {getButtonState(buttonState)}
       </chakra.p>
       <chakra.p
-        transform={`${buttonHovered ? 'translateY(40px)' : 'translateY(0)'}`}
+        transform={`${buttonHovered ? "translateY(40px)" : "translateY(0)"}`}
         display="flex"
         transition="all 0.2s ease-in"
         alignItems="center"

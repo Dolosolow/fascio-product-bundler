@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -13,15 +12,15 @@ export type Scalars = {
 };
 
 export type Bundle = {
-  id: Scalars['ID'];
-  storeId: Scalars['String'];
-  status: BundleStatus.Active | BundleStatus.Expired | BundleStatus.Inactive | BundleStatus.Removed;
-  visits: Scalars['Int'];
-  bundleName: Scalars['String'];
+  id: Scalars["ID"];
+  storeId: Scalars["String"];
+  status: Scalars["String"];
+  visits: Scalars["Int"];
+  bundleName: Scalars["String"];
   layout: LayoutTemplate;
   content: BundleContent;
-  date_created: Scalars['String'];
-  date_updated: Scalars['String'];
+  date_created: Scalars["String"];
+  date_updated: Scalars["String"];
 };
 
 export type BundleContent = {
@@ -33,44 +32,42 @@ export type BundleContentInput = {
 };
 
 export type BundleInput = {
-  storeId: Scalars['String'];
-  bundleName: Scalars['String'];
+  storeId: Scalars["String"];
+  bundleName: Scalars["String"];
   layout: LayoutTemplateInput;
   content: BundleContentInput;
 };
 
-export type BundleStatus = 'ACTIVE' | 'INACTIVE' | 'REMOVED' | 'EXPIRED';
-
 export type CreationResponse = {
   errors?: Maybe<Array<Error>>;
-  success: Scalars['Boolean'];
+  success: Scalars["Boolean"];
 };
 
 export type Error = {
-  field: Scalars['String'];
-  message: Scalars['String'];
+  field: Scalars["String"];
+  message: Scalars["String"];
 };
 
 export type LayoutTemplate = {
-  layout_bannerImg?: Maybe<Scalars['String']>;
-  layout_bgColor: Scalars['String'];
-  layout_template: Scalars['String'];
-  steps_template: Scalars['String'];
-  steps_alternateBgColor: Scalars['String'];
-  steps_bgColor: Scalars['String'];
-  steps_borderColor: Scalars['String'];
-  steps_fontColor: Scalars['String'];
+  layout_bannerImg?: Maybe<Scalars["String"]>;
+  layout_bgColor: Scalars["String"];
+  layout_template: Scalars["String"];
+  steps_template: Scalars["String"];
+  steps_alternateBgColor: Scalars["String"];
+  steps_bgColor: Scalars["String"];
+  steps_borderColor: Scalars["String"];
+  steps_fontColor: Scalars["String"];
 };
 
 export type LayoutTemplateInput = {
-  layout_bannerImg?: Maybe<Scalars['String']>;
-  layout_bgColor: Scalars['String'];
-  layout_template: Scalars['String'];
-  steps_template: Scalars['String'];
-  steps_alternateBgColor: Scalars['String'];
-  steps_bgColor: Scalars['String'];
-  steps_borderColor: Scalars['String'];
-  steps_fontColor: Scalars['String'];
+  layout_bannerImg?: Maybe<Scalars["String"]>;
+  layout_bgColor: Scalars["String"];
+  layout_template: Scalars["String"];
+  steps_template: Scalars["String"];
+  steps_alternateBgColor: Scalars["String"];
+  steps_bgColor: Scalars["String"];
+  steps_borderColor: Scalars["String"];
+  steps_fontColor: Scalars["String"];
 };
 
 export type Mutation = {
@@ -82,34 +79,34 @@ export type MutationAddNewBundleArgs = {
 };
 
 export type Product = {
-  id: Scalars['String'];
-  name: Scalars['String'];
-  sku: Scalars['String'];
-  price: Scalars['String'];
-  sale_price: Scalars['String'];
+  id: Scalars["String"];
+  name: Scalars["String"];
+  sku: Scalars["String"];
+  price: Scalars["String"];
+  sale_price: Scalars["String"];
   primary_image: ProductImage;
 };
 
 export type ProductImage = {
-  id: Scalars['ID'];
-  description: Scalars['String'];
-  url_thumbnail: Scalars['String'];
-  url_standard: Scalars['String'];
+  id: Scalars["ID"];
+  description: Scalars["String"];
+  url_thumbnail: Scalars["String"];
+  url_standard: Scalars["String"];
 };
 
 export type ProductImageInput = {
-  id: Scalars['ID'];
-  description: Scalars['String'];
-  url_thumbnail: Scalars['String'];
-  url_standard: Scalars['String'];
+  id: Scalars["ID"];
+  description: Scalars["String"];
+  url_thumbnail: Scalars["String"];
+  url_standard: Scalars["String"];
 };
 
 export type ProductInput = {
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  sku: Scalars['String'];
-  price: Scalars['String'];
-  sale_price: Scalars['String'];
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  sku: Scalars["String"];
+  price: Scalars["String"];
+  sale_price: Scalars["String"];
   primary_image: ProductImageInput;
 };
 
@@ -118,47 +115,49 @@ export type Query = {
   productById?: Maybe<Product>;
   getBundles?: Array<Bundle>;
   getBundle?: Maybe<Bundle>;
-  root?: Scalars['String'];
+  root?: Scalars["String"];
 };
 
 export type QueryProductsByKeywordArgs = {
-  keyword?: Maybe<Scalars['String']>;
+  keyword?: Maybe<Scalars["String"]>;
 };
 
 export type QueryProductByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 export type QueryGetBundleArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 export type Section = {
-  sectionName: Scalars['String'];
-  limit: Scalars['Int'];
-  required: Scalars['Boolean'];
-  specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  sectionName: Scalars["String"];
+  maxSelect: Scalars["Int"];
+  minSelect: Scalars["Int"];
+  required: Scalars["Boolean"];
+  specialNotes?: Maybe<Array<Maybe<Scalars["String"]>>>;
   products: Array<Product>;
 };
 
 export type SectionInput = {
-  sectionName: Scalars['String'];
-  limit: Scalars['Int'];
-  required: Scalars['Boolean'];
-  specialNotes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  sectionName: Scalars["String"];
+  maxSelect: Scalars["Int"];
+  minSelect: Scalars["Int"];
+  required: Scalars["Boolean"];
+  specialNotes?: Maybe<Array<Maybe<Scalars["String"]>>>;
   products: Array<ProductInput>;
 };
 
 export type Store = {
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  email: Scalars['String'];
-  created_at: Scalars['String'];
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  email: Scalars["String"];
+  created_at: Scalars["String"];
   bundles?: Maybe<Array<Bundle>>;
 };
 
 export type StoreInput = {
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  email: Scalars['String'];
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  email: Scalars["String"];
 };

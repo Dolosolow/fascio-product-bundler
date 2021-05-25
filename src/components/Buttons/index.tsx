@@ -1,3 +1,5 @@
-import DynoButton from './DynoButton';
+import CartButton from "./CartButton";
+import DynoButton from "./DynoButton";
+import SimpleIconButton from "./SimpleIconButton";
 
-export { DynoButton };
+export { CartButton, DynoButton, SimpleIconButton };

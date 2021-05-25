@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react';
+import { Box } from "@chakra-ui/react";
 
-import { ChakraCtrlFocusProvider } from 'src/theme/theme';
-import { ApolloGQLProvider } from 'src/graphql/provider';
-import Routes from 'src/routes';
+import { ChakraCtrlFocusProvider } from "src/theme/theme";
+import { ApolloGQLProvider } from "src/graphql/provider";
+import Routes from "src/routes/mainRoutes";
 
 const App = () => {
   return (

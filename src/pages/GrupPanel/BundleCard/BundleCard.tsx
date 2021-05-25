@@ -1,11 +1,11 @@
-import { Grid, GridItem, MenuItem, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
+import { Grid, GridItem, MenuItem, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
-import { DynoButton } from 'src/components/Buttons';
-import QuickMenu from 'src/components/QuickMenu';
+import DynoButton, { DBProps } from "src/components/Buttons/DynoButton/DynoButton";
+import QuickMenu from "src/components/QuickMenu";
 
-import { Bundle } from 'src/types/schema';
+import { Bundle } from "src/types/schema";
 
 interface BCProps {
   bundle: Bundle;
@@ -50,7 +50,7 @@ const BundleCard = ({ bundle }: BCProps) => {
         <Link to={`/bundle/${bundle.id}`}>
           <Text
             color="blue.500"
-            _hover={{ textDecoration: 'underline' }}
+            _hover={{ textDecoration: "underline" }}
             minW="70px"
             textAlign="center"
           >
@@ -92,7 +92,7 @@ const BundleCard = ({ bundle }: BCProps) => {
         <Text>{formatCreatedAtDate()}</Text>
       </GridItem>
       <GridItem rowSpan={1} colStart={9} colEnd={9}>
-        <DynoButton buttonStatus={bundle.status} />
+        <DynoButton buttonStatus={bundle.status as DBProps["buttonStatus"]} />
       </GridItem>
       <GridItem rowSpan={1} colStart={10} colEnd={10} margin="auto" minW="70px" textAlign="center">
         <QuickMenu>

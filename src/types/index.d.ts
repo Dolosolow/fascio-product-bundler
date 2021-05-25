@@ -1,10 +1,10 @@
-import { FlexProps } from '@chakra-ui/react';
-import { Product } from './schema';
+import { FlexProps } from "@chakra-ui/react";
+import { Product } from "./schema";
 
 declare namespace Grup {
-  type LayoutTemplate = 'G1_HORICOL' | 'G1_VERTROW';
+  type LayoutTemplate = "G1_HORICOL" | "G1_VERTROW";
 
-  type StepsShapeTemplate = 'CRL' | 'SQR' | 'DMD' | 'RDSQR' | 'RDDMD' | 'BRST';
+  type StepsShapeTemplate = "CRL" | "SQR" | "DMD" | "RDSQR" | "RDDMD" | "BRST";
 
   type Message = { path: string; message?: string };
 
@@ -28,7 +28,8 @@ declare namespace Grup {
 
   type SectionContent = {
     sectionName: string;
-    limit: number;
+    maxSelect: number;
+    minSelect: number;
     required: boolean;
     specialNotes: string[];
     products: StepProduct[];

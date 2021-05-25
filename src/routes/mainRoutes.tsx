@@ -1,6 +1,7 @@
 import { Switch, Route } from 'react-router-dom';
 
 import BuilderPanel from 'src/pages/BuilderPanel';
+import BundlePage from 'src/pages/BundlePage';
 import FormReview from 'src/pages/FormReview';
 import GrupPanel from 'src/pages/GrupPanel';
 import MultiPageForm from 'src/components/MultPageForm';
@@ -24,6 +25,7 @@ const Routes = () => {
           />
         )}
       />
+      <Route path="/bundle/:id" component={BundlePage} />
       <Route path="/" component={GrupPanel} />
     </Switch>
   );

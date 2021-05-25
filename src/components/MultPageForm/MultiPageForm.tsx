@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Formik, FormikHelpers, Form } from 'formik';
-import { chakra, useColorModeValue, Flex } from '@chakra-ui/react';
-import { useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { Formik, FormikHelpers, Form } from "formik";
+import { chakra, useColorModeValue, Flex } from "@chakra-ui/react";
+import { useMutation } from "@apollo/client";
 
-import { addNewBundle } from 'src/graphql/mutations';
-import { getAllBundles } from 'src/graphql/queries';
-import { BundleInput, Query } from 'src/types/schema';
+import { addNewBundle } from "src/graphql/mutations";
+import { getAllBundles } from "src/graphql/queries";
+import { BundleInput, Query } from "src/types/schema";
 
-import FormPageController from 'src/components/MultPageForm/FormPagesController';
+import FormPageController from "src/components/MultPageForm/FormPagesController";
 
 interface MPFProps {
   formPages: React.ReactNode[];
@@ -31,10 +31,19 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
   };
 
   const onFormSubmit = async (values: Builder.Grup.BuilderMap) => {
-    const newBundle = {
-      storeId: '0',
+    const tempValues = {
       ...values,
+      layout: {
+        ...values.layout,
+        layout_bannerImg: "https://www.umfk.edu/sites/default/assets/File/nursing%20students.jpg",
+      },
     };
+
+    const newBundle = {
+      storeId: "0",
+      ...tempValues,
+    };
+
     try {
       await addBundle({
         variables: { newBundle: newBundle as BundleInput },
@@ -49,18 +58,18 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
           });
         },
       });
-      history.push('/');
+      history.push("/");
     } catch (err) {
       console.log(err);
     }
-    console.log('====================================');
-    console.log('creating new bundle');
-    console.log(newBundle);
-    console.log('====================================');
+    // console.log("====================================");
+    // console.log("creating new bundle");
+    // console.log(newBundle);
+    // console.log("====================================");
   };
 
   return (
-    <chakra.span bg={useColorModeValue('gray.50', 'grey.300')}>
+    <chakra.span bg={useColorModeValue("gray.50", "grey.300")}>
       <Formik<Builder.Grup.BuilderMap>
         initialValues={initialFormValues}
         validationSchema={validationSchema}

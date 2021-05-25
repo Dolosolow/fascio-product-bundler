@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Input,
   Flex,
@@ -12,12 +12,12 @@ import {
   NumberInputField,
   HStack,
   chakra,
-} from '@chakra-ui/react';
-import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from 'formik';
+} from "@chakra-ui/react";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from "formik";
 
-import BuilderBlock from 'src/pages/BuilderPanel/BuilderBlock';
-import ComponentMultiplier from '../ComponentMultiplier';
+import BuilderBlock from "src/pages/BuilderPanel/BuilderBlock";
+import ComponentMultiplier from "../ComponentMultiplier";
 
 const FieldList = () => {
   let boundArrayHelpers: FieldArrayRenderProps;
@@ -25,7 +25,7 @@ const FieldList = () => {
   const [hidden, setHidden] = useState(true);
 
   const { values, errors, touched } = useFormikContext<Builder.Grup.BuilderMap>();
-  const btnEventColor = useColorModeValue('gray.200', 'gray.700');
+  const btnEventColor = useColorModeValue("gray.200", "gray.700");
 
   const bindArrayHelpers = (arrHelpers: FieldArrayRenderProps) => {
     boundArrayHelpers = arrHelpers;
@@ -46,7 +46,7 @@ const FieldList = () => {
                   responsiveDirection={true}
                   direction="column"
                   mt={12}
-                  pl={['0', '0', '12', '12', '12']}
+                  pl={["0", "0", "12", "12", "12"]}
                   title={`Section ${idx + 1}`}
                   errors={
                     errors.content?.sections![idx] && touched.content?.sections![idx]
@@ -59,7 +59,7 @@ const FieldList = () => {
                       return (
                         <>
                           <Input
-                            border={meta.touched && meta.error ? '1px solid #ff4f4f' : undefined}
+                            border={meta.touched && meta.error ? "1px solid #ff4f4f" : undefined}
                             borderRadius={meta.touched && meta.error ? 7 : 0}
                             p={2}
                             name={field.name}
@@ -93,12 +93,41 @@ const FieldList = () => {
                       {({ field }: FieldProps<typeof values.content.sections>) => {
                         return (
                           <Checkbox colorScheme="teal" name={field.name} onChange={field.onChange}>
-                            Required section
+                            Required
                           </Checkbox>
                         );
                       }}
                     </Field>
-                    <Field type="number" name={`content.sections[${idx}].limit`}>
+                    {values.content.sections[idx].required && (
+                      <Field type="number" name={`content.sections[${idx}].minSelect`}>
+                        {({ field, form }: FieldProps<typeof values.content.sections>) => {
+                          return (
+                            <Flex alignItems="center">
+                              <NumberInput
+                                name={field.name}
+                                defaultValue={0}
+                                maxW={20}
+                                min={0}
+                                size="sm"
+                                onChange={(_, numValue) =>
+                                  form.setFieldValue(`content.sections[${idx}].minSelect`, numValue)
+                                }
+                              >
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                  <NumberIncrementStepper />
+                                  <NumberDecrementStepper />
+                                </NumberInputStepper>
+                              </NumberInput>
+                              <chakra.label htmlFor={`content.sections[${idx}].minSelect`} ml={3}>
+                                Min Limit
+                              </chakra.label>
+                            </Flex>
+                          );
+                        }}
+                      </Field>
+                    )}
+                    <Field type="number" name={`content.sections[${idx}].maxSelect`}>
                       {({ field, form }: FieldProps<typeof values.content.sections>) => {
                         return (
                           <Flex alignItems="center">
@@ -109,7 +138,7 @@ const FieldList = () => {
                               min={0}
                               size="sm"
                               onChange={(_, numValue) =>
-                                form.setFieldValue(`content.sections[${idx}].limit`, numValue)
+                                form.setFieldValue(`content.sections[${idx}].maxSelect`, numValue)
                               }
                             >
                               <NumberInputField />
@@ -118,8 +147,8 @@ const FieldList = () => {
                                 <NumberDecrementStepper />
                               </NumberInputStepper>
                             </NumberInput>
-                            <chakra.label htmlFor={`content.sections[${idx}].limit`} ml={3}>
-                              Section buy limit
+                            <chakra.label htmlFor={`content.sections[${idx}].maxSelect`} ml={3}>
+                              Max Limit
                             </chakra.label>
                           </Flex>
                         );
@@ -149,8 +178,9 @@ const FieldList = () => {
           leftIcon={<AddIcon />}
           onClick={() =>
             boundArrayHelpers.insert(values.content.sections.length + 1, {
-              sectionName: '',
-              limit: 0,
+              sectionName: "",
+              maxSelect: 0,
+              minSelect: 0,
               required: false,
               specialNotes: [],
               products: [],
@@ -167,7 +197,7 @@ const FieldList = () => {
           textAlign="center"
           variant="ghost"
           p={0}
-          h={'150px'}
+          h={"150px"}
           w="10%"
           ml={2}
           onClick={() => boundArrayHelpers.remove(values.content.sections.length - 1)}

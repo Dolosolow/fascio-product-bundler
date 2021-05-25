@@ -9,13 +9,14 @@ const GridTableHead = (props: GTHProps) => {
     return props.gridItems.map((item, idx) => {
       if (idx === 0) {
         return (
-          <GridItem rowSpan={1} colSpan={2} minW="70px">
+          <GridItem key={idx} rowSpan={1} colSpan={2} minW="70px">
             <h4>{item}</h4>
           </GridItem>
         );
       } else if (idx === props.gridItems.length - 1) {
         return (
           <GridItem
+            key={idx}
             rowSpan={1}
             colStart={props.gridItems.length + 2}
             colEnd={props.gridItems.length + 2}
@@ -29,6 +30,7 @@ const GridTableHead = (props: GTHProps) => {
       } else {
         return (
           <GridItem
+            key={idx}
             rowSpan={1}
             colStart={2 + idx}
             colEnd={2 + idx}

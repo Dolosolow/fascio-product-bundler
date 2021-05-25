@@ -1,14 +1,14 @@
-import React from 'react';
-import { useFormikContext } from 'formik';
-import { Image, chakra, HStack, Heading, VStack, Divider } from '@chakra-ui/react';
-import _ from 'lodash';
+import React from "react";
+import { useFormikContext } from "formik";
+import { Image, chakra, HStack, Heading, VStack, Divider } from "@chakra-ui/react";
+import _ from "lodash";
 
-import BuilderBlock from 'src/pages/BuilderPanel/BuilderBlock';
-import Container from 'src/components/Container';
-import HeaderText from 'src/components/HeaderText';
-import Thumbnail from 'src/components/Thumbnail';
+import BuilderBlock from "src/pages/BuilderPanel/BuilderBlock";
+import Container from "src/components/Container";
+import HeaderText from "src/components/HeaderText";
+import Thumbnail from "src/components/Thumbnail";
 
-import { getStepsLayout, getLayoutTemplate } from 'src/pages/helpers/SvgShapeGenerator';
+import { getStepsLayout, getLayoutTemplate } from "src/pages/helpers/SvgShapeGenerator";
 
 const FormReview = ({
   showAlternateBgClr,
@@ -22,10 +22,10 @@ const FormReview = ({
   const selectedStepsLayout = getStepsLayout(
     values.layout.steps_template!,
     _.omit(values.layout, [
-      'layout_template',
-      'layout_bannerImg',
-      'layout_bgColor',
-      'steps_template',
+      "layout_template",
+      "layout_bannerImg",
+      "layout_bgColor",
+      "steps_template",
     ])
   );
 
@@ -41,7 +41,7 @@ const FormReview = ({
         bg={values.layout?.layout_bgColor}
         value={`bgColor-${values.layout?.layout_bgColor}`}
         h="50px"
-        w={['200px', '250px']}
+        w={["200px", "250px"]}
       />
     </BuilderBlock>
   );
@@ -78,21 +78,21 @@ const FormReview = ({
     <BuilderBlock title="Sections" direction="column">
       {values.content.sections.map((section) => (
         <React.Fragment key={section.sectionName}>
-          <HStack spacing={4} justify="space-between" wrap="wrap">
+          <HStack border="1px solid red" spacing={4} justify="space-between" wrap="nowrap">
             <chakra.p whiteSpace="nowrap">
-              <strong style={{ marginRight: '6px' }}>Section:</strong>
+              <strong style={{ marginRight: "6px" }}>Section:</strong>
               {section.sectionName}
             </chakra.p>
             <chakra.p whiteSpace="nowrap">
-              <strong style={{ marginRight: '6px' }}>Limit:</strong>
-              {section.limit ? section.limit : '-'}
+              <strong style={{ marginRight: "6px" }}>Min/Max:</strong>
+              {`${section.minSelect} : ${section.maxSelect}`}
             </chakra.p>
             <chakra.p whiteSpace="nowrap">
-              <strong style={{ marginRight: '6px' }}>Required:</strong>
-              {section.required ? 'Yes' : 'No'}
+              <strong style={{ marginRight: "6px" }}>Required:</strong>
+              {section.required ? "Yes" : "No"}
             </chakra.p>
             <chakra.p whiteSpace="nowrap">
-              <strong style={{ marginRight: '6px' }}># of Products:</strong>
+              <strong style={{ marginRight: "6px" }}># of Products:</strong>
               {section.products.length}
             </chakra.p>
           </HStack>
@@ -106,7 +106,7 @@ const FormReview = ({
             >
               {section.specialNotes.map((note, idx) => (
                 <chakra.p whiteSpace="nowrap">
-                  <strong style={{ marginRight: '6px' }}>Note {idx + 1}:</strong>
+                  <strong style={{ marginRight: "6px" }}>Note {idx + 1}:</strong>
                   {note}
                 </chakra.p>
               ))}
