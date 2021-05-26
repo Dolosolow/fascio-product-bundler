@@ -1,8 +1,8 @@
-import { Field, FieldProps } from 'formik';
+import { Field, FieldProps } from "formik";
 
-import BuilderBlock from '../../BuilderBlock';
-import Container from 'src/components/Container';
-import FieldList from 'src/components/FieldList';
+import BuilderBlock from "../../BuilderBlock";
+import Container from "src/components/Container";
+import FieldList from "src/components/FieldList";
 
 const SectionBuilder = (props: Builder.BuilderTools) => {
   return (

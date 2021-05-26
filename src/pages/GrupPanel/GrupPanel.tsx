@@ -31,9 +31,9 @@ const GrupPanel = () => {
     } else if (error) {
       return <chakra.p>something went wrong</chakra.p>;
     } else if (data) {
-      const bundles = data.getBundles!;
+      const bundles = data.getBundles;
 
-      if (bundles.length > 0) {
+      if (bundles && bundles.length > 0) {
         return (
           <>
             <Link to="/page/new" style={{ alignSelf: "flex-end" }}>
