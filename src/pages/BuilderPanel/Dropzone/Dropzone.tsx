@@ -1,7 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useFormikContext } from "formik";
 import { Flex, BoxProps, Text, Image } from "@chakra-ui/react";
 import _ from "lodash";
+
+import { CloseButton } from "src/components/Buttons/CloseButton";
 
 interface DZProps extends BoxProps {
   value?: string | number;
@@ -9,21 +12,37 @@ interface DZProps extends BoxProps {
 }
 
 const ImgDropzone = (props: DZProps) => {
-  const [imgData, setImgData] = useState<any | null>(null);
+  const { setFieldValue } = useFormikContext<Builder.Grup.BuilderMap>();
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
+  const [imgFile, setImgFile] = useState<any | null>(null);
+
   const dropzoneProps = _.omit(props, ["value", "onTNClick"]);
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    acceptedFiles.forEach((file: any) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    acceptedFiles.forEach((file: File) => {
       const reader = new FileReader();
 
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
-        setImgData(reader.result);
+        setPreviewImg(reader.result as any);
       };
+
+      setImgFile(Object.assign(file, { preview: URL.createObjectURL(file) }));
+
       reader.readAsDataURL(file);
     });
   }, []);
+
+  const cancelImgDrop = () => {
+    setImgFile(null);
+    setPreviewImg(null);
+    setFieldValue("layout.layout_bannerImg", null);
+  };
+
+  useEffect(() => {
+    setFieldValue("layout.layout_bannerImg", imgFile);
+  }, [imgFile, setFieldValue]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -50,13 +69,19 @@ const ImgDropzone = (props: DZProps) => {
       outline="0"
     >
       <input {...getInputProps()} />
-      <Text fontSize={["xs", "md"]} color={imgData ? "white" : "gray.500"} zIndex="2">
+      <CloseButton
+        variant="light"
+        iconSize="sm"
+        buttonPosition={{ top: "5px", left: "5px" }}
+        onClose={cancelImgDrop}
+      />
+      <Text fontSize={["xs", "md"]} color={previewImg ? "white" : "gray.500"} zIndex="2">
         Drag 'n' drop an image here, or click to select a file
       </Text>
-      <Text fontSize="xs" color={imgData ? "white" : "gray.500"} zIndex="2">
+      <Text fontSize="xs" color={previewImg ? "white" : "gray.500"} zIndex="2">
         (Only *.jpeg and *.png images will be accepted)
       </Text>
-      {imgData && (
+      {previewImg && (
         <Image
           filter="brightness(60%)"
           objectFit="contain"
@@ -64,7 +89,7 @@ const ImgDropzone = (props: DZProps) => {
           top="-120px"
           left="0"
           zIndex="1"
-          src={imgData}
+          src={previewImg}
         />
       )}
     </Flex>

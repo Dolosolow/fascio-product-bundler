@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Input,
   Flex,
@@ -13,16 +12,16 @@ import {
   HStack,
   chakra,
 } from "@chakra-ui/react";
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from "formik";
 
 import BuilderBlock from "src/pages/BuilderPanel/BuilderBlock";
 import ComponentMultiplier from "../ComponentMultiplier";
 
+import { CloseButton } from "src/components/Buttons/CloseButton";
+
 const FieldList = () => {
   let boundArrayHelpers: FieldArrayRenderProps;
-
-  const [hidden, setHidden] = useState(true);
 
   const { values, errors, touched } = useFormikContext<Builder.Grup.BuilderMap>();
   const btnEventColor = useColorModeValue("gray.200", "gray.700");
@@ -40,7 +39,10 @@ const FieldList = () => {
           values.content.sections.map((section, idx) => {
             bindArrayHelpers(arrHelpers);
             return (
-              <React.Fragment key={idx}>
+              <div key={idx} style={{ position: "relative" }}>
+                {values.content.sections.length > 1 && (
+                  <CloseButton onClose={() => boundArrayHelpers.remove(idx)} />
+                )}
                 <BuilderBlock
                   key={idx}
                   responsiveDirection={true}
@@ -156,19 +158,13 @@ const FieldList = () => {
                     </Field>
                   </HStack>
                 </BuilderBlock>
-              </React.Fragment>
+              </div>
             );
           })
         }
       </FieldArray>
 
-      <Flex
-        onMouseEnter={() => {
-          if (values.content.sections.length > 1) setHidden(false);
-        }}
-        onMouseLeave={() => setHidden(true)}
-        mt={6}
-      >
+      <Flex mt={6}>
         <Button
           variant="ghost"
           textAlign="center"
@@ -190,21 +186,6 @@ const FieldList = () => {
           _active={{ backgroundColor: btnEventColor }}
         >
           Add Section
-        </Button>
-        <Button
-          hidden={hidden}
-          bg="red.500"
-          textAlign="center"
-          variant="ghost"
-          p={0}
-          h={"150px"}
-          w="10%"
-          ml={2}
-          onClick={() => boundArrayHelpers.remove(values.content.sections.length - 1)}
-          _hover={{ backgroundColor: btnEventColor }}
-          _active={{ backgroundColor: btnEventColor }}
-        >
-          <DeleteIcon color="white" boxSize={5} />
         </Button>
       </Flex>
     </>

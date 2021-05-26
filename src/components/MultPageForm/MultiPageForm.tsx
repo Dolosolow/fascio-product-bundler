@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client";
 import { addNewBundle } from "src/graphql/mutations";
 import { getAllBundles } from "src/graphql/queries";
 import { BundleInput, Query } from "src/types/schema";
+import { uploadToCloudianry } from "src/utils/uploadToCloudinary";
 
 import FormPageController from "src/components/MultPageForm/FormPagesController";
 
@@ -31,17 +32,27 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
   };
 
   const onFormSubmit = async (values: Builder.Grup.BuilderMap) => {
-    const tempValues = {
-      ...values,
-      layout: {
-        ...values.layout,
-        layout_bannerImg: "https://www.umfk.edu/sites/default/assets/File/nursing%20students.jpg",
-      },
-    };
+    let formValues = { ...values };
+
+    if (formValues.layout.layout_bannerImg) {
+      const imgUrl = await uploadToCloudianry(
+        "https://api.cloudinary.com/v1_1/dnrj5jpxf/upload",
+        "fascio_21",
+        formValues.layout.layout_bannerImg
+      );
+
+      formValues = {
+        ...formValues,
+        layout: {
+          ...formValues.layout,
+          layout_bannerImg: imgUrl,
+        },
+      };
+    }
 
     const newBundle = {
+      ...formValues,
       storeId: "0",
-      ...tempValues,
     };
 
     try {
@@ -58,14 +69,11 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
           });
         },
       });
+
       history.push("/");
     } catch (err) {
-      console.log(err);
+      console.log("error-on-submit", err);
     }
-    // console.log("====================================");
-    // console.log("creating new bundle");
-    // console.log(newBundle);
-    // console.log("====================================");
   };
 
   return (

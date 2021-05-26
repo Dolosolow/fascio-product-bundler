@@ -1,9 +1,9 @@
-import React from 'react';
-import { HStack, Button } from '@chakra-ui/react';
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-import { useFormikContext } from 'formik';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
+import React from "react";
+import { HStack, Button } from "@chakra-ui/react";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { useFormikContext } from "formik";
+import { Link } from "react-router-dom";
+import _ from "lodash";
 
 interface FPGProps {
   page: number;
@@ -14,21 +14,17 @@ interface FPGProps {
 }
 
 const FormPagesController = (props: FPGProps) => {
-  const {
-    values,
-    setErrors,
-    setValues,
-    validateForm,
-  } = useFormikContext<Builder.Grup.BuilderMap>();
+  const { values, setErrors, setValues, validateForm } =
+    useFormikContext<Builder.Grup.BuilderMap>();
 
   const renderNextSectionBtn = () => {
     switch (props.page) {
       case 0:
-        return 'Add Products';
+        return "Add Products";
       case 1:
-        return 'Review - Confirm';
+        return "Review - Confirm";
       case 2:
-        return 'Create Page';
+        return "Create Page";
       default:
         return;
     }
@@ -36,7 +32,9 @@ const FormPagesController = (props: FPGProps) => {
 
   const onFormPageSubmit = async (e: React.MouseEvent) => {
     e.stopPropagation();
+
     props.handleSubmit();
+
     validateForm().then(async (value) => {
       let error: boolean = false;
 
@@ -61,7 +59,7 @@ const FormPagesController = (props: FPGProps) => {
       }
 
       if (error) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         setValues(values);
         props.setPage(props.page + 1);
@@ -93,7 +91,7 @@ const FormPagesController = (props: FPGProps) => {
         size="lg"
         colorScheme="teal"
         variant="solid"
-        type={props.page === props.pages.length - 1 ? 'submit' : 'button'}
+        type={props.page === props.pages.length - 1 ? "submit" : "button"}
         rightIcon={<ArrowForwardIcon />}
         onClick={onFormPageSubmit}
       >
