@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { VStack, CheckboxGroup, Checkbox, Spinner } from "@chakra-ui/react";
+import { VStack, CheckboxGroup, Spinner } from "@chakra-ui/react";
 import { useFormikContext } from "formik";
 import { useLazyQuery } from "@apollo/client";
 import _ from "lodash";
@@ -32,25 +32,23 @@ export const SearchResultsGroup = ({
     productsByKeyword
   );
 
-  const addProducts = (newProducts: any) => {
-    setProducts([...newProducts]);
-  };
-
-  const onSectionChange = (section: string) => {
-    setSection(section);
-  };
-
   const resetAllFields = () => {
     resetTermField();
     setProducts([]);
   };
 
+  const addProducts = (newProducts: any) => {
+    setProducts([...newProducts]);
+  };
+
   const submitProducts = () => {
     const updatedSections = _.chain(values.content.sections).keyBy("sectionName").value();
+
     products.forEach((prodId) => {
       const product = data!["productsByKeyword"].find((item) => item.id === prodId);
       updatedSections[section].products.push(product!);
     });
+
     setValues({ ...values, content: { sections: _.values(updatedSections) } });
   };
 
@@ -66,12 +64,11 @@ export const SearchResultsGroup = ({
           return (
             <ResultItem
               key={item.id!}
+              value={item.id!}
               title={item.name!}
               img={item["primary_image"]!.url_thumbnail!}
               price={item.price!}
-            >
-              <Checkbox size="lg" value={item.id!} />
-            </ResultItem>
+            />
           );
         })
       );
@@ -81,18 +78,24 @@ export const SearchResultsGroup = ({
   };
 
   useEffect(() => {
-    const fetchProductsByKeyword = () => {
-      const term = searchInput;
-      fetchProducts({ variables: { keyword: term } });
-    };
-
     if (searchInput === "") {
       resetAllFields();
     } else {
-      fetchProductsByKeyword();
+      const term = searchInput;
+      fetchProducts({ variables: { keyword: term } });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput]);
+
+  useEffect(() => {
+    let initialSections = values.content.sections.map((section) => ({
+      ...section,
+      products: [],
+    }));
+
+    setValues({ ...values, content: { sections: initialSections } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <VStack
@@ -113,9 +116,7 @@ export const SearchResultsGroup = ({
     >
       <CheckboxGroup
         colorScheme="teal"
-        onChange={(values) => {
-          addProducts(values);
-        }}
+        onChange={(values) => addProducts(values)}
         value={searchInput === "" ? [] : products}
       >
         {renderResultList()}
@@ -123,7 +124,7 @@ export const SearchResultsGroup = ({
       {multipleSelection && (
         <SearchCheckboxForm
           totalSelectedProducts={products.length}
-          onSectionChange={onSectionChange}
+          onSectionChange={(section) => setSection(section)}
           onSubmitProducts={submitProducts}
           resetTermField={resetAllFields}
         />

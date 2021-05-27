@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { HStack, Button } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { useFormikContext } from "formik";
@@ -17,10 +17,6 @@ interface FPGProps {
 const FormPagesController = (props: FPGProps) => {
   const { values, setErrors, setValues, validateForm } =
     useFormikContext<Builder.Grup.BuilderMap>();
-
-  useEffect(() => {
-    console.log("c-req-state", props.requestState);
-  }, [props.requestState]);
 
   const renderNextSectionBtn = () => {
     switch (props.page) {

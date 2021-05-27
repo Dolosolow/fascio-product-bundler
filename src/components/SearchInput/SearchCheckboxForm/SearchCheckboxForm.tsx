@@ -1,8 +1,8 @@
-import { chakra, Flex, HStack, Button } from '@chakra-ui/react';
-import { useFormikContext } from 'formik';
-import { useState } from 'react';
+import { chakra, Flex, HStack, Button } from "@chakra-ui/react";
+import { useFormikContext } from "formik";
+import { useState } from "react";
 
-import SelectControl from 'src/components/SelectControl';
+import SelectControl from "src/components/SelectControl";
 
 interface SCFProps {
   totalSelectedProducts: number;
@@ -13,18 +13,18 @@ interface SCFProps {
 
 const SearchCheckboxForm = (props: SCFProps) => {
   const { values } = useFormikContext<Builder.Grup.BuilderMap>();
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const onCancel = () => {
-    setSelectValue('');
     props.resetTermField();
+    setSelectValue("");
   };
 
   const onProductsSubmit = () => {
     setSubmitting(true);
-    if (selectValue !== '') {
-      setSelectValue('');
+    if (selectValue !== "") {
+      setSelectValue("");
       props.resetTermField();
       props.onSubmitProducts();
     }
@@ -64,7 +64,13 @@ const SearchCheckboxForm = (props: SCFProps) => {
         <Button variant="outline" colorScheme="gray" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="button" variant="solid" colorScheme="teal" onClick={onProductsSubmit}>
+        <Button
+          disabled={props.totalSelectedProducts === 0}
+          type="button"
+          variant="solid"
+          colorScheme="teal"
+          onClick={onProductsSubmit}
+        >
           Add
         </Button>
       </HStack>
