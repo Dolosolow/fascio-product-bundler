@@ -2,11 +2,12 @@ import { Flex, FlexProps, IconButton } from "@chakra-ui/react";
 
 interface CBProps extends FlexProps {
   icon: JSX.Element;
+  disabled?: boolean;
   children?: React.ReactNode;
-  handleOnClick?: () => void;
+  handleClick?: () => void;
 }
 
-const SimpleIconButton = ({ icon, children, handleOnClick, ...props }: CBProps) => {
+const SimpleIconButton = ({ disabled = false, ...props }: CBProps) => {
   return (
     <Flex
       cursor="pointer"
@@ -14,17 +15,18 @@ const SimpleIconButton = ({ icon, children, handleOnClick, ...props }: CBProps) 
       w="min-content"
       position="relative"
       {...props}
-      onClick={handleOnClick}
+      onClick={props.handleClick}
     >
       <IconButton
+        disabled={disabled}
         m={4}
         variant="ghost"
         alignSelf="flex-end"
         aria-label="Search database"
         borderRadius="50%"
-        icon={icon}
+        icon={props.icon}
       />
-      {children}
+      {props.children}
     </Flex>
   );
 };

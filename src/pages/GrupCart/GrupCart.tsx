@@ -1,6 +1,9 @@
 import { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 
+import { SimpleIconButton } from "src/components/Buttons";
 import Summary from "./Summary";
 
 import bundleContext from "src/contexts/bundleContext";
@@ -11,10 +14,21 @@ const GrupCart = () => {
   const { state } = useContext(cartContext);
   const bundle = useContext(bundleContext);
 
-  console.log(state);
+  const history = useHistory();
 
   return (
-    <Flex w="100%" h="100%">
+    <Flex w="100%" h="100%" position="relative">
+      <SimpleIconButton
+        position="absolute"
+        left={12}
+        top={16}
+        h="5px"
+        w="5px"
+        transform="scale(1.0)"
+        _hover={{ color: "#09bba3" }}
+        handleClick={() => history.goBack()}
+        icon={<ChevronLeftIcon fontSize="5xl" />}
+      />
       <CartList sections={bundle!.content.sections} cartItems={state} />
       <Summary />
     </Flex>

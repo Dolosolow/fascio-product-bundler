@@ -11,10 +11,11 @@ interface CBProps extends FlexProps {
 
 const CartButton = ({ itemsInCart, ...props }: CBProps) => {
   let { id } = useParams<{ id: string }>();
+  const disabled = itemsInCart.length === 0;
 
   return (
-    <Link to={`/bundle/${id}/cart`}>
-      <SimpleIconButton icon={<BoxCartIcon />} {...props}>
+    <Link to={`/bundle/${id}/cart`} onClick={(e) => disabled && e.preventDefault()}>
+      <SimpleIconButton disabled={disabled} icon={<BoxCartIcon />} {...props}>
         {itemsInCart.length > 0 && (
           <Flex
             justify="center"
