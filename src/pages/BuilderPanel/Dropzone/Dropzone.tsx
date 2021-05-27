@@ -69,12 +69,14 @@ const ImgDropzone = (props: DZProps) => {
       outline="0"
     >
       <input {...getInputProps()} />
-      <CloseButton
-        variant="light"
-        iconSize="sm"
-        buttonPosition={{ top: "5px", left: "5px" }}
-        onClose={cancelImgDrop}
-      />
+      {previewImg && (
+        <CloseButton
+          variant="light"
+          iconSize="sm"
+          buttonPosition={{ top: "5px", left: "5px" }}
+          onClose={cancelImgDrop}
+        />
+      )}
       <Text fontSize={["xs", "md"]} color={previewImg ? "white" : "gray.500"} zIndex="2">
         Drag 'n' drop an image here, or click to select a file
       </Text>
