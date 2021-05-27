@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { VStack, CheckboxGroup, Checkbox, Spinner } from '@chakra-ui/react';
-import { useFormikContext } from 'formik';
-import { useLazyQuery } from '@apollo/client';
-import _ from 'lodash';
+import { useState, useEffect } from "react";
+import { VStack, CheckboxGroup, Checkbox, Spinner } from "@chakra-ui/react";
+import { useFormikContext } from "formik";
+import { useLazyQuery } from "@apollo/client";
+import _ from "lodash";
 
-import SearchCheckboxForm from '../SearchCheckboxForm';
-import ResultItem from './ResultItem';
+import SearchCheckboxForm from "../SearchCheckboxForm";
+import ResultItem from "./ResultItem";
 
-import { Product } from 'src/types/schema';
-import { productsByKeyword } from 'src/graphql/queries';
+import { Product } from "src/types/schema";
+import { productsByKeyword } from "src/graphql/queries";
 
 interface SRGProps {
   searchInput: string;
@@ -19,14 +19,14 @@ interface SRGProps {
 type TData = { productsByKeyword: Product[] };
 type OperationVariables = { keyword: string };
 
-const SearchResultsGroup = ({
+export const SearchResultsGroup = ({
   multipleSelection = false,
   searchInput,
   resetTermField,
 }: SRGProps) => {
   const { values, setValues } = useFormikContext<Builder.Grup.BuilderMap>();
   const [products, setProducts] = useState<string[]>([]);
-  const [section, setSection] = useState('');
+  const [section, setSection] = useState("");
 
   const [fetchProducts, { called, loading, data }] = useLazyQuery<TData, OperationVariables>(
     productsByKeyword
@@ -46,9 +46,9 @@ const SearchResultsGroup = ({
   };
 
   const submitProducts = () => {
-    const updatedSections = _.chain(values.content.sections).keyBy('sectionName').value();
+    const updatedSections = _.chain(values.content.sections).keyBy("sectionName").value();
     products.forEach((prodId) => {
-      const product = data!['productsByKeyword'].find((item) => item.id === prodId);
+      const product = data!["productsByKeyword"].find((item) => item.id === prodId);
       updatedSections[section].products.push(product!);
     });
     setValues({ ...values, content: { sections: _.values(updatedSections) } });
@@ -59,15 +59,15 @@ const SearchResultsGroup = ({
       return <ResultItem error={<Spinner color="teal.500" thickness="3px" size="xl" />} />;
 
     if (called && !loading && data) {
-      return !data!['productsByKeyword'].length ? (
+      return !data!["productsByKeyword"].length ? (
         <ResultItem error={`No results for "${searchInput}"`} />
       ) : (
-        data!['productsByKeyword'].map((item: Product) => {
+        data!["productsByKeyword"].map((item: Product) => {
           return (
             <ResultItem
               key={item.id!}
               title={item.name!}
-              img={item['primary_image']!.url_thumbnail!}
+              img={item["primary_image"]!.url_thumbnail!}
               price={item.price!}
             >
               <Checkbox size="lg" value={item.id!} />
@@ -86,7 +86,7 @@ const SearchResultsGroup = ({
       fetchProducts({ variables: { keyword: term } });
     };
 
-    if (searchInput === '') {
+    if (searchInput === "") {
       resetAllFields();
     } else {
       fetchProductsByKeyword();
@@ -116,7 +116,7 @@ const SearchResultsGroup = ({
         onChange={(values) => {
           addProducts(values);
         }}
-        value={searchInput === '' ? [] : products}
+        value={searchInput === "" ? [] : products}
       >
         {renderResultList()}
       </CheckboxGroup>
@@ -131,5 +131,3 @@ const SearchResultsGroup = ({
     </VStack>
   );
 };
-
-export default SearchResultsGroup;

@@ -1,1 +1,1 @@
-export { default } from './SearchResultGroup';
+export { SearchResultsGroup } from "./SearchResultGroup";

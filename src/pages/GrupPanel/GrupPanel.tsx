@@ -1,7 +1,7 @@
-import { Flex, VStack, Heading, chakra, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { AddIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Flex, VStack, Heading, chakra, Button, Center, Spinner } from "@chakra-ui/react";
 
 import BundleCard from "./BundleCard";
 import Container from "src/components/Container";
@@ -27,7 +27,11 @@ const GrupPanel = () => {
 
   const renderBundlesList = () => {
     if (loading) {
-      return <chakra.p>LOADING...</chakra.p>;
+      return (
+        <Center mb={5} minH="350px" w="95%">
+          <Spinner color="teal.500" thickness="3px" size="xl" />
+        </Center>
+      );
     } else if (error) {
       return <chakra.p>something went wrong</chakra.p>;
     } else if (data) {

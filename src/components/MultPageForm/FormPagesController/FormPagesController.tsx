@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HStack, Button } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { useFormikContext } from "formik";
@@ -8,6 +8,7 @@ import _ from "lodash";
 interface FPGProps {
   page: number;
   pages: React.ReactNode[];
+  requestState: string;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   handleFormSubmit: () => void;
@@ -16,6 +17,10 @@ interface FPGProps {
 const FormPagesController = (props: FPGProps) => {
   const { values, setErrors, setValues, validateForm } =
     useFormikContext<Builder.Grup.BuilderMap>();
+
+  useEffect(() => {
+    console.log("c-req-state", props.requestState);
+  }, [props.requestState]);
 
   const renderNextSectionBtn = () => {
     switch (props.page) {
@@ -62,7 +67,7 @@ const FormPagesController = (props: FPGProps) => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         setValues(values);
-        props.setPage(props.page + 1);
+        props.setPage(Math.min(Math.max(props.page + 1, 0), 2));
       }
     });
   };
@@ -93,6 +98,8 @@ const FormPagesController = (props: FPGProps) => {
         variant="solid"
         type={props.page === props.pages.length - 1 ? "submit" : "button"}
         rightIcon={<ArrowForwardIcon />}
+        isLoading={props.requestState.length > 0}
+        loadingText={props.requestState}
         onClick={onFormPageSubmit}
       >
         {renderNextSectionBtn()}

@@ -1,12 +1,12 @@
-import { InputGroup, InputLeftElement, Input } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 
-import SearchResultGroup from './SearchResultGroup';
+import { SearchResultsGroup } from "./SearchResultGroup";
 
 const SearchInput = () => {
-  const [value, setValue] = useState('');
-  const [term, setTerm] = useState('');
+  const [value, setValue] = useState("");
+  const [term, setTerm] = useState("");
   let timer: any;
 
   const onSetValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,8 +19,8 @@ const SearchInput = () => {
   };
 
   const resetTerm = () => {
-    setTerm('');
-    setValue('');
+    setTerm("");
+    setValue("");
   };
 
   return (
@@ -35,7 +35,7 @@ const SearchInput = () => {
         onChange={onSetValue}
         value={value}
       />
-      <SearchResultGroup
+      <SearchResultsGroup
         multipleSelection
         searchInput={term.toLocaleLowerCase()}
         resetTermField={resetTerm}

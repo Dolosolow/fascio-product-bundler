@@ -5,11 +5,11 @@ import { chakra, useColorModeValue, Flex } from "@chakra-ui/react";
 import { useMutation } from "@apollo/client";
 
 import { addNewBundle } from "src/graphql/mutations";
-import { getAllBundles } from "src/graphql/queries";
-import { BundleInput, Query } from "src/types/schema";
+import { BundleInput } from "src/types/schema";
 import { uploadToCloudianry } from "src/utils/uploadToCloudinary";
 
 import FormPageController from "src/components/MultPageForm/FormPagesController";
+import { getAllBundles } from "src/graphql/queries";
 
 interface MPFProps {
   formPages: React.ReactNode[];
@@ -23,6 +23,7 @@ type OperationVariables = { newBundle: BundleInput };
 
 const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFProps) => {
   const [page, setPage] = useState(0);
+  const [requestState, setRequestState] = useState("");
   const history = useHistory();
 
   const [addBundle] = useMutation<TData, OperationVariables>(addNewBundle);
@@ -35,11 +36,15 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
     let formValues = { ...values };
 
     if (formValues.layout.layout_bannerImg) {
+      setRequestState("Uploading image...");
+
       const imgUrl = await uploadToCloudianry(
-        "https://api.cloudinary.com/v1_1/dnrj5jpxf/upload",
-        "fascio_21",
+        process.env.REACT_APP_CLOUDINARY_URL as string,
+        process.env.REACT_APP_CLOUDINARY_UPLOAD_PRE as string,
         formValues.layout.layout_bannerImg
       );
+
+      setRequestState("Upload complete.");
 
       formValues = {
         ...formValues,
@@ -56,21 +61,15 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
     };
 
     try {
+      setRequestState("Creating bundle....");
+
       await addBundle({
         variables: { newBundle: newBundle as BundleInput },
-        update: (cache, { data }) => {
-          const bundlesData = cache.readQuery<Query>({ query: getAllBundles });
-
-          cache.writeQuery<Query>({
-            query: getAllBundles,
-            data: {
-              getBundles: [...bundlesData!.getBundles!, data!.addNewBundle],
-            },
-          });
-        },
+        refetchQueries: [{ query: getAllBundles }],
       });
 
       history.push("/");
+      setRequestState("");
     } catch (err) {
       console.log("error-on-submit", err);
     }
@@ -92,6 +91,7 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
                 <FormPageController
                   page={page}
                   pages={formPages}
+                  requestState={requestState}
                   setPage={setPage}
                   handleSubmit={handleSubmit}
                   handleFormSubmit={() => onFormSubmit(values)}
