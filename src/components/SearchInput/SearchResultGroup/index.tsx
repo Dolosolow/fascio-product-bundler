@@ -1,0 +1,1 @@
+export { SearchResultsGroup } from "./SearchResultGroup";
