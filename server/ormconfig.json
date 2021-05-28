@@ -19,22 +19,29 @@
     }
   },
   {
-    "name": "test",
+    "name": "production",
     "type": "postgres",
-    "host": "localhost",
+    "host": "ec2-34-192-210-139.compute-1.amazonaws.com",
     "port": 5432,
-    "username": "jochy",
-    "password": "",
-    "database": "bcgrup-test",
+    "database": "dautg82beo332l",
+    "username": "kuodgfuecgosih",
+    "password": "ff0299db46d4ba48cfed65a7fe58b7e34fec94e1eb483f7d519ef9567f3abbc2",
     "synchronize": true,
-    "logging": false,
-    "entities": ["src/entity/**/*.ts"],
-    "migrations": ["src/migration/**/*.ts"],
-    "subscribers": ["src/subscriber/**/*.ts"],
+    "logging": true,
+    "dropSchema": false,
+    "ssl": true,
+    "extra": {
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    },
+    "entities": ["dist/entity/**/*.js"],
+    "migrations": ["dist/migration/**/*.js"],
+    "subscribers": ["dist/subscriber/**/*.js"],
     "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
+      "entitiesDir": "dist/entity",
+      "migrationsDir": "dist/migration",
+      "subscribersDir": "dist/subscriber"
     }
   }
 ]
