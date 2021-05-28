@@ -1,12 +1,12 @@
 import { Flex, Text } from "@chakra-ui/react";
 
 interface TLProps {
+  messages: string[] | undefined;
   title?: string;
-  messages?: string[];
   misc?: JSX.Element;
 }
 
-const TextList = ({ title, messages, misc }: TLProps) => {
+const TextList = ({ title, misc, messages = [] }: TLProps) => {
   return (
     <Flex my={5} flexDir="column" alignSelf="center" align="center" justify="center" w="80%">
       <Text
@@ -20,11 +20,15 @@ const TextList = ({ title, messages, misc }: TLProps) => {
       >
         {title}
       </Text>
-      {messages &&
+      {messages?.length > 0 &&
         messages.map((msg, idx) => (
-          <Text key={idx} fontSize="sm" mb={1} textAlign="center">
-            {msg}
-          </Text>
+          <Text
+            key={idx}
+            fontSize="sm"
+            mb={1}
+            textAlign="center"
+            dangerouslySetInnerHTML={{ __html: msg }}
+          />
         ))}
       {misc && misc}
     </Flex>

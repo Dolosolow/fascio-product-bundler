@@ -1,14 +1,5 @@
-import {
-  Flex,
-  Image,
-  VStack,
-  Text,
-  Button,
-  NumberInput,
-  NumberInputField,
-  Link,
-} from "@chakra-ui/react";
-import { ChevronDownIcon, ChevronUpIcon, CloseIcon } from "@chakra-ui/icons";
+import { Flex, Image, VStack, Text, Link } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
 
 import { SimpleIconButton } from "src/components/Buttons";
 
@@ -19,21 +10,12 @@ interface CCProps {
 const CartCard = ({ cartItem }: CCProps) => {
   const renderQtyBtn = () => {
     return (
-      <Button
-        type="button"
-        h="100%"
-        w="140px"
-        color="blackAlpha.800"
-        variant="ghost"
-        display="flex"
-        alignItems="center"
-      >
-        <ChevronDownIcon fontSize="35px" _hover={{ color: "red" }} onClick={() => {}} />
-        <NumberInput variant="unstyled" value={cartItem.quantity} onChange={() => {}}>
-          <NumberInputField textAlign="center" />
-        </NumberInput>
-        <ChevronUpIcon fontSize="35px" _hover={{ color: "red" }} onClick={() => {}} />
-      </Button>
+      <Flex h="100%" color="blackAlpha.800" display="flex" alignItems="center">
+        <Text fontWeight="bold" mr={5}>
+          qty
+        </Text>
+        <Text>{cartItem.quantity}</Text>
+      </Flex>
     );
   };
 
@@ -52,8 +34,8 @@ const CartCard = ({ cartItem }: CCProps) => {
       >
         <Image src={cartItem.primary_image.url_thumbnail} objectFit="contain" h="50px" w="50px" />
         <VStack spacing={1} maxW="288px" w="288px" alignItems="flex-start">
-          <Link href={`https://google.com`} isExternal>
-            <Text isTruncated w="288px">
+          <Link href="#" isExternal>
+            <Text isTruncated w="300px">
               {cartItem.name}
             </Text>
           </Link>
@@ -79,7 +61,7 @@ const CartCard = ({ cartItem }: CCProps) => {
           </Text>
         </Flex>
       </Flex>
-      <SimpleIconButton icon={<CloseIcon />} handleOnClick={() => {}} />
+      <SimpleIconButton icon={<CloseIcon />} handleClick={() => {}} />
     </Flex>
   );
 };

@@ -135,7 +135,7 @@ export type Section = {
   maxSelect: Scalars["Int"];
   minSelect: Scalars["Int"];
   required: Scalars["Boolean"];
-  specialNotes?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  specialNotes?: Array<Scalars["String"]>;
   products: Array<Product>;
 };
 
@@ -144,7 +144,7 @@ export type SectionInput = {
   maxSelect: Scalars["Int"];
   minSelect: Scalars["Int"];
   required: Scalars["Boolean"];
-  specialNotes?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  specialNotes?: Array<Scalars["String"]>;
   products: Array<ProductInput>;
 };
 

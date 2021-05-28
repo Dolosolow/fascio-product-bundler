@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect } from "react";
-import { Flex, Image, Fade, Text, chakra } from "@chakra-ui/react";
+import { useContext } from "react";
+import { Flex, Image } from "@chakra-ui/react";
 
 import { CartButton } from "src/components/Buttons";
 import ProductCard from "src/components/ProductCard";
@@ -8,76 +8,40 @@ import TextList from "src/components/TextList";
 import ProductContainer from "src/components/ProductContainer";
 import CartRoutes from "src/routes/cartRoutes";
 
-import { useQuery } from "src/hooks";
 import cartContext from "src/contexts/cartContext";
 import bundleContext from "src/contexts/bundleContext";
 
-const sectionNotes = ["Please select atleast one from this section and continue to the next step."];
-
-interface ValidationStatus {
-  type: "ERROR" | "SUCCESS" | "N/A";
-  field: string;
-  message: JSX.Element | undefined;
-}
+import { useSectionValidator } from "src/hooks/useSectionValidator";
 
 const HorizontalPlain = () => {
-  const { state } = useContext(cartContext);
+  const { state: cartState } = useContext(cartContext);
   const bundle = useContext(bundleContext!);
-  const querySection = useQuery("e_section");
-
-  const [currentSection, setCurrentSection] = useState<number>(0);
-  const [sectionStatus, setSectionStatus] = useState<ValidationStatus>({
-    type: "N/A",
-    field: "",
-    message: undefined,
-  });
 
   const sections = bundle!.content.sections;
 
-  const validateSection = (idx: number) => {
-    const sectionCartItems = state.items.filter((item) => item.sectionId === currentSection);
-    const section = sections[currentSection];
-
-    let status: "ERROR" | "SUCCESS";
-
-    if (section.required) {
-      if (section.minSelect <= sectionCartItems.length) {
-        status = "SUCCESS";
-        setCurrentSection(idx);
-      } else {
-        status = "ERROR";
-      }
-    } else {
-      status = "SUCCESS";
-      setCurrentSection(idx);
-    }
-
-    setSectionStatus({
-      type: status,
-      field: sections[currentSection].sectionName,
-      message: (
-        <Fade in={true}>
-          <Text color="red.500" fontSize="sm" mb={1} textAlign="center">
-            <chakra.strong mr={1}>Please select {section.minSelect} product.</chakra.strong>
-          </Text>
-        </Fade>
-      ),
-    });
-  };
+  const { currentSection, sectionStatus, validate, clampCartItems } = useSectionValidator(
+    cartState,
+    sections
+  );
 
   const renderLayoutContent = () => (
     <>
       <TextList
         title={`Step ${currentSection + 1} - ${sections[currentSection].sectionName}`}
-        messages={[...sectionNotes]}
-        misc={sectionStatus && sectionStatus.type === "ERROR" ? sectionStatus.message : undefined}
+        messages={sections[currentSection].specialNotes}
+        misc={sectionStatus.type === "ERROR" ? sectionStatus.message : undefined}
       />
       <ProductContainer currentSection={currentSection} sections={sections}>
         {sections[currentSection].products.map((item, idx) => {
-          const existInCart = state.items.find((cartItem) => cartItem.id === item.id);
+          const existInCart = cartState.items.find((cartItem) => cartItem.id === item.id);
           return (
             <ProductCard
               key={idx}
+              disableIncrements={clampCartItems()}
+              sectionConfig={{
+                min: sections[currentSection].minSelect,
+                max: sections[currentSection].maxSelect,
+              }}
               item={{
                 ...item,
                 sectionId: currentSection,
@@ -89,12 +53,6 @@ const HorizontalPlain = () => {
       </ProductContainer>
     </>
   );
-
-  useEffect(() => {
-    if (querySection) {
-      setCurrentSection(+querySection);
-    }
-  }, [querySection]);
 
   return (
     <Flex w="100%" h="100%" mb={10} flexDir="column" overflowX="clip">
@@ -115,9 +73,9 @@ const HorizontalPlain = () => {
               w={["80%", "80%", null, "50%"]}
               status={sectionStatus}
               sections={sections}
-              handleValidation={validateSection}
+              handleValidation={validate}
             />
-            <CartButton pos="absolute" right="0" itemsInCart={state.items} />
+            <CartButton pos="absolute" right="15" itemsInCart={cartState.items} />
           </Flex>
           <CartRoutes>{renderLayoutContent()}</CartRoutes>
         </>

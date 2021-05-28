@@ -41,7 +41,7 @@ const CartList = ({ cartItems, sections }: CLProps) => {
       <Accordion allowMultiple>
         {sections.map((section, sectionIdx) => (
           <AccordionItem key={sectionIdx}>
-            <AccordionButton as="div" position="relative">
+            <AccordionButton as="div" position="relative" cursor="pointer">
               <Box flex="1" textAlign="left">
                 {section.sectionName}
               </Box>

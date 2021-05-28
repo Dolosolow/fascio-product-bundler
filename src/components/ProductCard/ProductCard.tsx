@@ -13,21 +13,29 @@ import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import cartContext from "src/contexts/cartContext";
 
 interface PCProps {
+  disableIncrements: boolean;
   item: Grupie.CartItem;
+  sectionConfig: { max: number | undefined; min: number };
 }
 
-const ProductCard = ({ item }: PCProps) => {
+const ProductCard = ({ disableIncrements, item, sectionConfig }: PCProps) => {
   const { dispatch } = useContext(cartContext);
+  const { max } = sectionConfig;
 
-  const handleQtyChange = (type: "INCR" | "DECR" | "CTRL", qty: number) => {
-    let updatedQty = 0;
+  console.log("disable", disableIncrements);
+  console.log("max-for-sec", max);
 
-    if (type === "INCR") {
-      updatedQty = item.quantity + qty;
+  const handleQtyChange = (type: "INCR" | "DECR", qty: number) => {
+    let updatedQty = item.quantity;
+
+    if (!disableIncrements && type === "INCR") {
+      if (max) {
+        updatedQty = Math.min(Math.max(item.quantity + qty, 0), max);
+      } else {
+        updatedQty = item.quantity + qty;
+      }
     } else if (type === "DECR") {
       updatedQty = item.quantity - qty;
-    } else {
-      updatedQty = qty;
     }
 
     if (updatedQty <= 0) {
@@ -71,12 +79,8 @@ const ProductCard = ({ item }: PCProps) => {
             _hover={{ color: "red" }}
             onClick={() => handleQtyChange("DECR", 1)}
           />
-          <NumberInput
-            variant="unstyled"
-            value={item.quantity}
-            onChange={(value) => handleQtyChange("CTRL", +value)}
-          >
-            <NumberInputField textAlign="center" />
+          <NumberInput isReadOnly variant="unstyled" value={item.quantity}>
+            <NumberInputField cursor="default" textAlign="center" />
           </NumberInput>
           <ChevronUpIcon
             as="button"

@@ -4,12 +4,13 @@ import { Formik, FormikHelpers, Form } from "formik";
 import { chakra, useColorModeValue, Flex } from "@chakra-ui/react";
 import { useMutation } from "@apollo/client";
 
+import FormPageController from "src/components/MultPageForm/FormPagesController";
+
+import { getAllBundles } from "src/graphql/queries";
 import { addNewBundle } from "src/graphql/mutations";
 import { BundleInput } from "src/types/schema";
 import { uploadToCloudianry } from "src/utils/uploadToCloudinary";
-
-import FormPageController from "src/components/MultPageForm/FormPagesController";
-import { getAllBundles } from "src/graphql/queries";
+import { addSectionNotes } from "src/utils/addSectionNotes";
 
 interface MPFProps {
   formPages: React.ReactNode[];
@@ -33,7 +34,7 @@ const MultiPageForm = ({ formPages, initialFormValues, validationSchema }: MPFPr
   };
 
   const onFormSubmit = async (values: Builder.Grup.BuilderMap) => {
-    let formValues = { ...values };
+    let formValues = addSectionNotes(values);
 
     if (formValues.layout.layout_bannerImg) {
       setRequestState("Uploading image...");

@@ -92,9 +92,20 @@ const FieldList = () => {
                   </Field>
                   <HStack justifyContent="space-between">
                     <Field type="checkbox" name={`content.sections[${idx}].required`}>
-                      {({ field }: FieldProps<typeof values.content.sections>) => {
+                      {({ field, form }: FieldProps<typeof values.content.sections>) => {
                         return (
-                          <Checkbox colorScheme="teal" name={field.name} onChange={field.onChange}>
+                          <Checkbox
+                            colorScheme="teal"
+                            name={field.name}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                form.setFieldValue(`content.sections[${idx}].minSelect`, 1);
+                              } else {
+                                form.setFieldValue(`content.sections[${idx}].minSelect`, 0);
+                              }
+                              field.onChange(e);
+                            }}
+                          >
                             Required
                           </Checkbox>
                         );
@@ -107,9 +118,9 @@ const FieldList = () => {
                             <Flex alignItems="center">
                               <NumberInput
                                 name={field.name}
-                                defaultValue={0}
+                                defaultValue={1}
                                 maxW={20}
-                                min={0}
+                                min={1}
                                 size="sm"
                                 onChange={(_, numValue) =>
                                   form.setFieldValue(`content.sections[${idx}].minSelect`, numValue)
