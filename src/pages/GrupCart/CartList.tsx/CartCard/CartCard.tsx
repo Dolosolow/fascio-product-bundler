@@ -1,7 +1,4 @@
 import { Flex, Image, VStack, Text, Link } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
-
-import { SimpleIconButton } from "src/components/Buttons";
 
 interface CCProps {
   cartItem: Grupie.CartItem;
@@ -61,7 +58,6 @@ const CartCard = ({ cartItem }: CCProps) => {
           </Text>
         </Flex>
       </Flex>
-      <SimpleIconButton icon={<CloseIcon />} handleClick={() => {}} />
     </Flex>
   );
 };

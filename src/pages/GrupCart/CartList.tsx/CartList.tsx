@@ -34,9 +34,9 @@ const CartList = ({ cartItems, sections }: CLProps) => {
   };
 
   return (
-    <Flex w="70%" h="100%" bg="gray.50" p={[7, 7, 7, 16, 20]} flexDir="column">
+    <Flex w="65%" h="100%" bg="gray.50" p={[7, 7, 7, 16, 20]} flexDir="column">
       <Text fontSize="x-large" borderLeft="3px solid #121" pl={5} mb={16}>
-        My Shopping Bag
+        My Bundle Box
       </Text>
       <Accordion allowMultiple>
         {sections.map((section, sectionIdx) => (

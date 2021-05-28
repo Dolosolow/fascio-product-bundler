@@ -11,7 +11,7 @@ import cartContext from "src/contexts/cartContext";
 import CartList from "./CartList.tsx/CartList";
 
 const GrupCart = () => {
-  const { state } = useContext(cartContext);
+  const { state: cartState } = useContext(cartContext);
   const bundle = useContext(bundleContext);
 
   const history = useHistory();
@@ -29,8 +29,8 @@ const GrupCart = () => {
         handleClick={() => history.goBack()}
         icon={<ChevronLeftIcon fontSize="5xl" />}
       />
-      <CartList sections={bundle!.content.sections} cartItems={state} />
-      <Summary />
+      <CartList sections={bundle!.content.sections} cartItems={cartState} />
+      <Summary bundle={bundle!} cart={cartState} />
     </Flex>
   );
 };
