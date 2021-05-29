@@ -7,9 +7,5 @@
       "config": { "skipTypename": true, "useTypeImports": true },
       "plugins": ["typescript", "typescript-operations", "typescript-resolvers"]
     },
-    "src/types/client_schema.d.ts": {
-      "config": { "skipTypename": true, "useTypeImports": true },
-      "plugins": ["typescript", "typescript-operations", "typescript-react-apollo"]
-    }
   }
 }
