@@ -7,7 +7,7 @@ import session from "express-session";
 import cors from "cors";
 
 import { createTypeormConn } from "./utils/createTypeormConn";
-import { redis } from './utils/createConnectRedis';
+import { redis } from "./utils/createConnectRedis";
 import schema from "./graphql/schema";
 
 const RedisStore = connectRedis(session);
@@ -27,7 +27,7 @@ export const startServer = async () => {
       saveUninitialized: false,
       cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        secure: process.env.NODE_ENV === "production" ? true : false,
         maxAge: 1000 * 60 * 60 * 24,
         sameSite: "none",
       },
@@ -37,7 +37,7 @@ export const startServer = async () => {
   app.use(
     "/graphql",
     graphqlHTTP({
-      graphiql: true,
+      graphiql: process.env.NODE_ENV === "production" ? false : true,
       schema,
       context: ({ request }: { request: Request }) => ({
         redis,
