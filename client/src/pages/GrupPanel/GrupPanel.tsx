@@ -33,7 +33,11 @@ const GrupPanel = () => {
         </Center>
       );
     } else if (error) {
-      return <chakra.p>something went wrong</chakra.p>;
+      return (
+        <Center mb={5} minH="350px" w="95%">
+          <chakra.p fontSize={20}>something went wrong</chakra.p>
+        </Center>
+      );
     } else if (data) {
       const bundles = data.getBundles;
 
