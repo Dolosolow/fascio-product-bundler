@@ -1,7 +1,7 @@
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_API_URL,
+  uri: `${process.env.REACT_APP_PROD_API_URL}graphql`,
   credentials: "include",
 });
 

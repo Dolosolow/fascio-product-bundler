@@ -34,7 +34,7 @@ const GrupPanel = () => {
       );
     } else if (error) {
       return (
-        <Center mb={5} minH="350px" w="95%">
+        <Center mb={5} minH="350px" w="95%" flexDir="column">
           <chakra.p fontSize={20}>something went wrong</chakra.p>
         </Center>
       );
