@@ -61,8 +61,9 @@ const FormReview = ({
         <Image
           h="100px"
           mt={[8, null, 0, 0]}
-          src={values.layout.layout_bannerImg}
+          objectFit="contain"
           alt="banner image"
+          src={values.layout.layout_bannerImg}
         />
       ) : (
         <HeaderText
@@ -78,7 +79,7 @@ const FormReview = ({
     <BuilderBlock title="Sections" direction="column">
       {values.content.sections.map((section) => (
         <React.Fragment key={section.sectionName}>
-          <HStack border="1px solid red" spacing={4} justify="space-between" wrap="nowrap">
+          <HStack spacing={4} justify="space-between" wrap="nowrap">
             <chakra.p whiteSpace="nowrap">
               <strong style={{ marginRight: "6px" }}>Section:</strong>
               {section.sectionName}
