@@ -12,6 +12,11 @@ const GlobalStyles = css`
   [data-js-focus-visible] :focus:not([data-focus-visible-added]) {
     outline: none;
   }
+
+  body {
+    max-width: 100rem;
+    margin: auto;
+  }
 `;
 
 const theme = extendTheme({
